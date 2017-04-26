@@ -7,24 +7,4 @@ using namespace solitaire;
 
 int main() {
     App app;
-
-    try {
-        cout << "app.NewGame()\n";
-        app.NewGame();
-
-        cout << "app.NewGame()\n";
-        app.NewGame();
-
-        cout << "app.NewGame()\n";
-        app.NewGame();
-
-        cout << "app.NewGame()\n";
-        app.NewGame();
-
-        cout << "app.NewGame()\n";
-        app.NewGame();
-    }
-    catch (InvalidActionException& e) {
-        cerr << "INVALID ACTION: " << e.message() << "\n";
-    }
 }
