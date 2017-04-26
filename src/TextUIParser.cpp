@@ -18,16 +18,30 @@ namespace solitaire
 
         stringstream ss{line};
 
-        string cmd_str;
+        string str;
 
-        getline(ss, cmd_str, ' ');
+        getline(ss, str, ' ');
 
-        if (cmd_str == "help")
+        if (str == "help")
             cmd.type = help;
-        else if (cmd_str == "exit")
-            cmd.type = exit;
+        else if (str == "quit")
+            cmd.type = quit;
+        else if (str == "new")
+            cmd.type = new_game;
+        else if (str == "close")
+            cmd.type = close_game;
+        else if (str == "switch")
+            cmd.type = switch_game;
+        else if (str == "games")
+            cmd.type = games;
         else
             cmd.type = invalid;
+
+        if (cmd.type == switch_game) {
+            getline(ss, str, ' ');
+
+            cmd.switch_to = stoi(str);
+        }
 
         return cmd;
     }
