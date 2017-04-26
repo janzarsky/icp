@@ -34,7 +34,7 @@ namespace solitaire
                 break;
 
             case help:
-                cout << "help - show this help\nexit - exit the app\n";
+                printHelp();
                 break;
 
             case new_game:
@@ -57,6 +57,15 @@ namespace solitaire
                 cout << "got command: " << cmd.type << "\n";
                 break;
         }
+    }
+
+    void App::printHelp() {
+        cout << "help - show this help\n";
+        cout << "new - start a new game\n";
+        cout << "close - close active game\n";
+        cout << "switch <num> - switch to game number <num>\n";
+        cout << "games - list currently played games\n";
+        cout << "quit - quit the app\n";
     }
 
     void App::newGame() {

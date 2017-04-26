@@ -15,6 +15,8 @@ namespace solitaire
 
         void listenToCommands();
         void executeCommand(UICommand);
+        
+        void printHelp();
         void newGame();
         void closeGame();
         void switchGame(int);
