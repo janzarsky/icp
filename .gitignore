@@ -2,6 +2,22 @@ hra2017
 hra2017-cli
 xzarsk03-xpapla00.zip
 
+# swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# session
+Session.vim
+
+# temporary
+.netrwhist
+*~
+
+# auto-generated tag files
+tags
+
 # Compiled Object files
 *.slo
 *.lo
