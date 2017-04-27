@@ -1,9 +1,15 @@
 #include <iostream>
 #include "GameUI.hpp"
 
+using namespace std;
+
 namespace solitaire
 {
     GameUI::GameUI() {
-        std::cout << "(constructor GameUI)\n";
+        cout << "(constructor GameUI)\n";
+    }
+
+    void GameUI::printBoard() {
+        cout << "//// board ////\n";
     }
 }

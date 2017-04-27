@@ -21,6 +21,7 @@ namespace solitaire
         void closeGame();
         void switchGame(int);
         void printGames();
+        void printActiveBoard();
 
     public:
         App();

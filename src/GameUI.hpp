@@ -8,5 +8,6 @@ namespace solitaire
 
     public:
         GameUI();
+        void printBoard();
     };
 }

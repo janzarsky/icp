@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include "TextUIParser.hpp"
+#include "Exceptions.hpp"
 
 using namespace std;
 
@@ -22,25 +23,32 @@ namespace solitaire
 
         getline(ss, str, ' ');
 
-        if (str == "help")
+        if (str == "help" || str == "h")
             cmd.type = help;
-        else if (str == "quit")
+        else if (str == "quit" || str == "q")
             cmd.type = quit;
-        else if (str == "new")
+        else if (str == "new" || str == "n")
             cmd.type = new_game;
-        else if (str == "close")
+        else if (str == "close" || str == "c")
             cmd.type = close_game;
-        else if (str == "switch")
+        else if (str == "switch" || str == "s")
             cmd.type = switch_game;
-        else if (str == "games")
+        else if (str == "games" || str == "g")
             cmd.type = games;
+        else if (str == "")
+            cmd.type = empty;
         else
             cmd.type = invalid;
 
         if (cmd.type == switch_game) {
             getline(ss, str, ' ');
 
-            cmd.switch_to = stoi(str);
+            try {
+                cmd.switch_to = stoi(str);
+            }
+            catch (invalid_argument& e) {
+                throw InvalidActionException("Expected argument");
+            }
         }
 
         return cmd;

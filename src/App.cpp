@@ -7,23 +7,28 @@ using namespace std;
 namespace solitaire
 {
     App::App() {
-        std::cout << "(constructor App)\n";
+        cout << "(constructor App)\n";
 
         listenToCommands();
     }
 
     void App::listenToCommands() {
-        std::cout << "listenToCommands()\n";
+        cout << "listenToCommands()\n";
 
         UICommand cmd;
         
         while (true) {
-            cmd = parser.getCommand();
+            try {
+                cmd = parser.getCommand();
 
-            if (cmd.type == quit)
-                return;
+                if (cmd.type == quit)
+                    return;
 
-            executeCommand(cmd);
+                executeCommand(cmd);
+            }
+            catch (InvalidActionException& e) {
+                cout << "Invalid command: " << e.message() << "\n";
+            }
         }
     }
 
@@ -33,12 +38,17 @@ namespace solitaire
                 cout << "invalid command, type 'help' to show all commands\n";
                 break;
 
+            case empty:
+                printActiveBoard();
+                break;
+
             case help:
                 printHelp();
                 break;
 
             case new_game:
                 newGame();
+                printActiveBoard();
                 break;
 
             case close_game:
@@ -47,6 +57,7 @@ namespace solitaire
 
             case switch_game:
                 switchGame(cmd.switch_to);
+                printActiveBoard();
                 break;
 
             case games:
@@ -55,8 +66,13 @@ namespace solitaire
 
             default:
                 cout << "got command: " << cmd.type << "\n";
+                printActiveBoard();
                 break;
         }
+    }
+
+    void App::printActiveBoard() {
+        gameUIs[active_game - 1].printBoard();
     }
 
     void App::printHelp() {
