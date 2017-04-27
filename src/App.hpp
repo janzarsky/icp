@@ -10,7 +10,7 @@ namespace solitaire
     {
         const int max_num_of_games = 4;
         vector<GameUI> gameUIs;
-        int active_game;
+        int active_game = 0;
         TextUIParser parser;
 
         void listenToCommands();

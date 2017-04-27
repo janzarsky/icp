@@ -72,7 +72,11 @@ namespace solitaire
     }
 
     void App::printActiveBoard() {
-        gameUIs[active_game - 1].printBoard();
+        if (active_game > 0) {
+            cout << "Game number " << active_game << " board:\n";
+
+            gameUIs[active_game - 1].printBoard();
+        }
     }
 
     void App::printHelp() {
