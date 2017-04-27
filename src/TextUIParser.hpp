@@ -1,16 +1,19 @@
+#include "Command.hpp"
+
 namespace solitaire
 {
-    enum CmdType {
-        help, new_game, close_game, switch_game, games, quit, empty,
+    enum UICommandType {
+        help, game_cmd, new_game, close_game, switch_game, games, quit, empty,
         invalid
     };
 
     struct UICommand
     {
-        CmdType type;
+        UICommandType type;
         int switch_to;
+        Command game_cmd;
 
-        UICommand(CmdType type): type{type} {}
+        UICommand(UICommandType type): type{type}, game_cmd{} {}
         UICommand() {}
     };
 

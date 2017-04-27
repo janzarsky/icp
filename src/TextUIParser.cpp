@@ -23,6 +23,7 @@ namespace solitaire
 
         getline(ss, str, ' ');
 
+        // UI commands
         if (str == "help" || str == "h")
             cmd.type = help;
         else if (str == "quit" || str == "q")
@@ -35,6 +36,16 @@ namespace solitaire
             cmd.type = switch_game;
         else if (str == "games" || str == "g")
             cmd.type = games;
+        // game commands
+        else if (str == "move" || str == "m") {
+            cmd.type = game_cmd;
+            cmd.game_cmd.type = move_deck_pile;
+        }
+        else if (str == "turn" || str == "t") {
+            cmd.type = game_cmd;
+            cmd.game_cmd.type = turn_deck;
+        }
+        // other commands
         else if (str == "")
             cmd.type = empty;
         else
@@ -54,3 +65,4 @@ namespace solitaire
         return cmd;
     }
 }
+

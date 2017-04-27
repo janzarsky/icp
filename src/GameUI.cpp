@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include "GameUI.hpp"
+#include "Card.hpp"
+#include "Command.hpp"
 
 using namespace std;
 
@@ -12,10 +14,11 @@ namespace solitaire
         cout << "(constructor GameUI)\n";
     }
 
-    string GameUI::unicode(pair<int,int> card) {
-        if (card.first == 15)
-            return "\U0001F0A0";
+    string GameUI::unicode() {
+        return "\U0001F0A0";
+    }
 
+    string GameUI::unicode(card& card) {
         static const char * unicodes[14][4] = {
             { "\U0001F0A1", "\U0001F0B1", "\U0001F0C1", "\U0001F0D1" },
             { "\U0001F0A2", "\U0001F0B2", "\U0001F0C2", "\U0001F0D2" },
@@ -33,53 +36,44 @@ namespace solitaire
             { "\U0001F0AE", "\U0001F0BE", "\U0001F0CE", "\U0001F0DE" },
         };
 
-        return unicodes[card.first][card.second];
+        return unicodes[card.getValue()][card.getSuit()];
     }
 
     void GameUI::printBoard() {
         // dummy content
-        pair <int,int> deck_backs = {15,0};
-        pair <int,int> deck_fronts = {5,3};
-        pair <int,int> target_decks[4] = { {15,0}, {15,0}, {15,0}, {15,0} };
-        vector<pair<int,int>> working_decks[8];
-        working_decks[0].push_back({0,0});
-        working_decks[1].push_back({15,0});
-        working_decks[1].push_back({2,0});
-        working_decks[2].push_back({15,0});
-        working_decks[2].push_back({15,0});
-        working_decks[2].push_back({5,0});
-        working_decks[3].push_back({15,0});
-        working_decks[3].push_back({15,0});
-        working_decks[3].push_back({15,0});
-        working_decks[3].push_back({9,0});
-        working_decks[4].push_back({15,0});
-        working_decks[4].push_back({15,0});
-        working_decks[4].push_back({15,0});
-        working_decks[4].push_back({15,0});
-        working_decks[4].push_back({4,1});
-        working_decks[5].push_back({15,0});
-        working_decks[5].push_back({15,0});
-        working_decks[5].push_back({15,0});
-        working_decks[5].push_back({15,0});
-        working_decks[5].push_back({15,0});
-        working_decks[5].push_back({3,2});
-        working_decks[6].push_back({15,0});
-        working_decks[6].push_back({15,0});
-        working_decks[6].push_back({15,0});
-        working_decks[6].push_back({15,0});
-        working_decks[6].push_back({15,0});
-        working_decks[6].push_back({15,0});
-        working_decks[6].push_back({3,3});
-        working_decks[7].push_back({15,0});
-        working_decks[7].push_back({15,0});
-        working_decks[7].push_back({15,0});
-        working_decks[7].push_back({15,0});
-        working_decks[7].push_back({15,0});
-        working_decks[7].push_back({15,0});
-        working_decks[7].push_back({15,0});
-        working_decks[7].push_back({0,0});
+        card deck_fronts = {CLUBS,3};
+        card target_decks[4] = { {CLUBS,1}, {CLUBS,1}, {CLUBS,1}, {CLUBS,1} };
+        vector<card> working_decks[7];
+        working_decks[0].push_back({SPADES,1});
+        working_decks[1].push_back({CLUBS,1});
+        working_decks[1].push_back({SPADES,1});
+        working_decks[2].push_back({CLUBS,1});
+        working_decks[2].push_back({CLUBS,1});
+        working_decks[2].push_back({SPADES,1});
+        working_decks[3].push_back({CLUBS,1});
+        working_decks[3].push_back({CLUBS,1});
+        working_decks[3].push_back({CLUBS,1});
+        working_decks[3].push_back({SPADES,1});
+        working_decks[4].push_back({CLUBS,1});
+        working_decks[4].push_back({CLUBS,1});
+        working_decks[4].push_back({CLUBS,1});
+        working_decks[4].push_back({CLUBS,1});
+        working_decks[4].push_back({SPADES,1});
+        working_decks[5].push_back({CLUBS,1});
+        working_decks[5].push_back({CLUBS,1});
+        working_decks[5].push_back({CLUBS,1});
+        working_decks[5].push_back({CLUBS,1});
+        working_decks[5].push_back({CLUBS,1});
+        working_decks[5].push_back({SPADES,2});
+        working_decks[6].push_back({CLUBS,1});
+        working_decks[6].push_back({CLUBS,1});
+        working_decks[6].push_back({CLUBS,1});
+        working_decks[6].push_back({CLUBS,1});
+        working_decks[6].push_back({CLUBS,1});
+        working_decks[6].push_back({CLUBS,1});
+        working_decks[6].push_back({SPADES,3});
 
-        cout << unicode(deck_backs) << " " << unicode(deck_fronts) << "     ";
+        cout << unicode() << " " << unicode(deck_fronts) << "   ";
 
         for (int i = 0; i < 4; i++)
             cout << unicode(target_decks[i]) << " ";
@@ -89,7 +83,7 @@ namespace solitaire
         int max_height = 0;
         int sizes[8];
         
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             sizes[i] = working_decks[i].size();
 
             if (sizes[i] > max_height)
@@ -97,7 +91,7 @@ namespace solitaire
         }
 
         for (int i = 0; i < max_height; i++) {
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 7; j++) {
                 if (i < sizes[j])
                     cout << unicode(working_decks[j][i]) << " ";
                 else
@@ -108,5 +102,9 @@ namespace solitaire
         }
 
         cout << "\n";
+    }
+
+    void GameUI::executeCommand(Command& cmd) {
+        cout << "executing game comand type " << cmd.type << "\n";
     }
 }

@@ -64,6 +64,10 @@ namespace solitaire
                 printGames();
                 break;
 
+            case game_cmd:
+                gameUIs[active_game].executeCommand(cmd.game_cmd);
+                break;
+
             default:
                 cout << "got command: " << cmd.type << "\n";
                 printActiveBoard();
@@ -80,12 +84,19 @@ namespace solitaire
     }
 
     void App::printHelp() {
+        cout << "General commands:\n";
         cout << "help - show this help\n";
         cout << "new - start a new game\n";
         cout << "close - close active game\n";
         cout << "switch <num> - switch to game number <num>\n";
         cout << "games - list currently played games\n";
         cout << "quit - quit the app\n";
+
+        cout << "Game commands:\n";
+        // TODO
+        cout << "move - move cards\n";
+        // TODO
+        cout << "turn - turn cards\n";
     }
 
     void App::newGame() {
