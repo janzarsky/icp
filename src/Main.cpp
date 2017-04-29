@@ -6,7 +6,7 @@ int main(int argc, char **argv)
 {
 	GAME game;
 	for (auto c : game.piles) {
-		PrintCards(c.GetPile());
+		PrintCards(c->GetPile());
 		cout << string(40, '=')<<endl;
 	}
 	while (1) {

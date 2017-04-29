@@ -1,10 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 #include "Card.hpp"
-#include "Pile.hpp"
+#include "Pile_Factory.hpp"
 #include <vector>
 
 using namespace std;
+typedef Pile_Interface pile;
 
 const int NUM_OF_CARDS = 52;
 const int NUM_OF_COLUMNS = 7;
@@ -40,9 +41,11 @@ class GAME {
 
 
 public:
-	vector <pile> piles;
+	vector <pile *> piles;
 	vector<card> cardStack = {};
+	Pile_Factory factory;
   GAME() {
+
 		for (int i = 1; i <= K; i++)
 		{
 			for (int k = CLUBS; k <= SPADES; k = k + 1)
@@ -55,17 +58,18 @@ public:
 
 		//fill all 7 piles with random cards
 		for (int i = 0; i < NUM_OF_COLUMNS + NUM_OF_HOMES + 1; i++) {
+			//creating HOMES
 			if (i >= 7 && i < (NUM_OF_COLUMNS + NUM_OF_HOMES )) {
-				piles.push_back(pile());
-			}
+				piles.push_back(factory.GetHomePile());
+			}//creating STORAGE
 			else if (i == NUM_OF_COLUMNS + NUM_OF_HOMES) {
-				piles.push_back(pile(cardStack));
-			}
+				piles.push_back(factory.GetStoragePile(cardStack));
+			}//creating TARGET PILE
 			else {
 				for (int num = 0; num <= i; num++) {
 					construct_card_vector(rand() % cardStack.size(), tempVector);
 				}
-				piles.push_back(pile(tempVector));
+				piles.push_back(factory.GetTargetPile(tempVector));
 				tempVector.clear();
 			}
 		}
@@ -76,6 +80,13 @@ public:
   void RotateStack();
   void Play();
   void ShowTable();
+
+
+	~GAME(){
+		for(auto pl : piles){
+			delete pl;
+		}
+	}
 };
 
 #endif
