@@ -1,26 +1,25 @@
-#pragma once
+#ifndef CARD_H
+#define CARD_H
 
-namespace solitaire
+
+enum cardsuit
 {
-    enum cardsuit
-    {
-        CLUBS,
-        DIAMONDS,
-        HEARTS,
-        SPADES
-    };
+	CLUBS,
+	DIAMONDS,
+	HEARTS,
+	SPADES
+};
 
-    const unsigned J=11, Q=12, K=13, A=1;
+const unsigned J=11, Q=12, K=13, A=1;
 
-    class card
-    {
-        cardsuit suit;
-        unsigned value;
-
-    public:
-        card(cardsuit,unsigned);
-        cardsuit getSuit();
-        unsigned getValue();
-        ~card();
-    };
-}
+class card
+{
+	cardsuit suit;
+	unsigned value;
+public:
+	card(cardsuit,unsigned);
+	cardsuit getSuit();
+	unsigned getValue();
+	~card();
+};
+#endif
