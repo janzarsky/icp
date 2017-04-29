@@ -14,6 +14,7 @@ namespace solitaire
         string unicode(card& card);
         string unicode_back();
         string unicode_empty();
+        string unicode_space();
 
     public:
         GameUI();

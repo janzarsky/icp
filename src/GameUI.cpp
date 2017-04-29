@@ -16,32 +16,57 @@ namespace solitaire
     }
 
     string GameUI::unicode_back() {
-        return "\U0001F0A0";
+        return "\U0001F0A0 ";
     }
 
     string GameUI::unicode_empty() {
-        return "\U0001F0DF";
+        return "[]";
+    }
+
+    string GameUI::unicode_space() {
+        return "  ";
     }
 
     string GameUI::unicode(card& card) {
-        static const char * unicodes[14][4] = {
-            { "\U0001F0A1", "\U0001F0B1", "\U0001F0C1", "\U0001F0D1" },
-            { "\U0001F0A2", "\U0001F0B2", "\U0001F0C2", "\U0001F0D2" },
-            { "\U0001F0A3", "\U0001F0B3", "\U0001F0C3", "\U0001F0D3" },
-            { "\U0001F0A4", "\U0001F0B4", "\U0001F0C4", "\U0001F0D4" },
-            { "\U0001F0A5", "\U0001F0B5", "\U0001F0C5", "\U0001F0D5" },
-            { "\U0001F0A6", "\U0001F0B6", "\U0001F0C6", "\U0001F0D6" },
-            { "\U0001F0A7", "\U0001F0B7", "\U0001F0C7", "\U0001F0D7" },
-            { "\U0001F0A8", "\U0001F0B8", "\U0001F0C8", "\U0001F0D8" },
-            { "\U0001F0A9", "\U0001F0B9", "\U0001F0C9", "\U0001F0D9" },
-            { "\U0001F0AA", "\U0001F0BA", "\U0001F0CA", "\U0001F0DA" },
-            { "\U0001F0AB", "\U0001F0BB", "\U0001F0CB", "\U0001F0DB" },
-            { "\U0001F0AC", "\U0001F0BC", "\U0001F0CC", "\U0001F0DC" },
-            { "\U0001F0AD", "\U0001F0BD", "\U0001F0CD", "\U0001F0DD" },
-            { "\U0001F0AE", "\U0001F0BE", "\U0001F0CE", "\U0001F0DE" },
-        };
+        string res;
 
-        return unicodes[card.getValue()][card.getSuit()];
+		switch (card.getValue()) {
+            case 11:
+                res = "J";
+                break;
+            case 12:
+                res = "Q";
+                break;
+            case 13:
+                res = "K";
+                break;
+            case 1:
+                res = "A";
+                break;
+            default:
+                res = (card.getValue() + '0' - 1);
+                break;
+		}
+
+		switch (card.getSuit()) {
+            case CLUBS:
+                res += "\u2663";
+                break;
+            case DIAMONDS:
+                res += "\u2666";
+                break;
+            case HEARTS:
+                res += "\u2665";
+                break;
+            case SPADES:
+                res += "\u2660";
+                break;
+            default:
+                res += "UNKNOWN";
+                break;
+		}
+        
+        return res;
     }
 
     void GameUI::printBoard() {
@@ -50,11 +75,11 @@ namespace solitaire
         cout << unicode_back() << " ";
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().size() > 0)
-            cout << unicode(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back());
+            cout << unicode(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back()) << " ";
         else
-            cout << unicode_empty();
+            cout << unicode_empty() << " ";
 
-        cout << "   ";
+        cout << unicode_space() << " ";
 
         for (int i = 0; i < NUM_OF_HOMES; i++)
             if (game.piles[NUM_OF_COLUMNS + i].GetPile().size() > 0)
@@ -79,7 +104,7 @@ namespace solitaire
                 if (i < sizes[j])
                     cout << unicode(game.piles[j].GetPile()[i]) << " ";
                 else
-                    cout << "  ";
+                    cout << unicode_space() << " ";
             }
 
             cout << "\n";
