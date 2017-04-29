@@ -5,6 +5,7 @@
 #include "GameUI.hpp"
 #include "Card.hpp"
 #include "Command.hpp"
+#include "Game.hpp"
 
 using namespace std;
 
@@ -14,8 +15,12 @@ namespace solitaire
         cout << "(constructor GameUI)\n";
     }
 
-    string GameUI::unicode() {
+    string GameUI::unicode_back() {
         return "\U0001F0A0";
+    }
+
+    string GameUI::unicode_empty() {
+        return "\U0001F0DF";
     }
 
     string GameUI::unicode(card& card) {
@@ -40,60 +45,39 @@ namespace solitaire
     }
 
     void GameUI::printBoard() {
-        // dummy content
-        card deck_fronts = {CLUBS,3};
-        card target_decks[4] = { {CLUBS,1}, {CLUBS,1}, {CLUBS,1}, {CLUBS,1} };
-        vector<card> working_decks[7];
-        working_decks[0].push_back({SPADES,1});
-        working_decks[1].push_back({CLUBS,1});
-        working_decks[1].push_back({SPADES,1});
-        working_decks[2].push_back({CLUBS,1});
-        working_decks[2].push_back({CLUBS,1});
-        working_decks[2].push_back({SPADES,1});
-        working_decks[3].push_back({CLUBS,1});
-        working_decks[3].push_back({CLUBS,1});
-        working_decks[3].push_back({CLUBS,1});
-        working_decks[3].push_back({SPADES,1});
-        working_decks[4].push_back({CLUBS,1});
-        working_decks[4].push_back({CLUBS,1});
-        working_decks[4].push_back({CLUBS,1});
-        working_decks[4].push_back({CLUBS,1});
-        working_decks[4].push_back({SPADES,1});
-        working_decks[5].push_back({CLUBS,1});
-        working_decks[5].push_back({CLUBS,1});
-        working_decks[5].push_back({CLUBS,1});
-        working_decks[5].push_back({CLUBS,1});
-        working_decks[5].push_back({CLUBS,1});
-        working_decks[5].push_back({SPADES,2});
-        working_decks[6].push_back({CLUBS,1});
-        working_decks[6].push_back({CLUBS,1});
-        working_decks[6].push_back({CLUBS,1});
-        working_decks[6].push_back({CLUBS,1});
-        working_decks[6].push_back({CLUBS,1});
-        working_decks[6].push_back({CLUBS,1});
-        working_decks[6].push_back({SPADES,3});
+        card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back();
 
-        cout << unicode() << " " << unicode(deck_fronts) << "   ";
+        cout << unicode_back() << " ";
 
-        for (int i = 0; i < 4; i++)
-            cout << unicode(target_decks[i]) << " ";
+        if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().size() > 0)
+            cout << unicode(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back());
+        else
+            cout << unicode_empty();
+
+        cout << "   ";
+
+        for (int i = 0; i < NUM_OF_HOMES; i++)
+            if (game.piles[NUM_OF_COLUMNS + i].GetPile().size() > 0)
+                cout << unicode(game.piles[NUM_OF_COLUMNS + i].GetPile().back()) << " ";
+            else
+                cout << unicode_empty() << " ";
 
         cout << "\n\n";
 
         int max_height = 0;
-        int sizes[8];
+        int sizes[NUM_OF_COLUMNS];
         
-        for (int i = 0; i < 7; i++) {
-            sizes[i] = working_decks[i].size();
+        for (int i = 0; i < NUM_OF_COLUMNS; i++) {
+            sizes[i] = game.piles[i].GetPile().size();
 
             if (sizes[i] > max_height)
                 max_height = sizes[i];
         }
 
         for (int i = 0; i < max_height; i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < NUM_OF_COLUMNS; j++) {
                 if (i < sizes[j])
-                    cout << unicode(working_decks[j][i]) << " ";
+                    cout << unicode(game.piles[j].GetPile()[i]) << " ";
                 else
                     cout << "  ";
             }

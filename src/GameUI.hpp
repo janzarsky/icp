@@ -10,9 +10,10 @@ namespace solitaire
 {
     class GameUI
     {
-        Game game;
+        GAME game;
         string unicode(card& card);
-        string unicode();
+        string unicode_back();
+        string unicode_empty();
 
     public:
         GameUI();
