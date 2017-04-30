@@ -85,18 +85,21 @@ namespace solitaire
 
     void App::printHelp() {
         cout << "General commands:\n";
-        cout << "help - show this help\n";
-        cout << "new - start a new game\n";
-        cout << "close - close active game\n";
-        cout << "switch <num> - switch to game number <num>\n";
-        cout << "games - list currently played games\n";
-        cout << "quit - quit the app\n";
+        cout << "help      show this help\n";
+        cout << "new       start a new game\n";
+        cout << "close     close active game\n";
+        cout << "switch N  switch to game number N (1-4)\n";
+        cout << "games     list currently played games\n";
+        cout << "quit      quit the app\n";
 
-        cout << "Game commands:\n";
-        // TODO
-        cout << "move - move cards\n";
-        // TODO
-        cout << "turn - turn cards\n";
+        cout << "\nGame commands:\n";
+        cout << "move deck pileX     move card from deck to pile (1-7)\n";
+        cout << "move deck homeX     move card from deck to home (1-4)\n";
+        cout << "move pileX homeX    move card from pile (1-7) to home (1-4)\n";
+        cout << "move pileX pileX N  move N cards (default is 1) from pile"
+             << "(1-7) to another pile (1-7)\n";
+        cout << "turn deck           turn 1 card from the deck\n";
+        cout << "turn pileX          turn 1 card from pile (1-7)\n";
     }
 
     void App::newGame() {
