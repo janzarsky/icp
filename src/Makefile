@@ -1,4 +1,4 @@
-SOURCES=$(filter-out ./test.cpp, $(wildcard ./*.cpp))
+SOURCES=$(filter-out ./test.cpp ./GameUI.cpp ./App.cpp, $(wildcard ./*.cpp))
 HEADERS=./*.hpp
 
 
