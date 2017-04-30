@@ -133,7 +133,8 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 }
 
 
-	void GAME::construct_card_vector(int pos, vector<card>& tempVector) {
+	void GAME::construct_card_vector(int pos, vector<card>& tempVector)
+	{
 		tempVector.push_back(cardStack[pos]);
 		cardStack.erase(cardStack.begin() + pos);
 	};
@@ -197,7 +198,8 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 
 	}
 
-	void GAME::RotateStack() {
+	void GAME::RotateStack()
+	{
 		if(piles[11]->IsEmpty()){
 			cerr<<"pile 11 is empty some error occured!\n";
 			exit(-1);
@@ -209,7 +211,8 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 		piles[11] = factory.GetStoragePile(temp_vec);
 	}
 
-	void GAME::Play() {
+	void GAME::Play()
+	{
 		char choose;
 		cout << "m - move cards    n-new card   x-exit"<<endl;
 		cout << "Choose what you want to do: "<<flush;
@@ -229,6 +232,14 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 			cerr << "unknown command "<<endl;
 			break;
 		}
+		int win = 0;
+		for(auto home : homes){
+			if(home->size == 14) win++;
+		}
+		if(win == 4){
+			cout<<"CONGRATS!!\nWIN!\n";
+			exit(0);
+		}
 	}
 
 	void GAME::ShowTable() {
@@ -237,74 +248,3 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 			PrintCards( VecSlice(piles[i-1]->GetPile(),-static_cast<int>(piles[i-1]->shownCards)));
 		}
 	}
-
-
-// int main(int argc, char **argv)
-// {
-// 	GAME game;
-// 	for (auto c : game.piles) {
-// 		PrintCards(c.GetPile());
-// 		cout << string(40, '=')<<endl;
-// 	}
-// 	while (1) {
-// 		cout << string(40, '+') << endl;
-// 		game.ShowTable();
-// 		cout << string(40, '+') << endl;
-// 		game.Play();
-// 	}
-// 	return 0;
-	//vector<card> cardStack = {};
-	//for (int i = 2; i <= A; i++)
-	//{
-	//	for (int k = CLUBS; k <= SPADES; k= k+1)
-	//	{
-	//		cardStack.push_back(card(static_cast<cardsuit>(k), i));
-	//	}
-	//}
-
-	//
-	//vector<card> tempVector;
-	////add card to vector and delete from card stack
-	//auto construct_card_vector = [&](int pos){
-	//	tempVector.push_back(cardStack[pos]);
-	//	cardStack.erase(cardStack.begin() + pos);
-	//};
-
-
-
-	//vector < pile > piles;
-	//srand(static_cast<unsigned int>(time(0)));
-	//
-	////fill all 7 piles with random cards
-	//for (int i = 0; i < 7; i++) {
-	//	for (int num = 0; num <= i; num++) {
-	//		construct_card_vector(rand() % cardStack.size());
-	//	}
-	//	piles.push_back(pile(tempVector));
-	//	tempVector.clear();
-	//}
-	//for (auto pil : piles) {
-	//	PrintCards(pil.GetPile());
-	//	cout << string(40,'=')<<endl;
-	//}
-
-
-	//cout << endl << endl<<"Shown cards ("<<piles[6].shownCards<<"):\n";
-	////prints shown on pile cards
-	//PrintCards(VecSlice(piles[6].GetPile(), -static_cast<int>(piles[6].shownCards) ));
-
-	////inicialization of homes
-	//pile home1(vector<card>{});
-	//pile home2(vector<card>{});
-	//pile home3(vector<card>{});
-	//pile home4(vector<card>{});
-	//home1.shownCards = 0;
-	//home2.shownCards = 0;
-	//home3.shownCards = 0;
-	//home4.shownCards = 0;
-
-
-	//
-
-	//return 0;
-// }

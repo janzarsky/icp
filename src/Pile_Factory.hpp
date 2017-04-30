@@ -4,21 +4,39 @@
 
 
 class Pile_Factory{
+  private:
+    vector<Pile_Interface *> piles_pointers;
   public:
-    Pile_Interface * GetTargetPile(){
-      return new TargetPile;
+    Pile_Interface * GetTargetPile()
+    {
+      piles_pointers.push_back(new TargetPile);
+      return piles_pointers.back();
     }
-    Pile_Interface * GetHomePile(){
-      return new HomePile;
+    Pile_Interface * GetHomePile()
+    {
+      piles_pointers.push_back(new HomePile);
+      return piles_pointers.back();
     }
-    Pile_Interface * GetStoragePile(){
-      return new StoragePile;
+    Pile_Interface * GetStoragePile()
+    {
+      piles_pointers.push_back(new StoragePile);
+      return piles_pointers.back();
     }
-    template<typename T> Pile_Interface * GetStoragePile(T vec){
-      return new StoragePile(vec);
+    template<typename T> Pile_Interface * GetStoragePile(T vec)
+    {
+      piles_pointers.push_back(new StoragePile(vec));
+      return piles_pointers.back();
     }
-    template<typename T> Pile_Interface * GetTargetPile(T vec){
-      return new TargetPile(vec);
+    template<typename T> Pile_Interface * GetTargetPile(T vec)
+    {
+      piles_pointers.push_back( new TargetPile(vec));
+      return piles_pointers.back();
+    }
+    ~Pile_Factory()
+    {
+      for(auto pl : piles_pointers){
+        delete pl;
+      }
     }
 };
 
