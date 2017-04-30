@@ -121,11 +121,30 @@ namespace solitaire
                 cmd.type = invalid;
             }
         }
-        //turn deck           turn 1 card from the deck
-        //turn pileX          turn 1 card from pile (1-7)
         else if (str == "turn" || str == "t") {
             cmd.type = game_cmd;
-            cmd.game_cmd.type = turn_deck;
+
+            try {
+                getline(ss, str, ' ');
+
+                if (str == "deck") {
+                    // turn deck
+                    cmd.game_cmd.type = turn_deck;
+                }
+                else if (str.substr(0, 4) == "pile") {
+                    // turn pileX
+                    cmd.game_cmd.from = stoi(str.substr(4));
+
+                    if (cmd.game_cmd.from < 1 || cmd.game_cmd.from > NUM_OF_COLUMNS)
+                        cmd.type = invalid;
+                }
+            }
+            catch (out_of_range& e) {
+                cmd.type = invalid;
+            }
+            catch (invalid_argument& e) {
+                cmd.type = invalid;
+            }
         }
         // other commands
         else if (str == "")
