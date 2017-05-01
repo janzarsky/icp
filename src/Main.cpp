@@ -1,15 +1,12 @@
 #include "Game.hpp"
-#include "App.hpp"
 
 using namespace std;
-using namespace solitaire;
 
 int main(int argc, char **argv)
 {
-    /*
 	GAME game;
 	for (auto c : game.piles) {
-		PrintCards(c.GetPile());
+		PrintCards(c->GetPile());
 		cout << string(40, '=')<<endl;
 	}
 	while (1) {
@@ -18,8 +15,5 @@ int main(int argc, char **argv)
 		cout << string(40, '+') << endl;
 		game.Play();
 	}
-    */
-
-    App app;
 	return 0;
 }

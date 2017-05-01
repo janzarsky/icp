@@ -13,8 +13,10 @@ class Pile_Interface{
     static const int INSERT_ONLY = 1;
     unsigned size = 0;
     unsigned shownCards = 1;
-    virtual int AddCard(card&,int = PUT);
-    virtual int AddCard(std::vector<card>, int = PUT);
+
+    Pile_Interface(){};
+    virtual int AddCard(card&,int = PUT) = 0;
+    virtual int AddCard(std::vector<card>, int = PUT) = 0 ;
     card& PopCard()
     {
     	if (!this->IsEmpty())
@@ -47,7 +49,7 @@ class Pile_Interface{
   		return this->size < 1 ? 1 : 0;
   	}
 
-    virtual ~Pile_Interface();
+    virtual ~Pile_Interface() = default;
 
 };
 

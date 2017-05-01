@@ -1,13 +1,11 @@
-SOURCES=$(filter-out ./test.cpp, $(wildcard ./*.cpp))
+SOURCES=$(filter-out ./test.cpp ./GameUI.cpp ./App.cpp ./TextUIParser.cpp, $(wildcard ./*.cpp))
 HEADERS=./*.hpp
 
 
 all: Game
-	g++ -std=c++14 -o $< $(SOURCES)
-
-Game: $(SOURCES) $(HEADERS)
-
-
+	g++ $(SOURCES) -std=c++14 -o $< 
+Game: $(HEADERS) $(SOURCES) 
+	g++ -std=c++14 -c $(SOURCES)
 
 test:test.cpp
 	g++ -std=c++14 -o test test.cpp
