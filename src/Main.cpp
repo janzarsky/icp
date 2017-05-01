@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//main for CONSOLE version of game
 int main(int argc, char **argv)
 {
 	GAME game;
