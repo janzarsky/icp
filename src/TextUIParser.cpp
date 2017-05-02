@@ -40,48 +40,52 @@ namespace solitaire
         // game commands
         else if (str == "move" || str == "m") {
             cmd.type = game_cmd;
+            cmd.game_cmd.type = move;
 
             try {
                 getline(ss, str, ' ');
 
                 if (str == "deck") {
+                    cmd.game_cmd.from = NUM_OF_COLUMNS + NUM_OF_HOMES;
+
                     getline(ss, str, ' ');
 
                     if (str.substr(0, 4) == "pile") {
                         // move deck pileX
-                        cmd.game_cmd.type = move_deck_pile;
-                        cmd.game_cmd.to = stoi(str.substr(4));
+                        cmd.game_cmd.to = stoi(str.substr(4)) - 1;
 
-                        if (cmd.game_cmd.to < 1 || cmd.game_cmd.to > NUM_OF_COLUMNS)
+                        if (cmd.game_cmd.to < 0 || cmd.game_cmd.to >= NUM_OF_COLUMNS)
                             cmd.type = invalid;
                     }
                     else if (str.substr(0, 4) == "home") {
                         // move deck homeX
-                        cmd.game_cmd.type = move_deck_home;
-                        cmd.game_cmd.to = stoi(str.substr(4));
+                        cmd.game_cmd.to = stoi(str.substr(4)) + NUM_OF_COLUMNS - 1;
 
-                        if (cmd.game_cmd.to < 1 || cmd.game_cmd.to > NUM_OF_HOMES)
+                        if (cmd.game_cmd.to < NUM_OF_COLUMNS ||
+                            cmd.game_cmd.to >= NUM_OF_COLUMNS + NUM_OF_HOMES)
                             cmd.type = invalid;
                     }
                     else {
                         cmd.type = invalid;
                     }
+
+                    cmd.game_cmd.count = 1;
                     
                 }
                 else if (str.substr(0, 4) == "pile") {
-                    getline(ss, str, ' ');
-                    
-                    cmd.game_cmd.from = stoi(str.substr(4));
+                    cmd.game_cmd.from = stoi(str.substr(4)) - 1;
 
-                    if (cmd.game_cmd.from < 1 || cmd.game_cmd.from > NUM_OF_COLUMNS)
+                    if (cmd.game_cmd.from < 0 || cmd.game_cmd.from >= NUM_OF_COLUMNS)
                         cmd.type = invalid;
+
+                    getline(ss, str, ' ');
 
                     if (str.substr(0, 4) == "pile") {
                         // move pileX pileX
-                        cmd.game_cmd.type = move_pile_pile;
-                        cmd.game_cmd.to = stoi(str.substr(4));
+                        cmd.game_cmd.to = stoi(str.substr(4)) - 1;
 
-                        if (cmd.game_cmd.to < 1 || cmd.game_cmd.to > NUM_OF_COLUMNS)
+                        if (cmd.game_cmd.to < 0 ||
+                            cmd.game_cmd.to >= NUM_OF_COLUMNS)
                             cmd.type = invalid;
 
                         if (ss.eof()) {
@@ -95,15 +99,18 @@ namespace solitaire
                             }
                             else {
                                 cmd.game_cmd.count = stoi(str);
+
+                                if (cmd.game_cmd.count < 1)
+                                    cmd.type = invalid;
                             }
                         }
                     }
                     else if (str.substr(0, 4) == "home") {
                         // move pileX homeX
-                        cmd.game_cmd.type = move_pile_home;
-                        cmd.game_cmd.to = stoi(str.substr(4));
+                        cmd.game_cmd.to = stoi(str.substr(4)) + NUM_OF_COLUMNS - 1;
 
-                        if (cmd.game_cmd.to < 1 || cmd.game_cmd.to > NUM_OF_HOMES)
+                        if (cmd.game_cmd.to < NUM_OF_COLUMNS ||
+                            cmd.game_cmd.to >= NUM_OF_COLUMNS + NUM_OF_HOMES)
                             cmd.type = invalid;
                     }
                     else {
@@ -123,28 +130,7 @@ namespace solitaire
         }
         else if (str == "turn" || str == "t") {
             cmd.type = game_cmd;
-
-            try {
-                getline(ss, str, ' ');
-
-                if (str == "deck") {
-                    // turn deck
-                    cmd.game_cmd.type = turn_deck;
-                }
-                else if (str.substr(0, 4) == "pile") {
-                    // turn pileX
-                    cmd.game_cmd.from = stoi(str.substr(4));
-
-                    if (cmd.game_cmd.from < 1 || cmd.game_cmd.from > NUM_OF_COLUMNS)
-                        cmd.type = invalid;
-                }
-            }
-            catch (out_of_range& e) {
-                cmd.type = invalid;
-            }
-            catch (invalid_argument& e) {
-                cmd.type = invalid;
-            }
+            cmd.game_cmd.type = turn;
         }
         // other commands
         else if (str == "")

@@ -114,6 +114,16 @@ namespace solitaire
     }
 
     void GameUI::executeCommand(Command& cmd) {
-        cout << "executing game comand type " << cmd.type << "\n";
+        cout << "EXECUTE: ";
+
+        if (cmd.type == move)
+            cout << "move, from " << cmd.from << ", to " <<
+                cmd.to << ", count " << cmd.count;
+        else if (cmd.type == turn)
+            cout << "turn";
+        else
+            cout << "unknown";
+
+        cout << "\n";
     }
 }

@@ -72,6 +72,96 @@ printf "new\nnew\nnew\nnew\nnew\ngames\nquit\n" | ./hra2017-cli >out 2>err
 check_code 0
 check_invalid
 
+echo "***** test move deck pile0"
+printf "new\nmove deck pile0\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move deck pile1"
+printf "new\nmove deck pile1\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 11, to 0, count 1"
+
+echo "***** test move deck pile7"
+printf "new\nmove deck pile7\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 11, to 6, count 1"
+
+echo "***** test move deck pile8"
+printf "new\nmove deck pile8\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move deck home0"
+printf "new\nmove deck home0\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move deck home1"
+printf "new\nmove deck home1\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 11, to 7, count 1"
+
+echo "***** test move deck home4"
+printf "new\nmove deck home4\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 11, to 10, count 1"
+
+echo "***** test move deck home5"
+printf "new\nmove deck home5\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move pile0 pile1"
+printf "new\nmove pile0 pile1\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move pile1 pile0"
+printf "new\nmove pile1 pile0\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move pile1 pile2"
+printf "new\nmove pile1 pile2\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 0, to 1, count 1"
+
+echo "***** test move pile7 pile2"
+printf "new\nmove pile7 pile2\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 6, to 1, count 1"
+
+echo "***** test move pile2 pile7"
+printf "new\nmove pile2 pile7\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 1, to 6, count 1"
+
+echo "***** test move pile8 pile1"
+printf "new\nmove pile8 pile1\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move pile1 pile8"
+printf "new\nmove pile1 pile8\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move pile2 pile5 0"
+printf "new\nmove pile2 pile5 0\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_invalid
+
+echo "***** test move pile2 pile5 1"
+printf "new\nmove pile2 pile5 1\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 1, to 4, count 1"
+
+echo "***** test move pile2 pile5 3"
+printf "new\nmove pile2 pile5 3\nquit\n" | ./hra2017-cli >out 2>err
+check_code 0
+check_msg "EXECUTE: move, from 1, to 4, count 3"
+
 echo ""
 
 echo "**********************************************************************"
