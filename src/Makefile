@@ -52,6 +52,7 @@ SOURCES       = Card.cpp \
 		Game.cpp \
 		GameUI.cpp \
 		GUIApp.cpp \
+		GUIGame.cpp \
 		Main.cpp \
 		Pile.cpp \
 		TextApp.cpp \
@@ -60,6 +61,7 @@ OBJECTS       = Card.o \
 		Game.o \
 		GameUI.o \
 		GUIApp.o \
+		GUIGame.o \
 		Main.o \
 		Pile.o \
 		TextApp.o \
@@ -201,6 +203,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		Game.cpp \
 		GameUI.cpp \
 		GUIApp.cpp \
+		GUIGame.cpp \
 		Main.cpp \
 		Pile.cpp \
 		TextApp.cpp \
@@ -488,7 +491,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents Card.hpp Command.hpp Exceptions.hpp Game.hpp GameUI.hpp GUIApp.hpp Pile.hpp Pile_interface.hpp Piles.hpp TextApp.hpp TextUIParser.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents Card.cpp Game.cpp GameUI.cpp GUIApp.cpp Main.cpp Pile.cpp TextApp.cpp TextUIParser.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Card.cpp Game.cpp GameUI.cpp GUIApp.cpp GUIGame.cpp Main.cpp Pile.cpp TextApp.cpp TextUIParser.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -552,10 +555,15 @@ GameUI.o: GameUI.cpp GameUI.hpp \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameUI.o GameUI.cpp
 
 GUIApp.o: GUIApp.cpp GUIApp.hpp \
-		TextUIParser.hpp \
-		Command.hpp \
+		GUIGame.hpp \
+		Game.hpp \
+		Card.hpp \
+		Pile.hpp \
 		Exceptions.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIApp.o GUIApp.cpp
+
+GUIGame.o: GUIGame.cpp GUIGame.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIGame.o GUIGame.cpp
 
 Main.o: Main.cpp Game.hpp \
 		Card.hpp \
@@ -564,7 +572,8 @@ Main.o: Main.cpp Game.hpp \
 		GameUI.hpp \
 		Command.hpp \
 		TextUIParser.hpp \
-		GUIApp.hpp
+		GUIApp.hpp \
+		GUIGame.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main.o Main.cpp
 
 Pile.o: Pile.cpp Pile.hpp \

@@ -32,6 +32,7 @@ SOURCES += Card.cpp \
            Game.cpp \
            GameUI.cpp \
            GUIApp.cpp \
+           GUIGame.cpp \
            Main.cpp \
            Pile.cpp \
            TextApp.cpp \

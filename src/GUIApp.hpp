@@ -1,8 +1,10 @@
 #include <vector>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
-#include "TextUIParser.hpp"
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QMainWindow>
+#include "GUIGame.hpp"
 
 using namespace std;
 
@@ -10,7 +12,15 @@ namespace solitaire
 {
     class GUIApp
     {
-        void executeCommand(UICommand);
+		const unsigned int max_num_of_games = 4;
+
+        QApplication app;
+		QMainWindow mainWindow;
+		QGridLayout gamesGrid;
+		vector<GUIGame *> gameUIs;
+
+		void initLayout();
+		void addGame();
 
     public:
         GUIApp(int argc, char *argv[]);
