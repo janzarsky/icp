@@ -27,7 +27,7 @@ namespace solitaire
                 executeCommand(cmd);
             }
             catch (InvalidActionException& e) {
-                cout << "Invalid command: " << e.message() << "\n";
+                cout << "ERROR: Invalid command: " << e.message() << "\n";
             }
         }
     }
@@ -35,7 +35,7 @@ namespace solitaire
     void App::executeCommand(UICommand cmd) {
         switch (cmd.type) {
             case invalid:
-                cout << "invalid command, type 'help' to show all commands\n";
+                cout << "ERROR: invalid command, type 'help' to show all commands\n";
                 break;
 
             case empty:
