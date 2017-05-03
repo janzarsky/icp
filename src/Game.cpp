@@ -186,16 +186,7 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 
 		if(piles[from - 1]->shownCards == count && count != piles[from - 1]->size) currentCmd.revealed = true;
 		else currentCmd.revealed = false;
-		//add all choosen cards from source pile to target pile
-		// vector<card> temp_card_vec;
-		// for (int i = 0; i < count; i++) {
-		// 	temp_card_vec.push_back(piles[from - 1]->PopCard());
-		// }
 		if(!piles[to - 1]->AddCard(temp_vect)){
-				// cerr<<"\nYou can't place cards here."<<endl;
-				// piles[from - 1]->AddCard(temp_card_vec, Pile_Interface::INSERT_ONLY);
-				// if(from <= NUM_OF_COLUMNS)piles[from - 1]->shownCards+= count;
-				// return -1;
 				for (int i = 0; i < count; i++) {
 					piles[from - 1]->PopCard();
 				}
@@ -211,59 +202,52 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 	}
 
 	//function for moving cards in GUI version
-	// int GAME::MoveCard(solitaire::Command cmd)
-	// {
-	// 	int from = cmd.from,to = cmd.to , count= cmd.count;
-	//
-	//
-	// 	if ((from < 1 || from > 7) && (from != NUM_OF_COLUMNS + NUM_OF_HOMES+1)) {
-	// 		cerr << "\nWrong pile choosen" << endl;
-	// 		return -1;
-	// 	}
-	//
-	//
-	// 	if (static_cast<unsigned int> (count) > piles[from-1]->shownCards || count < 1) {
-	// 		cerr << "\nWrong amount choosen" << endl;
-	// 		return -1;
-	// 	}
-	//
-	//
-	// 	if (to < 1 || to >  (NUM_OF_COLUMNS + NUM_OF_HOMES) || to == from) {
-	// 		cerr << "\nWrong pile choosen" << endl;
-	// 		return -1;
-	// 	}
-	// 	if (to > 7 && count > 1) {
-	// 		cerr << "\nCan't place more then one card to this piles" << endl;
-	// 		return -1;
-	// 	}
-	//
-	// 	//detection if were chosen right amount of cards
-	// 	vector<card> temp_vect = VecSlice(piles[from-1]->GetPile(), -count);
-	// 	if (temp_vect.size() < 1) {
-	// 		cerr << "\nYou must choose pile with cards" << endl;
-	// 		return -1;
-	// 	}
-	//
-	//
-	// 	//add all choosen cards from source pile to target pile
-	// 	// vector<card> temp_card_vec;
-	// 	// for (int i = 0; i < count; i++) {
-	// 	// 	temp_card_vec.push_back(piles[from - 1]->PopCard());
-	// 	// }
-	// 	if(!piles[to - 1]->AddCard(temp_vect)){
-	// 			// piles[from - 1]->AddCard(temp_card_vec, Pile_Interface::INSERT_ONLY);
-	// 			// if(from <= NUM_OF_COLUMNS)piles[from - 1]->shownCards+= count;
-	// 			// return -1;
-	// 			for (int i = 0; i < count; i++) {
-	// 				piles[from - 1]->PopCard();
-	// 			}
-	// 			return 0;
-	// 	}
-	// 	else{
-	// 		return -1;
-	// 	}
-	//
-	// }
+	int GAME::MoveCard(solitaire::Command cmd)
+	{
+		int from = cmd.from,to = cmd.to , count= cmd.count;
+
+
+		if ((from < 1 || from > 7) && (from != NUM_OF_COLUMNS + NUM_OF_HOMES+1)) {
+			cerr << "\nWrong pile choosen" << endl;
+			return -1;
+		}
+
+
+		if (static_cast<unsigned int> (count) > piles[from-1]->shownCards || count < 1) {
+			cerr << "\nWrong amount choosen" << endl;
+			return -1;
+		}
+
+
+		if (to < 1 || to >  (NUM_OF_COLUMNS + NUM_OF_HOMES) || to == from) {
+			cerr << "\nWrong pile choosen" << endl;
+			return -1;
+		}
+		if (to > 7 && count > 1) {
+			cerr << "\nCan't place more then one card to this piles" << endl;
+			return -1;
+		}
+
+		//detection if were chosen right amount of cards
+		vector<card> temp_vect = VecSlice(piles[from-1]->GetPile(), -count);
+		if (temp_vect.size() < 1) {
+			cerr << "\nYou must choose pile with cards" << endl;
+			return -1;
+		}
+
+
+		//add all choosen cards from source pile to target pile
+		if(!piles[to - 1]->AddCard(temp_vect)){
+				for (int i = 0; i < count; i++) {
+					piles[from - 1]->PopCard();
+				}
+				return 0;
+		}
+		else{
+			return -1;
+		}
+
+	}
 
 
 	void GAME::rev_MoveCard()
@@ -391,60 +375,60 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 		}
 	}
 
-	//"Play game" for GUI version of game
-	// void GAME::Play(solitaire::Command command)
-	// {
-	// 	if(piles[command.from - 1]->shownCards == command.count && command.count != piles[command.from - 1]->size)
-	// 	 command.revealed = true;
-	//
-	// 	switch (command.type)
-	// 	{
-	// 	case solitaire::move:
-	// 		if(MoveCard(command) == 0){
-	// 			//add current command to history if it's move command
-	// 			if(history.size() == MAX_RETURNS){
-	// 				history.pop_front();
-	// 				history.push_back(command);
-	// 			}
-	// 			else{
-	// 				history.push_back(command);
-	// 			}
-	// 		}
-	// 		break;
-	// 	case solitaire::turn:
-	// 		RotateStack();
-	// 		//add current command to history if it's next_card command
-	// 		if(history.size() == MAX_RETURNS){
-	// 			history.pop_front();
-	// 			history.push_back(command);
-	// 		}
-	// 		else{
-	// 			history.push_back(command);
-	// 		}
-	// 		break;
-	// 	//TODO
-	// 	// case 'x':
-	// 	// 	exit(1);
-	// 	// 	break;
-	// 	// case 'b':
-	// 	// 	Backward();
-	// 	// 	break;
-	// 	// case 'h':
-	// 	// 	//Help();
-	// 	// 	break;
-	// 	default:
-	// 		cerr << "unknown command "<<endl;
-	// 		break;
-	// 	}
-	// 	int win = 0;
-	// 	for(auto home : homes){
-	// 		if(home->size == 14) win++;
-	// 	}
-	// 	if(win == 4){
-	// 		cout<<"CONGRATS!!\nWIN!\n";
-	// 		exit(0);
-	// 	}
-	// }
+	// "Play game" for GUI version of game
+	void GAME::Play(solitaire::Command command)
+	{
+		if(piles[command.from - 1]->shownCards == command.count && command.count != piles[command.from - 1]->size) command.revealed = true;
+		else command.revealed = false;
+
+		switch (command.type)
+		{
+		case solitaire::move:
+			if(MoveCard(command) == 0){
+				//add current command to history if it's move command
+				if(history.size() == MAX_RETURNS){
+					history.pop_front();
+					history.push_back(command);
+				}
+				else{
+					history.push_back(command);
+				}
+			}
+			break;
+		case solitaire::turn:
+			RotateStack();
+			//add current command to history if it's next_card command
+			if(history.size() == MAX_RETURNS){
+				history.pop_front();
+				history.push_back(command);
+			}
+			else{
+				history.push_back(command);
+			}
+			break;
+		//TODO
+		// case exit:
+		// 	exit(1);
+		// 	break;
+		// case backward:
+		// 	Backward();
+		// 	break;
+		// case help:
+		// 	Help();
+		// 	break;
+		default:
+			cerr << "unknown command "<<endl;
+			break;
+		}
+		int win = 0;
+		for(auto home : homes){
+			if(home->size == 14) win++;
+		}
+		if(win == 4){
+			cout<<"CONGRATS!!\nWIN!\n";
+			exit(0);
+		}
+	}
 
 	void GAME::ShowTable() {
 		for (int i = 1; i <= NUM_OF_HOMES + NUM_OF_COLUMNS + 1;i++) {
