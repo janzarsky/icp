@@ -14,8 +14,10 @@ namespace solitaire
         int from;
         int to;
         int count;
+		bool revealed;
 
-        Command(CommandType t): type{t}, from{0}, to{0}, count{0} {}
+        Command(CommandType t):
+			type{t}, from{0}, to{0}, count{0}, revealed{false} {}
         Command() {}
     };
 }

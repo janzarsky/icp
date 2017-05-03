@@ -40,12 +40,8 @@ int main(){
 	int b = 10;
 	int * a = &b;
 
-	vector<int *> vec;
-	vec.push_back(a);
-	cout<<*(vec.back())<<endl;
-	*vec.back()  = 99;
-	cout<<*(vec.back())<<endl;
-	cout<<b<<endl;
+	vector<int> vec;
+	cout<<vec.size()<<endl;
 
 	return 0;
 }

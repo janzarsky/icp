@@ -3,6 +3,8 @@
 #include "Card.hpp"
 #include "Pile_Factory.hpp"
 #include <vector>
+#include <list>
+#include "Command.hpp"
 
 using namespace std;
 typedef Pile_Interface pile;
@@ -10,6 +12,10 @@ typedef Pile_Interface pile;
 const int NUM_OF_CARDS = 52;
 const int NUM_OF_COLUMNS = 7;
 const int NUM_OF_HOMES = 4;
+const int MAX_RETURNS = 5;
+
+
+
 
 /*									  ALL	PILES LOOK
 
@@ -39,50 +45,64 @@ vector<T> VecSlice(vector<T>, int = 0, int = 0);
 
 class GAME {
 
+		list<solitaire::Command> history;
+		solitaire::Command currentCmd;
+	public:
+		vector <pile *> piles;
+		vector<card> cardStack = {};
+		Pile_Factory factory;
+		vector<pile *> homes;
+	  GAME() {
 
-public:
-	vector <pile *> piles;
-	vector<card> cardStack = {};
-	Pile_Factory factory;
-	vector<pile *> homes;
-  GAME() {
-
-		for (int i = 1; i <= K; i++)
-		{
-			for (int k = CLUBS; k <= SPADES; k = k + 1)
+			for (int i = 1; i <= K; i++)
 			{
-				cardStack.push_back(card(static_cast<cardsuit>(k), i));
-			}
-		}
-		vector<card> tempVector;
-		srand(static_cast<unsigned int>(time(0)));
-
-		//fill all 7 piles with random cards
-		for (int i = 0; i < NUM_OF_COLUMNS + NUM_OF_HOMES + 1; i++) {
-			//creating HOMES
-			if (i >= 7 && i < (NUM_OF_COLUMNS + NUM_OF_HOMES )) {
-				piles.push_back(factory.GetHomePile());
-				homes.push_back(piles.back());
-			}//creating STORAGE
-			else if (i == NUM_OF_COLUMNS + NUM_OF_HOMES) {
-				piles.push_back(factory.GetStoragePile(cardStack));
-			}//creating TARGET PILE
-			else {
-				for (int num = 0; num <= i; num++) {
-					construct_card_vector(rand() % cardStack.size(), tempVector);
+				for (int k = CLUBS; k <= SPADES; k = k + 1)
+				{
+					cardStack.push_back(card(static_cast<cardsuit>(k), i));
 				}
-				piles.push_back(factory.GetTargetPile(tempVector));
-				tempVector.clear();
 			}
+			vector<card> tempVector;
+			srand(static_cast<unsigned int>(time(0)));
+
+			//fill all 7 piles with random cards
+			for (int i = 0; i < NUM_OF_COLUMNS + NUM_OF_HOMES + 1; i++) {
+				//creating HOMES
+				if (i >= 7 && i < (NUM_OF_COLUMNS + NUM_OF_HOMES )) {
+					piles.push_back(factory.GetHomePile());
+					homes.push_back(piles.back());
+				}//creating STORAGE
+				else if (i == NUM_OF_COLUMNS + NUM_OF_HOMES) {
+					piles.push_back(factory.GetStoragePile(cardStack));
+				}//creating TARGET PILE
+				else {
+					for (int num = 0; num <= i; num++) {
+						construct_card_vector(rand() % cardStack.size(), tempVector);
+					}
+					piles.push_back(factory.GetTargetPile(tempVector));
+					tempVector.clear();
+				}
+			}
+
 		}
+	  void construct_card_vector(int pos, vector<card>& tempVector);
 
-	}
-  void construct_card_vector(int pos, vector<card>& tempVector);
-  int MoveCard();
-  void RotateStack();
-  void Play();
-  void ShowTable();
+		
+	  int MoveCard();
+		int MoveCard(solitaire::Command);
+		void rev_MoveCard();
 
+
+	  void RotateStack();
+		void rev_RotateStack();
+
+
+	  void Play();
+		void Play(solitaire::Command);
+
+
+	  void ShowTable();
+
+		void Backward();
 
 };
 
