@@ -99,6 +99,8 @@ class GAME {
 	  void Play();
 		void Play(solitaire::Command);
 
+		void Help(int &, int &) const;
+
 
 	  void ShowTable();
 

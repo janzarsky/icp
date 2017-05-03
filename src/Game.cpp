@@ -9,128 +9,122 @@
 #include "Game.hpp"
 
 
-
-
-// using namespace std;
-
-
-
-//Print all cards in the vector
-void PrintCards(vector<card> st)
-{
-	unsigned counter = 0;
-	for (card c : st)
+	//Print all cards in the vector
+	void PrintCards(vector<card> st)
 	{
-		cout << setiosflags(ios::left)<< flush;
-		switch (c.getSuit())
+		unsigned counter = 0;
+		for (card c : st)
 		{
-		case CLUBS:
-			cout<<  "CLUBS" << flush;
-			break;
-		case DIAMONDS:
-			cout <<  "DIAMONDS" << flush;
-			break;
-		case HEARTS:
-			cout <<  "HEARTS" << flush;
-			break;
-		case SPADES:
-			cout << "SPADES" << flush;
-			break;
-		default:
-			cout << "UNKNOWN" << flush;
-			break;
+			cout << setiosflags(ios::left)<< flush;
+			switch (c.getSuit())
+			{
+			case CLUBS:
+				cout<<  "CLUBS" << flush;
+				break;
+			case DIAMONDS:
+				cout <<  "DIAMONDS" << flush;
+				break;
+			case HEARTS:
+				cout <<  "HEARTS" << flush;
+				break;
+			case SPADES:
+				cout << "SPADES" << flush;
+				break;
+			default:
+				cout << "UNKNOWN" << flush;
+				break;
+			}
+			cout << ":" << flush;
+			switch (c.getValue())
+			{
+			case 11:
+				cout << setw(3) << "J";
+				break;
+			case 12:
+				cout << setw(3) << "Q";
+				break;
+			case 13:
+				cout << setw(3) << "K";
+				break;
+			case 1:
+				cout << setw(3) << "A";
+				break;
+			default:
+				cout << setw(3) << c.getValue();
+				break;
+			}
 		}
-		cout << ":" << flush;
-		switch (c.getValue())
-		{
-		case 11:
-			cout << setw(3) << "J";
-			break;
-		case 12:
-			cout << setw(3) << "Q";
-			break;
-		case 13:
-			cout << setw(3) << "K";
-			break;
-		case 1:
-			cout << setw(3) << "A";
-			break;
-		default:
-			cout << setw(3) << c.getValue();
-			break;
-		}
+		cout << endl;
 	}
-	cout << endl;
-}
 
-void PrintCards(card c)
-{
-		cout << setiosflags(ios::left)<< flush;
-		switch (c.getSuit())
-		{
-		case CLUBS:
-			cout <<"CLUBS" << flush;
-			break;
-		case DIAMONDS:
-			cout <<"DIAMONDS" << flush;
-			break;
-		case HEARTS:
-			cout <<"HEARTS" << flush;
-			break;
-		case SPADES:
-			cout <<"SPADES" << flush;
-			break;
-		default:
-			cout <<"UNKNOWN" << flush;
-			break;
-		}
-		cout << ":" << flush;
-		switch (c.getValue())
-		{
-		case 11:
-			cout <<"J  " << endl;
-			break;
-		case 12:
-			cout <<"Q  " << endl;
-			break;
-		case 13:
-			cout <<"K  " << endl;
-			break;
-		case 1:
-			cout <<"A  " << endl;
-			break;
-		default:
-			cout <<c.getValue() << "  "<< endl;
-			break;
-		}
-}
-
-//Slice vector to a vector from pos begin to end of the original one
-template<class T>
-vector<T> VecSlice(vector<T> base, int begin, int end )
-{
-	if(base.size() == 0) {
-		return vector<T>{};
-	}
-	if (end < 0) {
-		end = base.size() + end ;
-	}
-	else if (end == 0) {
-		end = base.size()-1;
-	}
-	if (begin < 0) {
-		begin = base.size() + begin;
-	}
-	if ( begin <= end)
+	void PrintCards(card c)
 	{
-		return vector<T>(base.begin() + begin, base.begin() + 1 + end);
-	}
-	else
-	{
-		return vector<T>{};
+			cout << setiosflags(ios::left)<< flush;
+			switch (c.getSuit())
+			{
+			case CLUBS:
+				cout <<"CLUBS" << flush;
+				break;
+			case DIAMONDS:
+				cout <<"DIAMONDS" << flush;
+				break;
+			case HEARTS:
+				cout <<"HEARTS" << flush;
+				break;
+			case SPADES:
+				cout <<"SPADES" << flush;
+				break;
+			default:
+				cout <<"UNKNOWN" << flush;
+				break;
+			}
+			cout << ":" << flush;
+			switch (c.getValue())
+			{
+			case 11:
+				cout <<"J  " << endl;
+				break;
+			case 12:
+				cout <<"Q  " << endl;
+				break;
+			case 13:
+				cout <<"K  " << endl;
+				break;
+			case 1:
+				cout <<"A  " << endl;
+				break;
+			default:
+				cout <<c.getValue() << "  "<< endl;
+				break;
+			}
 	}
 
-}
+	//Slice vector to a vector from pos begin to end of the original one
+	template<class T>
+	vector<T> VecSlice(vector<T> base, int begin, int end )
+	{
+		if(base.size() == 0) {
+			return vector<T>{};
+		}
+		if (end < 0) {
+			end = base.size() + end ;
+		}
+		else if (end == 0) {
+			end = base.size()-1;
+		}
+		if (begin < 0) {
+			begin = base.size() + begin;
+		}
+		if ( begin <= end)
+		{
+			return vector<T>(base.begin() + begin, base.begin() + 1 + end);
+		}
+		else
+		{
+			return vector<T>{};
+		}
+
+	}
 
 	//move card from STACK to vector of cards
 	void GAME::construct_card_vector(int pos, vector<card>& tempVector)
@@ -148,7 +142,7 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 		cout << "Choose pile: " << flush;
 		cin >> from;
 
-
+		//Control you choose from target pile or stack
 		if ((from < 1 || from > 7) && (from != NUM_OF_COLUMNS + NUM_OF_HOMES+1)) {
 			cerr << "\nWrong pile choosen" << endl;
 			return -1;
@@ -157,7 +151,7 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 		cout << "Choose amount of cards: " << flush;
 		cin >> count;
 
-
+		//Control you choose allowed amount of cards
 		if (static_cast<unsigned int> (count) > piles[from-1]->shownCards || count < 1) {
 			cerr << "\nWrong amount choosen" << endl;
 			return -1;
@@ -167,7 +161,7 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 		cout << "Choose another pile to place: " << flush;
 		cin >> to;
 
-
+		//Control you choose right pile to place cards
 		if (to < 1 || to >  (NUM_OF_COLUMNS + NUM_OF_HOMES) || to == from) {
 			cerr << "\nWrong pile choosen" << endl;
 			return -1;
@@ -206,19 +200,19 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 	{
 		int from = cmd.from,to = cmd.to , count= cmd.count;
 
-
+		//Control you choose from target pile or stack
 		if ((from < 1 || from > 7) && (from != NUM_OF_COLUMNS + NUM_OF_HOMES+1)) {
 			cerr << "\nWrong pile choosen" << endl;
 			return -1;
 		}
 
-
+		//Control you choose allowed amount of cards
 		if (static_cast<unsigned int> (count) > piles[from-1]->shownCards || count < 1) {
 			cerr << "\nWrong amount choosen" << endl;
 			return -1;
 		}
 
-
+		//Control you choose right pile to place cards
 		if (to < 1 || to >  (NUM_OF_COLUMNS + NUM_OF_HOMES) || to == from) {
 			cerr << "\nWrong pile choosen" << endl;
 			return -1;
@@ -316,6 +310,72 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 		}
 	}
 
+	//Help function return throuw parameter  possible piles to choose from
+	void GAME::Help(int &one, int &two) const
+	{
+
+		//pass through targer piles and storage
+		for(one =1; one<= NUM_OF_COLUMNS+NUM_OF_HOMES+1;one++){
+			if(one == 8){
+				one = 11;
+				continue;
+			}
+			auto spl = piles[one-1];
+			if(spl->IsEmpty()) continue;
+
+			card fcd = *(spl->GetPile().end() - spl->shownCards);
+			card lcd = *(spl->GetPile().end() - 1);
+
+
+			for(two = 1;two <= NUM_OF_COLUMNS+NUM_OF_HOMES;two++){
+				auto dpl = piles[two-1];
+				//trying placing to HOME pile
+				if(two > NUM_OF_COLUMNS && two <= NUM_OF_COLUMNS+NUM_OF_HOMES ){
+					if(dpl->IsEmpty()){
+						if(lcd.getValue() == A){
+							return;
+						}
+						continue;
+					}
+					else{
+						int Dtemp_suit = dpl->GetPile().back().getSuit();
+						int Dtemp_value = dpl->GetPile().back().getValue();
+						if( (lcd.getValue() - 1 == Dtemp_value) && (Dtemp_suit == lcd.getSuit()) )  {
+	            return;
+	          }
+					}
+				}
+				//trying placing to TARGET piles
+				else{
+					if(dpl->IsEmpty()){
+						if(fcd.getValue() == K && spl->shownCards != spl->size){
+							return;
+						}
+						continue;
+					}
+					else{
+						int Dtemp_suit = dpl->GetPile().back().getSuit();
+						int Dtemp_value = dpl->GetPile().back().getValue();
+						switch (fcd.getSuit()) {
+		        case DIAMONDS:
+		        case HEARTS:
+							if( (fcd.getValue() + 1 == Dtemp_value) &&(Dtemp_suit == SPADES || Dtemp_suit == CLUBS) ) {
+		            return;
+		          }
+		          break;
+		        default:
+							if( (fcd.getValue() + 1 == Dtemp_value) && (Dtemp_suit == DIAMONDS || Dtemp_suit == HEARTS) )  {
+		            return;
+		          }
+		        }
+					}
+				}
+			}
+
+		}
+		one =12;two = 12;
+	}
+
 
 	//"Play game" for CONSOLE version of game
 	void GAME::Play()
@@ -357,7 +417,9 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 			Backward();
 			break;
 		case 'h':
-			//Help();
+			int from,to;
+			Help(from,to);
+			cout<<"HELP: "<<from<<"--"<<to<<endl;
 			break;
 		default:
 			cerr << "unknown command "<<endl;
@@ -385,7 +447,7 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 		{
 		case solitaire::move:
 			if(MoveCard(command) == 0){
-				//add current command to history if it's move command
+				//add current command to history
 				if(history.size() == MAX_RETURNS){
 					history.pop_front();
 					history.push_back(command);
@@ -397,7 +459,7 @@ vector<T> VecSlice(vector<T> base, int begin, int end )
 			break;
 		case solitaire::turn:
 			RotateStack();
-			//add current command to history if it's next_card command
+			//add current command to history
 			if(history.size() == MAX_RETURNS){
 				history.pop_front();
 				history.push_back(command);
