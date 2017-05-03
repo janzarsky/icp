@@ -8,7 +8,7 @@ using namespace solitaire;
 int main(int argc, char **argv)
 {
 #ifdef TUI
-    TextApp app;
+    TextApp app(argc, argv);
 #else
     GUIApp app(argc, argv);
 #endif

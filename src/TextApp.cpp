@@ -6,8 +6,8 @@ using namespace std;
 
 namespace solitaire
 {
-    TextApp::TextApp() {
-        cout << "(constructor TextApp)\n";
+    TextApp::TextApp(int argc, char *argv[]) {
+        cout << "(constructor TextApp, argc=" << argc << ", argv=" << argv << ")\n";
 
         listenToCommands();
     }
@@ -123,8 +123,8 @@ namespace solitaire
         active_game = gameUIs.size();
     }
 
-    void TextApp::switchGame(int game_num) {
-        if (game_num <= 0 || game_num > gameUIs.size())
+    void TextApp::switchGame(unsigned int game_num) {
+        if (game_num == 0 || game_num > gameUIs.size())
             throw InvalidActionException("Invalid game number");
 
         active_game = game_num;
@@ -140,7 +140,7 @@ namespace solitaire
 
         cout << "Games number ";
 
-        for (int i = 1; i <= gameUIs.size(); i++)
+        for (unsigned int i = 1; i <= gameUIs.size(); i++)
             cout << i << ", ";
 
         cout << "are currently played\n";

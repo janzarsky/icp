@@ -8,9 +8,9 @@ namespace solitaire
 {
     class TextApp
     {
-        const int max_num_of_games = 4;
+        const unsigned int max_num_of_games = 4;
         vector<GameUI> gameUIs;
-        int active_game = 0;
+        unsigned int active_game = 0;
         TextUIParser parser;
 
         void listenToCommands();
@@ -19,11 +19,11 @@ namespace solitaire
         void printHelp();
         void newGame();
         void closeGame();
-        void switchGame(int);
+        void switchGame(unsigned int);
         void printGames();
         void printActiveBoard();
 
     public:
-        TextApp();
+        TextApp(int argc, char *argv[]);
     };
 }
