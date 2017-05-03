@@ -7,10 +7,10 @@ using namespace solitaire;
 
 int main(int argc, char **argv)
 {
-#ifdef GUI
-    GUIApp app;
-#else
+#ifdef TUI
     TextApp app;
+#else
+    GUIApp app(argc, argv);
 #endif
 
 	return 0;

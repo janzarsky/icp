@@ -6,8 +6,15 @@ using namespace std;
 
 namespace solitaire
 {
-    GUIApp::GUIApp() {
+    GUIApp::GUIApp(int argc, char *argv[]) {
         cout << "(constructor GUIApp)\n";
+
+        QApplication app(argc, argv);
+
+        QLabel l("asdf");
+        l.setWindowTitle("asdfsafd");
+        l.resize(400, 400);
+        l.show();
     }
 
     void GUIApp::executeCommand(UICommand cmd) {
