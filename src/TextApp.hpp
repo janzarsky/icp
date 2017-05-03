@@ -6,7 +6,7 @@ using namespace std;
 
 namespace solitaire
 {
-    class App
+    class TextApp
     {
         const int max_num_of_games = 4;
         vector<GameUI> gameUIs;
@@ -24,6 +24,6 @@ namespace solitaire
         void printActiveBoard();
 
     public:
-        App();
+        TextApp();
     };
 }

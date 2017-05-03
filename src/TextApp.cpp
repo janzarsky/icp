@@ -1,18 +1,18 @@
 #include <iostream>
-#include "App.hpp"
+#include "TextApp.hpp"
 #include "Exceptions.hpp"
 
 using namespace std;
 
 namespace solitaire
 {
-    App::App() {
-        cout << "(constructor App)\n";
+    TextApp::TextApp() {
+        cout << "(constructor TextApp)\n";
 
         listenToCommands();
     }
 
-    void App::listenToCommands() {
+    void TextApp::listenToCommands() {
         cout << "listenToCommands()\n";
 
         UICommand cmd;
@@ -32,7 +32,7 @@ namespace solitaire
         }
     }
 
-    void App::executeCommand(UICommand cmd) {
+    void TextApp::executeCommand(UICommand cmd) {
         switch (cmd.type) {
             case invalid:
                 cout << "ERROR: invalid command, type 'help' to show all commands\n";
@@ -75,7 +75,7 @@ namespace solitaire
         }
     }
 
-    void App::printActiveBoard() {
+    void TextApp::printActiveBoard() {
         if (active_game > 0) {
             cout << "Game number " << active_game << " board:\n";
 
@@ -83,7 +83,7 @@ namespace solitaire
         }
     }
 
-    void App::printHelp() {
+    void TextApp::printHelp() {
         cout << "General commands:\n";
         cout << "help      show this help\n";
         cout << "new       start a new game\n";
@@ -102,7 +102,7 @@ namespace solitaire
         cout << "turn pileX          turn 1 card from pile (1-7)\n";
     }
 
-    void App::newGame() {
+    void TextApp::newGame() {
         GameUI new_game;
 
         if (gameUIs.size() < max_num_of_games)
@@ -115,7 +115,7 @@ namespace solitaire
         cout << "Created game number " << active_game << "\n";
     }
 
-    void App::closeGame() {
+    void TextApp::closeGame() {
         gameUIs.erase(gameUIs.begin() + active_game - 1);
 
         cout << "Game number " << active_game << " closed\n";
@@ -123,7 +123,7 @@ namespace solitaire
         active_game = gameUIs.size();
     }
 
-    void App::switchGame(int game_num) {
+    void TextApp::switchGame(int game_num) {
         if (game_num <= 0 || game_num > gameUIs.size())
             throw InvalidActionException("Invalid game number");
 
@@ -132,7 +132,7 @@ namespace solitaire
         cout << "Switched to game number " << active_game << "\n";
     }
 
-    void App::printGames() {
+    void TextApp::printGames() {
         if (gameUIs.size() == 0) {
             cout << "No games are currently played\n";
             return;

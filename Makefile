@@ -1,5 +1,6 @@
 all:
 	g++ -o hra2017-cli src/*.cpp
+	g++ -DGUI -o hra2017 src/*.cpp
 
 run:
 	./hra2017-cli
