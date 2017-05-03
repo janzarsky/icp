@@ -86,9 +86,9 @@ class GAME {
 		}
 	  void construct_card_vector(int pos, vector<card>& tempVector);
 
-		
+
 	  int MoveCard();
-		int MoveCard(solitaire::Command);
+		// int MoveCard(solitaire::Command);
 		void rev_MoveCard();
 
 
@@ -97,7 +97,7 @@ class GAME {
 
 
 	  void Play();
-		void Play(solitaire::Command);
+		// void Play(solitaire::Command);
 
 
 	  void ShowTable();

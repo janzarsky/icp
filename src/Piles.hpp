@@ -83,7 +83,7 @@ class TargetPile:public Pile_Interface{
       if(!(flags & INSERT_ONLY)){
         int Dtemp_suit = (*(cards.end() - 1)).getSuit();
         int Dtemp_value = (*(cards.end() - 1)).getValue();
-        card  cd = *(cd_vec.end()-1);
+        card  cd = *(cd_vec.begin());
 
         if(this->IsEmpty()){
           if(cd.getValue() != K){
@@ -113,7 +113,7 @@ class TargetPile:public Pile_Interface{
         }
       }
 
-    	for (auto iter = cd_vec.rbegin();iter != cd_vec.rend();iter++ ) {
+    	for (auto iter = cd_vec.begin();iter != cd_vec.end();iter++ ) {
     		this->cards.push_back(*iter);
     		this->shownCards++;
     		if (flags & INSERT_ONLY) this->shownCards--;
@@ -130,6 +130,7 @@ class HomePile:public Pile_Interface{
     HomePile(){
       this->cards = std::vector<card>{};
       this->size = 0;
+      shownCards = 0;
     }
 
 
@@ -157,6 +158,7 @@ class HomePile:public Pile_Interface{
 					cerr << "You must place here cards with same suit" << endl;
 					return -1;
 				}
+        shownCards++;
       }
 
       this->cards.push_back(cd);
@@ -179,6 +181,7 @@ class HomePile:public Pile_Interface{
               cerr << "You can place only A to empty field" << endl;
               return -1;
             }
+            shownCards++;
             this->cards.push_back(cd);
           	this->size++;
             return 0;
@@ -215,13 +218,30 @@ class StoragePile:public Pile_Interface{
   public:
     int AddCard(card& cd, int flags)
     {
-      cerr<<"You can't add cards to storage pile\n";
-      return -1;
+
+      if(flags & INSERT_ONLY){
+        this->cards.push_back(cd);
+      	this->size++;
+        return 0;
+      }
+      else{
+        cerr<<"You can't add cards to storage pile\n";
+        return -1;
+      }
     }
     int AddCard(std::vector<card> cd_vec, int flags)
     {
-      cerr<<"You can't add cards to storage pile\n";
-      return -1;
+      if(flags & INSERT_ONLY){
+        for (auto iter = cd_vec.begin();iter != cd_vec.end();iter++ ) {
+      		this->cards.push_back(*iter);
+      		this->size++;
+      	}
+        return 0;
+      }
+      else{
+        cerr<<"You can't add cards to storage pile\n";
+        return -1;
+      }
     }
     StoragePile() = delete;
     StoragePile(std::vector<card>& vec)
