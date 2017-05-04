@@ -23,6 +23,7 @@ HEADERS += Card.hpp \
            Game.hpp \
            GameUI.hpp \
            GUIApp.hpp \
+           GUICard.hpp \
            Pile.hpp \
            Pile_interface.hpp \
            Piles.hpp \
@@ -32,6 +33,7 @@ SOURCES += Card.cpp \
            Game.cpp \
            GameUI.cpp \
            GUIApp.cpp \
+           GUICard.cpp \
            GUIGame.cpp \
            Main.cpp \
            Pile.cpp \

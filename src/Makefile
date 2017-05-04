@@ -52,6 +52,7 @@ SOURCES       = Card.cpp \
 		Game.cpp \
 		GameUI.cpp \
 		GUIApp.cpp \
+		GUICard.cpp \
 		GUIGame.cpp \
 		Main.cpp \
 		Pile.cpp \
@@ -61,6 +62,7 @@ OBJECTS       = Card.o \
 		Game.o \
 		GameUI.o \
 		GUIApp.o \
+		GUICard.o \
 		GUIGame.o \
 		Main.o \
 		Pile.o \
@@ -195,6 +197,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		Game.hpp \
 		GameUI.hpp \
 		GUIApp.hpp \
+		GUICard.hpp \
 		Pile.hpp \
 		Pile_interface.hpp \
 		Piles.hpp \
@@ -203,6 +206,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		Game.cpp \
 		GameUI.cpp \
 		GUIApp.cpp \
+		GUICard.cpp \
 		GUIGame.cpp \
 		Main.cpp \
 		Pile.cpp \
@@ -490,8 +494,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Card.hpp Command.hpp Exceptions.hpp Game.hpp GameUI.hpp GUIApp.hpp Pile.hpp Pile_interface.hpp Piles.hpp TextApp.hpp TextUIParser.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents Card.cpp Game.cpp GameUI.cpp GUIApp.cpp GUIGame.cpp Main.cpp Pile.cpp TextApp.cpp TextUIParser.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Card.hpp Command.hpp Exceptions.hpp Game.hpp GameUI.hpp GUIApp.hpp GUICard.hpp Pile.hpp Pile_interface.hpp Piles.hpp TextApp.hpp TextUIParser.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Card.cpp Game.cpp GameUI.cpp GUIApp.cpp GUICard.cpp GUIGame.cpp Main.cpp Pile.cpp TextApp.cpp TextUIParser.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -556,15 +560,21 @@ GameUI.o: GameUI.cpp GameUI.hpp \
 
 GUIApp.o: GUIApp.cpp GUIApp.hpp \
 		GUIGame.hpp \
-		Game.hpp \
+		GUICard.hpp \
 		Card.hpp \
+		Game.hpp \
 		Pile.hpp \
 		Exceptions.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIApp.o GUIApp.cpp
 
+GUICard.o: GUICard.cpp GUICard.hpp \
+		Card.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUICard.o GUICard.cpp
+
 GUIGame.o: GUIGame.cpp GUIGame.hpp \
-		Game.hpp \
+		GUICard.hpp \
 		Card.hpp \
+		Game.hpp \
 		Pile.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIGame.o GUIGame.cpp
 
@@ -576,7 +586,8 @@ Main.o: Main.cpp Game.hpp \
 		Command.hpp \
 		TextUIParser.hpp \
 		GUIApp.hpp \
-		GUIGame.hpp
+		GUIGame.hpp \
+		GUICard.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Main.o Main.cpp
 
 Pile.o: Pile.cpp Pile.hpp \

@@ -34,7 +34,7 @@ namespace solitaire
         back->setAutoFillBackground(true);
         back->setPalette(pal2);
 
-        deck = new QLabel();
+        deck = new GUICard();
         deck->setAutoFillBackground(true);
         deck->setPalette(pal2);
 
@@ -42,7 +42,7 @@ namespace solitaire
         layout->addWidget(deck, 0, 1);
 
         for (unsigned int i = 0; i < NUM_OF_HOMES; i++) {
-            homes[i] = new QLabel();
+            homes[i] = new GUICard();
             homes[i]->setAutoFillBackground(true);
             homes[i]->setPalette(pal2);
             layout->addWidget(homes[i], 0, 3 + i);
@@ -69,13 +69,13 @@ namespace solitaire
         card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back();
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().size() > 0)
-            deck->setText(unicode(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back()));
+            deck->setCardValue(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back());
         else
             deck->setText("[]");
 
         for (int i = 0; i < NUM_OF_HOMES; i++)
             if (game.piles[NUM_OF_COLUMNS + i].GetPile().size() > 0)
-                homes[i]->setText(unicode(game.piles[NUM_OF_COLUMNS + i].GetPile().back()));
+                homes[i]->setCardValue(game.piles[NUM_OF_COLUMNS + i].GetPile().back());
             else
                 homes[i]->setText("[]");
 
@@ -88,7 +88,8 @@ namespace solitaire
             unsigned int pile_size = game.piles[i].GetPile().size();
             
             for (unsigned int j = 0; j < pile_size; j++) {
-                QLabel *l = new QLabel(unicode(game.piles[i].GetPile()[j]));
+                GUICard *l = new GUICard();
+                l->setCardValue(game.piles[i].GetPile()[j]);
                 l->setAutoFillBackground(true);
                 l->setPalette(pal);
                 pile_layouts[i]->addWidget(l);
@@ -101,45 +102,4 @@ namespace solitaire
         }
     }
 
-    QString GUIGame::unicode(card& card) {
-        QString res;
-
-		switch (card.getValue()) {
-            case 11:
-                res = "J";
-                break;
-            case 12:
-                res = "Q";
-                break;
-            case 13:
-                res = "K";
-                break;
-            case 1:
-                res = "A";
-                break;
-            default:
-                res = (card.getValue() + '0' - 1);
-                break;
-		}
-
-		switch (card.getSuit()) {
-            case CLUBS:
-                res += "\u2663";
-                break;
-            case DIAMONDS:
-                res += "\u2666";
-                break;
-            case HEARTS:
-                res += "\u2665";
-                break;
-            case SPADES:
-                res += "\u2660";
-                break;
-            default:
-                res += "UNKNOWN";
-                break;
-		}
-        
-        return res;
-    }
 }
