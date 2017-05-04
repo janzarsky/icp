@@ -11,7 +11,7 @@ namespace solitaire
     class GUIGame: public QWidget
     {
         GAME game;
-        QVBoxLayout *layout;
+        QGridLayout *layout;
         QLabel *deck;
         QLabel *homes[NUM_OF_HOMES];
         QLabel *piles[NUM_OF_COLUMNS];

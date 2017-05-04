@@ -26,7 +26,7 @@ namespace solitaire
         QPalette pal2;
         pal2.setColor(QPalette::Background, QColor::fromRgb(32,255,32));
 
-        layout = new QVBoxLayout();
+        layout = new QGridLayout();
 
         QLabel *back = new QLabel("Back deck");
         back->setAutoFillBackground(true);
@@ -36,29 +36,22 @@ namespace solitaire
         deck->setAutoFillBackground(true);
         deck->setPalette(pal2);
 
-        QHBoxLayout *topBox = new QHBoxLayout();
-        topBox->addWidget(back);
-        topBox->addWidget(deck);
+        layout->addWidget(back, 0, 0);
+        layout->addWidget(deck, 0, 1);
 
         for (unsigned int i = 0; i < NUM_OF_HOMES; i++) {
             homes[i] = new QLabel("Home");
             homes[i]->setAutoFillBackground(true);
             homes[i]->setPalette(pal2);
-            topBox->addWidget(homes[i]);
+            layout->addWidget(homes[i], 0, 3 + i);
         }
-
-        layout->addLayout(topBox);
-
-        QHBoxLayout *bottomBox = new QHBoxLayout();
 
         for (unsigned int i = 0; i < NUM_OF_COLUMNS; i++) {
             piles[i] = new QLabel("Pile");
             piles[i]->setAutoFillBackground(true);
             piles[i]->setPalette(pal2);
-            bottomBox->addWidget(piles[i]);
+            layout->addWidget(piles[i], 1, i);
         }
-
-        layout->addLayout(bottomBox);
 
         setLayout(layout);
     }
