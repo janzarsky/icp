@@ -30,11 +30,11 @@ namespace solitaire
 
         layout = new QGridLayout();
 
-        QLabel *back = new QLabel("Back deck");
+        QLabel *back = new QLabel("XX");
         back->setAutoFillBackground(true);
         back->setPalette(pal2);
 
-        deck = new QLabel("Front deck");
+        deck = new QLabel();
         deck->setAutoFillBackground(true);
         deck->setPalette(pal2);
 
@@ -42,7 +42,7 @@ namespace solitaire
         layout->addWidget(deck, 0, 1);
 
         for (unsigned int i = 0; i < NUM_OF_HOMES; i++) {
-            homes[i] = new QLabel("Home");
+            homes[i] = new QLabel();
             homes[i]->setAutoFillBackground(true);
             homes[i]->setPalette(pal2);
             layout->addWidget(homes[i], 0, 3 + i);
@@ -84,8 +84,10 @@ namespace solitaire
             while ((child = pile_layouts[i]->takeAt(0)) != 0) {
                 delete child;
             }
+
+            unsigned int pile_size = game.piles[i].GetPile().size();
             
-            for (unsigned int j = 0; j < game.piles[i].GetPile().size(); j++) {
+            for (unsigned int j = 0; j < pile_size; j++) {
                 QLabel *l = new QLabel(unicode(game.piles[i].GetPile()[j]));
                 l->setAutoFillBackground(true);
                 l->setPalette(pal);
