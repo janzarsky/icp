@@ -3,6 +3,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QWidget>
+#include <QPalette>
 #include "GUIApp.hpp"
 #include "Game.hpp"
 #include "Exceptions.hpp"
@@ -14,20 +15,22 @@ namespace solitaire
     GUIApp::GUIApp(int argc, char *argv[]): app{argc, argv} {
         cout << "(constructor GUIApp)\n";
 		initLayout();
-		// test
-		addGame();
-		addGame();
-		addGame();
-
-		app.exec();
     }
 
 	void GUIApp::initLayout() {
+        gamesGrid.setSizeConstraint(QLayout::SetMinimumSize);
+
+        addGame();
+        addGame();
+        addGame();
+
 		QWidget *window = new QWidget();
 		window->setLayout(&gamesGrid);
 
 		mainWindow.setCentralWidget(window);
 		mainWindow.show();
+
+		app.exec();
 	}
 
 	void GUIApp::addGame() {
@@ -36,13 +39,9 @@ namespace solitaire
         if (size >= max_num_of_games)
             throw InvalidActionException("Reached maximum number of games");
 		
-		GUIGame game;
+		GUIGame *game = new GUIGame();
 
-		gameUIs.push_back(&game);
-
-		QWidget *gameWrapper = new QWidget();
-		gameWrapper->setLayout(&game);
-		gameWrapper->show();
+		gameUIs.push_back(game);
 		
 		int x = 0;
 		int y = 0;
@@ -66,7 +65,18 @@ namespace solitaire
 				break;
 		}
 
-		gamesGrid.addWidget(gameWrapper, x, y, Qt::AlignCenter);
+		gamesGrid.addWidget(game, x, y);
+
+/*
+        QPalette pal;
+        pal.setColor(QPalette::Background, QColor::fromRgb(0,255,0));
+
+        QLabel *l = new QLabel("asdf");
+        l->setAutoFillBackground(true);
+        l->setPalette(pal);
+
+        gamesGrid.addWidget(l, x, y);
+        */
 	}
 }
 

@@ -562,7 +562,10 @@ GUIApp.o: GUIApp.cpp GUIApp.hpp \
 		Exceptions.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIApp.o GUIApp.cpp
 
-GUIGame.o: GUIGame.cpp GUIGame.hpp
+GUIGame.o: GUIGame.cpp GUIGame.hpp \
+		Game.hpp \
+		Card.hpp \
+		Pile.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIGame.o GUIGame.cpp
 
 Main.o: Main.cpp Game.hpp \
