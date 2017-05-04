@@ -89,7 +89,12 @@ namespace solitaire
             
             for (unsigned int j = 0; j < pile_size; j++) {
                 GUICard *l = new GUICard();
-                l->setCardValue(game.piles[i].GetPile()[j]);
+
+                if (j >= pile_size - game.piles[i].shownCards)
+                    l->setCardValue(game.piles[i].GetPile()[j]);
+                else
+                    l->setCardBack();
+
                 l->setAutoFillBackground(true);
                 l->setPalette(pal);
                 pile_layouts[i]->addWidget(l);
