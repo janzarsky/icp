@@ -11,7 +11,6 @@
 	//Print all cards in the vector
 	void PrintCards(vector<card> st)
 	{
-		unsigned counter = 0;
 		for (card c : st)
 		{
 			cout << setiosflags(ios::left)<< flush;
@@ -177,7 +176,7 @@
 			return -1;
 		}
 
-		if(piles[from - 1]->shownCards == count && count != piles[from - 1]->size) currentCmd.revealed = true;
+		if(piles[from - 1]->shownCards == static_cast<unsigned>(count) && static_cast<unsigned>(count) != piles[from - 1]->size) currentCmd.revealed = true;
 		else currentCmd.revealed = false;
 		if(!piles[to - 1]->AddCard(temp_vect)){
 				for (int i = 0; i < count; i++) {
@@ -341,7 +340,7 @@
 					else{
 						int Dtemp_suit = dpl->GetPile().back().getSuit();
 						int Dtemp_value = dpl->GetPile().back().getValue();
-						if( (lcd.getValue() - 1 == Dtemp_value) && (Dtemp_suit == lcd.getSuit()) )  {
+						if( (lcd.getValue() - 1 == static_cast<unsigned>(Dtemp_value)) && (Dtemp_suit == lcd.getSuit()) )  {
 	            return;
 	          }
 					}
@@ -360,12 +359,12 @@
 						switch (fcd.getSuit()) {
 		        case DIAMONDS:
 		        case HEARTS:
-							if( (fcd.getValue() + 1 == Dtemp_value) &&(Dtemp_suit == SPADES || Dtemp_suit == CLUBS) ) {
+							if( (fcd.getValue() + 1 == static_cast<unsigned>(Dtemp_value)) &&(static_cast<unsigned>(Dtemp_suit) == SPADES || Dtemp_suit == CLUBS) ) {
 		            return;
 		          }
 		          break;
 		        default:
-							if( (fcd.getValue() + 1 == Dtemp_value) && (Dtemp_suit == DIAMONDS || Dtemp_suit == HEARTS) )  {
+							if( (fcd.getValue() + 1 == static_cast<unsigned>(Dtemp_value)) && (static_cast<unsigned>(Dtemp_suit) == DIAMONDS || Dtemp_suit == HEARTS) )  {
 		            return;
 		          }
 		        }
@@ -442,7 +441,7 @@
 	void GAME::Play(solitaire::Command command)
 	{
         if (command.type == solitaire::move) {
-		    if(piles[command.from - 1]->shownCards == command.count && command.count != piles[command.from - 1]->size) command.revealed = true;
+		    if(piles[command.from - 1]->shownCards == static_cast<unsigned>(command.count) && static_cast<unsigned>(command.count) != piles[command.from - 1]->size) command.revealed = true;
 		    else command.revealed = false;
         }
 

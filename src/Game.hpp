@@ -6,6 +6,9 @@
 #include <list>
 #include <algorithm>
 #include "Command.hpp"
+#include <fstream>
+#include<sstream>
+
 
 using namespace std;
 typedef Pile_Interface pile;
@@ -55,9 +58,9 @@ class GAME {
 		vector<pile *> homes;
 	  GAME() {
 
-			for (int i = 1; i <= K; i++)
+			for (unsigned i = 1; i <= K; i++)
 			{
-				for (int k = CLUBS; k <= SPADES; k = k + 1)
+				for (unsigned k = CLUBS; k <= SPADES; k = k + 1)
 				{
 					cardStack.push_back(card(static_cast<cardsuit>(k), i));
 				}
@@ -85,6 +88,73 @@ class GAME {
 			}
 
 		}
+
+
+		GAME(string path_to_save){
+			int pile_counter = 1;
+			ifstream ifile;
+			ifile.open(path_to_save.c_str());
+			if(ifile.fail()){
+				cerr<<"ERROR: Can't open file for reading.\n";
+				exit(-1);
+			}
+			char line [50];
+			//fill all 12 piles
+			while(ifile.getline(line,49)){
+				stringstream ln;
+				char buf[10];
+				int temp_shownCards;
+				ln.getline(buf,9,',');
+				temp_shownCards = atoi(buf);
+				vector<card> tempVector;
+
+
+				//fill temp vector with cards
+				while(ln.getline(buf,9,',')){
+					string temp_card {buf};
+					cardsuit temp_suit;
+					cardsuit temp_value;
+					switch (temp_card[0]) {
+						case 'D':
+							temp_suit = DIAMONDS;
+							break;
+						case 'H':
+							temp_suit = HEARTS;
+							break;
+						case 'S':
+							temp_suit = SPADES;
+							break;
+						case 'C':
+							temp_suit = CLUBS;
+							break;
+						default:
+							cerr<<"ERROR: Unknown card suit\n";
+							break;
+					}
+					temp_card.erase(0,1);
+					temp_value = static_cast<cardsuit>(atoi(temp_card.c_str()));
+					tempVector.push_back(card(temp_suit, temp_value));
+				}
+				if(pile_counter <= NUM_OF_COLUMNS){
+					piles.push_back(factory.GetTargetPile(tempVector));
+					tempVector.clear();
+				}
+				else if(pile_counter <= NUM_OF_COLUMNS + NUM_OF_HOMES){
+					piles.push_back(factory.GetHomePile(tempVector));
+					homes.push_back(piles.back());
+					tempVector.clear();
+				}
+				else{
+					piles.push_back(factory.GetStoragePile(tempVector));
+					tempVector.clear();
+				}
+
+				piles.back()->shownCards = temp_shownCards;
+
+				pile_counter++;
+			}
+		}
+
 	  void construct_card_vector(int pos, vector<card>& tempVector);
 
 

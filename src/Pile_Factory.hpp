@@ -12,22 +12,33 @@ class Pile_Factory{
       piles_pointers.push_back(new HomePile);
       return piles_pointers.back();
     }
+
+    template<typename T> Pile_Interface * GetHomePile(T vec)
+    {
+      piles_pointers.push_back(new HomePile(vec));
+      return piles_pointers.back();
+    }
+
+
     template<typename T> Pile_Interface * GetStoragePile(T vec)
     {
       piles_pointers.push_back(new StoragePile(vec));
       return piles_pointers.back();
     }
+
     template<typename T> Pile_Interface * GetTargetPile(T vec)
     {
       piles_pointers.push_back( new TargetPile(vec));
       return piles_pointers.back();
     }
+
+
     ~Pile_Factory()
     {
       for(auto pl : piles_pointers){
         delete pl;
       }
-      DEBUG("INFO: All piles are deleted.\n");
+      DEB("INFO: All piles are deleted.\n");
     }
 };
 
