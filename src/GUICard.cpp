@@ -6,13 +6,16 @@ using namespace std;
 
 namespace solitaire
 {
-    GUICard::GUICard(unsigned int index) {
-        this->index = index;
+    GUICard::GUICard(unsigned int pileIndex, unsigned int cardIndex) {
+        this->pileIndex = pileIndex;
+        this->cardIndex = cardIndex;
 
         setFlat(true);
         setAutoFillBackground(true);
         setContentsMargins(10, 10, 10, 10);
     }
+
+    GUICard::GUICard(unsigned int pileIndex): GUICard(pileIndex, 0) {}
 
     GUICard::GUICard(): GUICard(0) {}
 
@@ -66,7 +69,11 @@ namespace solitaire
         setText("XX");
     }
 
-    unsigned int GUICard::getIndex() {
-        return index;
+    unsigned int GUICard::getPileIndex() {
+        return pileIndex;
+    }
+
+    unsigned int GUICard::getCardIndex() {
+        return cardIndex;
     }
 }

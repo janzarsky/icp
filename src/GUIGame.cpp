@@ -86,7 +86,7 @@ namespace solitaire
             unsigned int pile_size = game.piles[i].GetPile().size();
             
             for (unsigned int j = 0; j < pile_size; j++) {
-                GUICard *card = new GUICard(i);
+                GUICard *card = new GUICard(i, j);
 
                 if (j >= pile_size - game.piles[i].shownCards)
                     card->setCardValue(game.piles[i].GetPile()[j]);
@@ -135,7 +135,7 @@ namespace solitaire
             if (cmd.count == 1) {
                 GUICard *card = qobject_cast<GUICard *>(sender());
 
-                cmd.to = NUM_OF_COLUMNS + card->getIndex();
+                cmd.to = NUM_OF_COLUMNS + card->getPileIndex();
 
                 sendCommand();
             }
@@ -150,17 +150,19 @@ namespace solitaire
 
             GUICard *card = qobject_cast<GUICard *>(sender());
 
-            cmd.from = card->getIndex();
+            cmd.from = card->getPileIndex();
 
-            // TODO
-            cmd.count = 1;
+            cmd.count = pile_layouts[cmd.from]->count() - card->getCardIndex() - 1;
 
-            cmdStatus = cmdFrom;
+            if (cmd.count > game.piles[cmd.from].shownCards)
+                cmdStatus = cmdNew;
+            else
+                cmdStatus = cmdFrom;
         }
         else {
             GUICard *card = qobject_cast<GUICard *>(sender());
 
-            cmd.to = card->getIndex();
+            cmd.to = card->getPileIndex();
 
             sendCommand();
 

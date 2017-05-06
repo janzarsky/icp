@@ -12,14 +12,18 @@ namespace solitaire
     {
         Q_OBJECT
 
-        unsigned int index;
+        unsigned int pileIndex;
+        unsigned int cardIndex;
 
     public:
         GUICard();
-        GUICard(unsigned int index);
+        GUICard(unsigned int pileIndex);
+        GUICard(unsigned int pileIndex, unsigned int cardIndex);
+
         void setCardValue(card& card);
         void setCardEmpty();
         void setCardBack();
-        unsigned int getIndex();
+        unsigned int getPileIndex();
+        unsigned int getCardIndex();
     };
 }
