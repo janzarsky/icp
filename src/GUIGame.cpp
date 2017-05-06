@@ -29,6 +29,7 @@ namespace solitaire
 
         GUICard *back = new GUICard();
         back->setCardBack();
+        connect(back, SIGNAL(clicked()), this, SLOT(turnCard()));
 
         deck = new GUICard();
 
@@ -98,4 +99,8 @@ namespace solitaire
         }
     }
 
+    void GUIGame::turnCard() {
+        cmd.type = turn;
+        cout << "sending turn command" << endl;
+    }
 }

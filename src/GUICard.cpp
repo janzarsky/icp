@@ -8,18 +8,12 @@ using namespace std;
 namespace solitaire
 {
     GUICard::GUICard() {
-        frontPal.setColor(QPalette::Background, QColor::fromRgb(255, 255, 255));
-        backPal.setColor(QPalette::Background, QColor::fromRgb(191, 191, 191));
-        emptyPal.setColor(QPalette::Background, QColor::fromRgb(95, 95, 95));
-
+        setFlat(true);
         setAutoFillBackground(true);
-        setPalette(backPal);
         setContentsMargins(10, 10, 10, 10);
     }
 
     void GUICard::setCardValue(card& card) {
-        setPalette(frontPal);
-
         QString res;
 
 		switch (card.getValue()) {
@@ -62,14 +56,10 @@ namespace solitaire
     }
 
     void GUICard::setCardEmpty() {
-        setPalette(emptyPal);
-
         setText("[]");
     }
 
     void GUICard::setCardBack() {
-        setPalette(backPal);
-
         setText("XX");
     }
 }

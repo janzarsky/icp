@@ -24,6 +24,7 @@ HEADERS += Card.hpp \
            GameUI.hpp \
            GUIApp.hpp \
            GUICard.hpp \
+           GUIGame.hpp \
            Pile.hpp \
            Pile_interface.hpp \
            Piles.hpp \

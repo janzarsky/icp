@@ -57,7 +57,8 @@ SOURCES       = Card.cpp \
 		Main.cpp \
 		Pile.cpp \
 		TextApp.cpp \
-		TextUIParser.cpp moc_GUIApp.cpp
+		TextUIParser.cpp moc_GUIApp.cpp \
+		moc_GUIGame.cpp
 OBJECTS       = Card.o \
 		Game.o \
 		GameUI.o \
@@ -68,7 +69,8 @@ OBJECTS       = Card.o \
 		Pile.o \
 		TextApp.o \
 		TextUIParser.o \
-		moc_GUIApp.o
+		moc_GUIApp.o \
+		moc_GUIGame.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -199,6 +201,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		GameUI.hpp \
 		GUIApp.hpp \
 		GUICard.hpp \
+		GUIGame.hpp \
 		Pile.hpp \
 		Pile_interface.hpp \
 		Piles.hpp \
@@ -495,7 +498,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Card.hpp Command.hpp Exceptions.hpp Game.hpp GameUI.hpp GUIApp.hpp GUICard.hpp Pile.hpp Pile_interface.hpp Piles.hpp TextApp.hpp TextUIParser.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Card.hpp Command.hpp Exceptions.hpp Game.hpp GameUI.hpp GUIApp.hpp GUICard.hpp GUIGame.hpp Pile.hpp Pile_interface.hpp Piles.hpp TextApp.hpp TextUIParser.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents Card.cpp Game.cpp GameUI.cpp GUIApp.cpp GUICard.cpp GUIGame.cpp Main.cpp Pile.cpp TextApp.cpp TextUIParser.cpp $(DISTDIR)/
 
 
@@ -528,18 +531,29 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_GUIApp.cpp
+compiler_moc_header_make_all: moc_GUIApp.cpp moc_GUIGame.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_GUIApp.cpp
+	-$(DEL_FILE) moc_GUIApp.cpp moc_GUIGame.cpp
 moc_GUIApp.cpp: GUIGame.hpp \
 		GUICard.hpp \
 		Card.hpp \
 		Game.hpp \
 		Pile.hpp \
+		Command.hpp \
 		GUIApp.hpp \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/janzarsky/Dropbox/school/icp/icp/src -I/home/janzarsky/Dropbox/school/icp/icp/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include GUIApp.hpp -o moc_GUIApp.cpp
+
+moc_GUIGame.cpp: GUICard.hpp \
+		Card.hpp \
+		Game.hpp \
+		Pile.hpp \
+		Command.hpp \
+		GUIGame.hpp \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/janzarsky/Dropbox/school/icp/icp/src -I/home/janzarsky/Dropbox/school/icp/icp/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include GUIGame.hpp -o moc_GUIGame.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -576,6 +590,7 @@ GUIApp.o: GUIApp.cpp GUIApp.hpp \
 		Card.hpp \
 		Game.hpp \
 		Pile.hpp \
+		Command.hpp \
 		Exceptions.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIApp.o GUIApp.cpp
 
@@ -587,7 +602,8 @@ GUIGame.o: GUIGame.cpp GUIGame.hpp \
 		GUICard.hpp \
 		Card.hpp \
 		Game.hpp \
-		Pile.hpp
+		Pile.hpp \
+		Command.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GUIGame.o GUIGame.cpp
 
 Main.o: Main.cpp Game.hpp \
@@ -626,6 +642,9 @@ TextUIParser.o: TextUIParser.cpp TextUIParser.hpp \
 
 moc_GUIApp.o: moc_GUIApp.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GUIApp.o moc_GUIApp.cpp
+
+moc_GUIGame.o: moc_GUIGame.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GUIGame.o moc_GUIGame.cpp
 
 ####### Install
 
