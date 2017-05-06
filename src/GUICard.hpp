@@ -9,6 +9,10 @@ namespace solitaire
 {
     class GUICard: public QLabel
     {
+        QPalette frontPal;
+        QPalette backPal;
+        QPalette emptyPal;
+
     public:
         GUICard();
         void setCardValue(card& card);

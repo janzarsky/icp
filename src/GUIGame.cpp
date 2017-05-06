@@ -21,7 +21,7 @@ namespace solitaire
 
     void GUIGame::initLayout() {
         QPalette pal;
-        pal.setColor(QPalette::Background, QColor::fromRgb(127,255,127));
+        pal.setColor(QPalette::Background, QColor::fromRgb(64,64,64));
         setAutoFillBackground(true);
         setPalette(pal);
 
@@ -43,7 +43,7 @@ namespace solitaire
         for (unsigned int i = 0; i < NUM_OF_COLUMNS; i++) {
             pile_layouts[i] = new QVBoxLayout();
             pile_layouts[i]->setContentsMargins(0, 0, 0, 0);
-            pile_layouts[i]->setSpacing(10);
+            pile_layouts[i]->setSpacing(0);
 
             piles[i] = new QWidget();
             piles[i]->setLayout(pile_layouts[i]);
@@ -66,7 +66,7 @@ namespace solitaire
             if (game.piles[NUM_OF_COLUMNS + i].GetPile().size() > 0)
                 homes[i]->setCardValue(game.piles[NUM_OF_COLUMNS + i].GetPile().back());
             else
-                homes[i]->setText("[]");
+                homes[i]->setCardEmpty();
 
         for (int i = 0; i < NUM_OF_COLUMNS; i++) {
             QLayoutItem *child;
