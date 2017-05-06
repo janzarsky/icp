@@ -70,20 +70,20 @@ namespace solitaire
     }
 
     void GameUI::printBoard() {
-        card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back();
+        card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back();
 
         cout << unicode_back() << " ";
 
-        if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().size() > 0)
-            cout << unicode(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back()) << " ";
+        if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().size() > 0)
+            cout << unicode(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back()) << " ";
         else
             cout << unicode_empty() << " ";
 
         cout << unicode_space() << " ";
 
         for (int i = 0; i < NUM_OF_HOMES; i++)
-            if (game.piles[NUM_OF_COLUMNS + i].GetPile().size() > 0)
-                cout << unicode(game.piles[NUM_OF_COLUMNS + i].GetPile().back()) << " ";
+            if (game.piles[NUM_OF_COLUMNS + i]->GetPile().size() > 0)
+                cout << unicode(game.piles[NUM_OF_COLUMNS + i]->GetPile().back()) << " ";
             else
                 cout << unicode_empty() << " ";
 
@@ -93,7 +93,7 @@ namespace solitaire
         int sizes[NUM_OF_COLUMNS];
         
         for (int i = 0; i < NUM_OF_COLUMNS; i++) {
-            sizes[i] = game.piles[i].GetPile().size();
+            sizes[i] = game.piles[i]->GetPile().size();
 
             if (sizes[i] > max_height)
                 max_height = sizes[i];
@@ -102,7 +102,7 @@ namespace solitaire
         for (int i = 0; i < max_height; i++) {
             for (int j = 0; j < NUM_OF_COLUMNS; j++) {
                 if (i < sizes[j])
-                    cout << unicode(game.piles[j].GetPile()[i]) << " ";
+                    cout << unicode(game.piles[j]->GetPile()[i]) << " ";
                 else
                     cout << unicode_space() << " ";
             }

@@ -59,16 +59,16 @@ namespace solitaire
     }
 
     void GUIGame::repaint() {
-        card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back();
+        card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back();
 
-        if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().size() > 0)
-            deck->setCardValue(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back());
+        if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().size() > 0)
+            deck->setCardValue(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back());
         else
             deck->setText("[]");
 
         for (int i = 0; i < NUM_OF_HOMES; i++)
-            if (game.piles[NUM_OF_COLUMNS + i].GetPile().size() > 0)
-                homes[i]->setCardValue(game.piles[NUM_OF_COLUMNS + i].GetPile().back());
+            if (game.piles[NUM_OF_COLUMNS + i]->GetPile().size() > 0)
+                homes[i]->setCardValue(game.piles[NUM_OF_COLUMNS + i]->GetPile().back());
             else
                 homes[i]->setCardEmpty();
 
@@ -83,13 +83,13 @@ namespace solitaire
                 delete child;
             }
 
-            unsigned int pile_size = game.piles[i].GetPile().size();
+            unsigned int pile_size = game.piles[i]->GetPile().size();
             
             for (unsigned int j = 0; j < pile_size; j++) {
                 GUICard *card = new GUICard(i, j);
 
-                if (j >= pile_size - game.piles[i].shownCards)
-                    card->setCardValue(game.piles[i].GetPile()[j]);
+                if (j >= pile_size - game.piles[i]->shownCards)
+                    card->setCardValue(game.piles[i]->GetPile()[j]);
                 else
                     card->setCardBack();
 
@@ -154,7 +154,7 @@ namespace solitaire
 
             cmd.count = pile_layouts[cmd.from]->count() - card->getCardIndex() - 1;
 
-            if (cmd.count > game.piles[cmd.from].shownCards)
+            if (cmd.count > game.piles[cmd.from]->shownCards)
                 cmdStatus = cmdNew;
             else
                 cmdStatus = cmdFrom;
