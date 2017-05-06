@@ -1,16 +1,14 @@
 #include<iostream>
 #include<vector>
+#include <algorithm>
 
 using namespace std;
 
 int main(){
-	for(int i = 0; i<= 10;i++){
-		cout<<" "<<i;
-		if(i== 5){
-			i = 9;
-			continue;
-		}
-	}
-
+	vector<int> vec {1,2,3,4,5};
+	
+	random_shuffle(vec.begin(), vec.end());
+	for(int i : vec) cout<<i<<' ';
+	cout<<endl;
 	return 0;
 }

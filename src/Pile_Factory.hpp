@@ -27,6 +27,7 @@ class Pile_Factory{
       for(auto pl : piles_pointers){
         delete pl;
       }
+      DEBUG("INFO: All piles are deleted.\n");
     }
 };
 

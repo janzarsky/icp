@@ -4,6 +4,7 @@
 #include "Pile_Factory.hpp"
 #include <vector>
 #include <list>
+#include <algorithm>
 #include "Command.hpp"
 
 using namespace std;

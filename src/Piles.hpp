@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include <algorithm>
 
 #define DEBUG
 #ifdef DEBUG
@@ -251,6 +252,7 @@ class StoragePile:public Pile_Interface{
     		this->cards.push_back(cd);
     		this->size++;
     	}
+      random_shuffle(cards.begin(),cards.end());
     }
 
     ~StoragePile(){}
