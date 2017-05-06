@@ -108,6 +108,7 @@ namespace solitaire
                     else if (str.substr(0, 4) == "home") {
                         // move pileX homeX
                         cmd.game_cmd.to = stoi(str.substr(4)) + NUM_OF_COLUMNS - 1;
+                        cmd.game_cmd.count = 1;
 
                         if (cmd.game_cmd.to < NUM_OF_COLUMNS ||
                             cmd.game_cmd.to >= NUM_OF_COLUMNS + NUM_OF_HOMES)
@@ -131,6 +132,7 @@ namespace solitaire
         else if (str == "turn" || str == "t") {
             cmd.type = game_cmd;
             cmd.game_cmd.type = turn;
+            cmd.game_cmd.count = 1;
         }
         // other commands
         else if (str == "")

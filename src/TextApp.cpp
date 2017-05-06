@@ -99,8 +99,7 @@ namespace solitaire
         cout << "move pileX homeX    move card from pile (1-7) to home (1-4)\n";
         cout << "move pileX pileX N  move N cards (default is 1) from pile"
              << "(1-7) to another pile (1-7)\n";
-        cout << "turn deck           turn 1 card from the deck\n";
-        cout << "turn pileX          turn 1 card from pile (1-7)\n";
+        cout << "turn                turn 1 card from pile\n";
     }
 
     void TextApp::newGame() {

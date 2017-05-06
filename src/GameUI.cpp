@@ -16,35 +16,39 @@ namespace solitaire
     }
 
     string GameUI::unicode_back() {
-        return "\U0001F0A0 ";
+        return " \U0001F0A0 ";
     }
 
     string GameUI::unicode_empty() {
-        return "[]";
+        return "[ ]";
     }
 
     string GameUI::unicode_space() {
-        return "  ";
+        return "   ";
     }
 
     string GameUI::unicode(card& card) {
         string res;
 
 		switch (card.getValue()) {
+            case 10:
+                res = "10";
+                break;
             case 11:
-                res = "J";
+                res = " J";
                 break;
             case 12:
-                res = "Q";
+                res = " Q";
                 break;
             case 13:
-                res = "K";
+                res = " K";
                 break;
             case 1:
-                res = "A";
+                res = " A";
                 break;
             default:
-                res = (card.getValue() + '0' - 1);
+                res = (card.getValue() + '0');
+                res = " " + res;
                 break;
 		}
 

@@ -23,6 +23,9 @@ namespace solitaire
         QString res;
 
 		switch (card.getValue()) {
+            case 10:
+                res = "10";
+                break;
             case 11:
                 res = "J";
                 break;
@@ -36,7 +39,7 @@ namespace solitaire
                 res = "A";
                 break;
             default:
-                res = (card.getValue() + '0' - 1);
+                res = (card.getValue() + '0');
                 break;
 		}
 
