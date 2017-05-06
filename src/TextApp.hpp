@@ -1,4 +1,5 @@
 #include <vector>
+#include <memory>
 #include "GameUI.hpp"
 #include "TextUIParser.hpp"
 
@@ -9,7 +10,7 @@ namespace solitaire
     class TextApp
     {
         const unsigned int max_num_of_games = 4;
-        vector<GameUI> gameUIs;
+        vector<unique_ptr<GameUI>> gameUIs;
         unsigned int active_game = 0;
         TextUIParser parser;
 

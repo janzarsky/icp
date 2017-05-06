@@ -440,8 +440,10 @@
 	// "Play game" for GUI version of game
 	void GAME::Play(solitaire::Command command)
 	{
-		if(piles[command.from - 1]->shownCards == command.count && command.count != piles[command.from - 1]->size) command.revealed = true;
-		else command.revealed = false;
+        if (command.type == solitaire::move) {
+		    if(piles[command.from - 1]->shownCards == command.count && command.count != piles[command.from - 1]->size) command.revealed = true;
+		    else command.revealed = false;
+        }
 
 		switch (command.type)
 		{

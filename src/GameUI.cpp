@@ -91,7 +91,7 @@ namespace solitaire
 
         int max_height = 0;
         int sizes[NUM_OF_COLUMNS];
-        
+
         for (int i = 0; i < NUM_OF_COLUMNS; i++) {
             sizes[i] = game.piles[i]->GetPile().size();
 
@@ -107,10 +107,10 @@ namespace solitaire
                     cout << unicode_space() << " ";
             }
 
-            cout << "\n";
+            cout << endl;
         }
 
-        cout << "\n";
+        cout << endl;
     }
 
     void GameUI::executeCommand(Command& cmd) {
@@ -124,6 +124,11 @@ namespace solitaire
         else
             cout << "unknown";
 
-        cout << "\n";
+        cout << endl;
+
+        cmd.from++;
+        cmd.to++;
+
+        game.Play(cmd);
     }
 }

@@ -65,7 +65,8 @@ namespace solitaire
                 break;
 
             case game_cmd:
-                gameUIs[active_game].executeCommand(cmd.game_cmd);
+                gameUIs[active_game - 1]->executeCommand(cmd.game_cmd);
+                printActiveBoard();
                 break;
 
             default:
@@ -79,7 +80,7 @@ namespace solitaire
         if (active_game > 0) {
             cout << "Game number " << active_game << " board:\n";
 
-            gameUIs[active_game - 1].printBoard();
+            gameUIs[active_game - 1]->printBoard();
         }
     }
 
@@ -103,10 +104,8 @@ namespace solitaire
     }
 
     void TextApp::newGame() {
-        GameUI new_game;
-
         if (gameUIs.size() < max_num_of_games)
-            gameUIs.push_back(new_game);
+            gameUIs.push_back(unique_ptr<GameUI>(new GameUI()));
         else
             throw InvalidActionException("Reached maximum number of games");
 
