@@ -92,7 +92,7 @@ class TargetPile:public Pile_Interface{
           }
         }
         else if(cd.getValue() + 1 != Dtemp_value) {
-          cerr << "ERROR("<<__LINE__<<"):You can't place this card(s) here";
+          cerr << "ERROR("<<__LINE__<<"):You can't place this card(s) here ";
           DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
           return -1;
         }
