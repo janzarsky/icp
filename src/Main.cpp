@@ -3,7 +3,6 @@
 #include "GUIApp.hpp"
 
 using namespace std;
-using namespace solitaire;
 
 int main(int argc, char **argv)
 {

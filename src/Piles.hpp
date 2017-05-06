@@ -3,7 +3,6 @@
 
 #include "Pile_interface.hpp"
 #include <iostream>
-#include "Card.hpp"
 #include <vector>
 #include <stdlib.h>
 
@@ -23,6 +22,17 @@ using namespace std;
 
 class TargetPile:public Pile_Interface{
   public:
+
+    TargetPile() = delete;
+    TargetPile(std::vector<card>& vec)
+    {
+    	for (card cd : vec)
+    	{
+    		this->cards.push_back(cd);
+    		this->size++;
+    	}
+    }
+
     int AddCard(card& cd, int flags) final
     {
 
@@ -33,12 +43,12 @@ class TargetPile:public Pile_Interface{
 
         if(this->IsEmpty()){
           if(cd.getValue() != K){
-            cerr << "You can place only K to empty field" << endl;
+            cerr << "ERROR("<<__LINE__<<"):You can place only K to empty field" << endl;
             return -1;
           }
         }
         else if(cd.getValue() + 1 != Dtemp_value) {
-          cerr << "You can't place this card(s) here";
+          cerr << "ERROR("<<__LINE__<<"):You can't place this card(s) here";
           DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
           return -1;
         }
@@ -47,13 +57,13 @@ class TargetPile:public Pile_Interface{
         case DIAMONDS:
         case HEARTS:
           if (Dtemp_suit == DIAMONDS || Dtemp_suit == HEARTS) {
-            cerr << "Can't place on same color" << endl;
+            cerr << "ERROR("<<__LINE__<<"):Can't place on same color" << endl;
             return -1;
           }
           break;
         default:
           if (Dtemp_suit == SPADES || Dtemp_suit == CLUBS) {
-            cerr << "Can't place on same color" << endl;
+            cerr << "ERROR("<<__LINE__<<"):Can't place on same color" << endl;
             return -1;
           }
         }
@@ -73,16 +83,16 @@ class TargetPile:public Pile_Interface{
       if(!(flags & INSERT_ONLY)){
         int Dtemp_suit = (*(cards.end() - 1)).getSuit();
         int Dtemp_value = (*(cards.end() - 1)).getValue();
-        card & cd = *(cd_vec.end()-1);
+        card  cd = *(cd_vec.begin());
 
         if(this->IsEmpty()){
           if(cd.getValue() != K){
-            cerr << "You can place only K to empty field" << endl;
+            cerr << "ERROR("<<__LINE__<<"):You can place only K to empty field" << endl;
             return -1;
           }
         }
         else if(cd.getValue() + 1 != Dtemp_value) {
-          cerr << "You can't place this card(s) here";
+          cerr << "ERROR("<<__LINE__<<"):You can't place this card(s) here";
           DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
           return -1;
         }
@@ -91,19 +101,19 @@ class TargetPile:public Pile_Interface{
         case DIAMONDS:
         case HEARTS:
           if (Dtemp_suit == DIAMONDS || Dtemp_suit == HEARTS) {
-            cerr << "Can't place on same color" << endl;
+            cerr << "ERROR("<<__LINE__<<"):Can't place on same color" << endl;
             return -1;
           }
           break;
         default:
           if (Dtemp_suit == SPADES || Dtemp_suit == CLUBS) {
-            cerr << "Can't place on same color" << endl;
+            cerr << "ERROR("<<__LINE__<<"):Can't place on same color" << endl;
             return -1;
           }
         }
       }
 
-    	for (auto iter = cd_vec.rbegin();iter != cd_vec.rend();iter++ ) {
+    	for (auto iter = cd_vec.begin();iter != cd_vec.end();iter++ ) {
     		this->cards.push_back(*iter);
     		this->shownCards++;
     		if (flags & INSERT_ONLY) this->shownCards--;
@@ -111,10 +121,19 @@ class TargetPile:public Pile_Interface{
     	}
       return 0;
     }
+
+    ~TargetPile(){}
 };
 
 class HomePile:public Pile_Interface{
   public:
+    HomePile(){
+      this->cards = std::vector<card>{};
+      this->size = 0;
+      shownCards = 0;
+    }
+
+
     int AddCard(card& cd, int flags) final
     {
 
@@ -139,6 +158,7 @@ class HomePile:public Pile_Interface{
 					cerr << "You must place here cards with same suit" << endl;
 					return -1;
 				}
+        shownCards++;
       }
 
       this->cards.push_back(cd);
@@ -150,9 +170,9 @@ class HomePile:public Pile_Interface{
     {
     	//std::cout<< "first card:" << (this->shownCards.front()).getSuit() << " " << (this->shownCards.front()).getValue() << "\n";
     	//std::cout << "pushing card:" << cd.getSuit() << " " << cd.getValue() << "\n";
-       if(cd_vec.size() == 1){
-        int Dtemp_suit = (*(cards.end() - 1)).getSuit();
-        int Dtemp_value = (*(cards.end() - 1)).getValue();
+      if(cd_vec.size() == 1){
+        int Dtemp_suit = 0;
+        int Dtemp_value = 0;
         card & cd = *(cd_vec.begin());
 
         if(!(flags & INSERT_ONLY)){
@@ -161,20 +181,28 @@ class HomePile:public Pile_Interface{
               cerr << "You can place only A to empty field" << endl;
               return -1;
             }
+            shownCards++;
+            this->cards.push_back(cd);
+          	this->size++;
+            return 0;
           }
-          else if(cd.getValue() - 1 != Dtemp_value) {
-            cerr << "You can't place this card(s) here";
-            DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
-            return -1;
+          else{
+            Dtemp_suit = (*(cards.end() - 1)).getSuit();
+            Dtemp_value = (*(cards.end() - 1)).getValue();
+            if(cd.getValue() - 1 != Dtemp_value) {
+              cerr << "You can't place this card(s) here";
+              DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
+              return -1;
+            }
           }
 
           if (cd.getSuit() != Dtemp_suit) {
-  					cerr << "You must place here cards with same suit" << endl;
-  					return -1;
-  				}
+        		cerr << "You must place here cards with same suit" << endl;
+        		return -1;
+        	}
         }
         this->cards.push_back(cd);
-    		this->size++;
+      	this->size++;
         return 0;
       }
       else{
@@ -182,15 +210,50 @@ class HomePile:public Pile_Interface{
         return -1;
       }
     }
+
+    ~HomePile(){}
 };
 
 class StoragePile:public Pile_Interface{
   public:
-    int AddCard(...)
+    int AddCard(card& cd, int flags)
     {
-      cerr<<"You can't add cards to storage pile\n";
-      return -1;
+
+      if(flags & INSERT_ONLY){
+        this->cards.push_back(cd);
+      	this->size++;
+        return 0;
+      }
+      else{
+        cerr<<"You can't add cards to storage pile\n";
+        return -1;
+      }
     }
+    int AddCard(std::vector<card> cd_vec, int flags)
+    {
+      if(flags & INSERT_ONLY){
+        for (auto iter = cd_vec.begin();iter != cd_vec.end();iter++ ) {
+      		this->cards.push_back(*iter);
+      		this->size++;
+      	}
+        return 0;
+      }
+      else{
+        cerr<<"You can't add cards to storage pile\n";
+        return -1;
+      }
+    }
+    StoragePile() = delete;
+    StoragePile(std::vector<card>& vec)
+    {
+    	for (card cd : vec)
+    	{
+    		this->cards.push_back(cd);
+    		this->size++;
+    	}
+    }
+
+    ~StoragePile(){}
 };
 
 #endif

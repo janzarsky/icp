@@ -1,29 +1,36 @@
 #ifndef GAME_H
 #define GAME_H
 #include "Card.hpp"
-#include "Pile.hpp"
+#include "Pile_Factory.hpp"
 #include <vector>
+#include <list>
+#include "Command.hpp"
 
 using namespace std;
+typedef Pile_Interface pile;
 
 const int NUM_OF_CARDS = 52;
 const int NUM_OF_COLUMNS = 7;
 const int NUM_OF_HOMES = 4;
+const int MAX_RETURNS = 5;
+
+
+
 
 /*									  ALL	PILES LOOK
 
-1)piles[0]---------------first     COMMON      pile---------------------
-2)piles[1]---------------second    COMMON      pile---------------------
-3)piles[2]---------------third     COMMON      pile---------------------
-4)piles[3]-------------- fourth    COMMON      pile---------------------
-5)piles[4]---------------fifth     COMMON      pile---------------------
-6)piles[5]---------------sixth     COMMON      pile---------------------
-7)piles[6]---------------seventh   COMMON      pile---------------------
+1)piles[0]---------------first     TARGET      pile---------------------
+2)piles[1]---------------second    TARGET      pile---------------------
+3)piles[2]---------------third     TARGET      pile---------------------
+4)piles[3]-------------- fourth    TARGET      pile---------------------
+5)piles[4]---------------fifth     TARGET      pile---------------------
+6)piles[5]---------------sixth     TARGET      pile---------------------
+7)piles[6]---------------seventh   TARGET      pile---------------------
 8)piles[7]---------------first     HOME        pile---------------------
 9)piles[8]---------------second    HOME        pile---------------------
 10)piles[9]--------------third     HOME        pile---------------------
 11)piles[10]-------------forth     HOME        pile---------------------
-12)piles[11]-------------pile with OTHER CARDS pile---------------------
+12)piles[11]-------------pile with STORAGE     pile---------------------
 */
 
 
@@ -38,44 +45,67 @@ vector<T> VecSlice(vector<T>, int = 0, int = 0);
 
 class GAME {
 
+		list<solitaire::Command> history;
+		solitaire::Command currentCmd;
+	public:
+		vector <pile *> piles;
+		vector<card> cardStack = {};
+		Pile_Factory factory;
+		vector<pile *> homes;
+	  GAME() {
 
-public:
-	vector <pile> piles;
-	vector<card> cardStack = {};
-  GAME() {
-		for (int i = 1; i <= K; i++)
-		{
-			for (int k = CLUBS; k <= SPADES; k = k + 1)
+			for (int i = 1; i <= K; i++)
 			{
-				cardStack.push_back(card(static_cast<cardsuit>(k), i));
-			}
-		}
-		vector<card> tempVector;
-		srand(static_cast<unsigned int>(time(0)));
-
-		//fill all 7 piles with random cards
-		for (int i = 0; i < NUM_OF_COLUMNS + NUM_OF_HOMES + 1; i++) {
-			if (i >= 7 && i < (NUM_OF_COLUMNS + NUM_OF_HOMES )) {
-				piles.push_back(pile());
-			}
-			else if (i == NUM_OF_COLUMNS + NUM_OF_HOMES) {
-				piles.push_back(pile(cardStack));
-			}
-			else {
-				for (int num = 0; num <= i; num++) {
-					construct_card_vector(rand() % cardStack.size(), tempVector);
+				for (int k = CLUBS; k <= SPADES; k = k + 1)
+				{
+					cardStack.push_back(card(static_cast<cardsuit>(k), i));
 				}
-				piles.push_back(pile(tempVector));
-				tempVector.clear();
 			}
-		}
+			vector<card> tempVector;
+			srand(static_cast<unsigned int>(time(0)));
 
-	}
-  void construct_card_vector(int pos, vector<card>& tempVector);
-  int MoveCard();
-  void RotateStack();
-  void Play();
-  void ShowTable();
+			//fill all 7 piles with random cards
+			for (int i = 0; i < NUM_OF_COLUMNS + NUM_OF_HOMES + 1; i++) {
+				//creating HOMES
+				if (i >= 7 && i < (NUM_OF_COLUMNS + NUM_OF_HOMES )) {
+					piles.push_back(factory.GetHomePile());
+					homes.push_back(piles.back());
+				}//creating STORAGE
+				else if (i == NUM_OF_COLUMNS + NUM_OF_HOMES) {
+					piles.push_back(factory.GetStoragePile(cardStack));
+				}//creating TARGET PILE
+				else {
+					for (int num = 0; num <= i; num++) {
+						construct_card_vector(rand() % cardStack.size(), tempVector);
+					}
+					piles.push_back(factory.GetTargetPile(tempVector));
+					tempVector.clear();
+				}
+			}
+
+		}
+	  void construct_card_vector(int pos, vector<card>& tempVector);
+
+
+	  int MoveCard();
+		int MoveCard(solitaire::Command);
+		void rev_MoveCard();
+
+
+	  void RotateStack();
+		void rev_RotateStack();
+
+
+	  void Play();
+		void Play(solitaire::Command);
+
+		void Help(int &, int &) const;
+
+
+	  void ShowTable();
+
+		void Backward();
+
 };
 
 #endif
