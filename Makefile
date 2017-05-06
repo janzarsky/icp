@@ -11,8 +11,7 @@ gui:
 	make -C src
 
 tui:
-	cd src; qmake CONFIG+=tui
-	make -C src
+	g++ -Wall -DTUI -o hra2017-cli src/Card.cpp src/Game.cpp src/GameUI.cpp src/Main.cpp src/Pile.cpp src/TextApp.cpp src/TextUIParser.cpp
 
 run:
 	./hra2017-cli

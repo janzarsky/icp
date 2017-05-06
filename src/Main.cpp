@@ -1,6 +1,9 @@
 #include "Game.hpp"
+#ifdef TUI
 #include "TextApp.hpp"
+#else
 #include "GUIApp.hpp"
+#endif
 
 using namespace std;
 using namespace solitaire;
