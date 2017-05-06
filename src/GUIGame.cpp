@@ -25,18 +25,12 @@ namespace solitaire
         setAutoFillBackground(true);
         setPalette(pal);
 
-        QPalette pal2;
-        pal2.setColor(QPalette::Background, QColor::fromRgb(32,255,32));
-
         layout = new QGridLayout();
 
-        QLabel *back = new QLabel("XX");
-        back->setAutoFillBackground(true);
-        back->setPalette(pal2);
+        GUICard *back = new GUICard();
+        back->setCardBack();
 
         deck = new GUICard();
-        deck->setAutoFillBackground(true);
-        deck->setPalette(pal2);
 
         layout->addWidget(back, 0, 0);
         layout->addWidget(deck, 0, 1);
@@ -48,10 +42,10 @@ namespace solitaire
 
         for (unsigned int i = 0; i < NUM_OF_COLUMNS; i++) {
             pile_layouts[i] = new QVBoxLayout();
+            pile_layouts[i]->setContentsMargins(0, 0, 0, 0);
+            pile_layouts[i]->setSpacing(10);
 
             piles[i] = new QWidget();
-            piles[i]->setAutoFillBackground(true);
-            piles[i]->setPalette(pal2);
             piles[i]->setLayout(pile_layouts[i]);
 
             layout->addWidget(piles[i], 1, i);
@@ -61,9 +55,6 @@ namespace solitaire
     }
 
     void GUIGame::repaint() {
-        QPalette pal;
-        pal.setColor(QPalette::Background, QColor::fromRgb(0,195,0));
-
         card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().back();
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES].GetPile().size() > 0)
@@ -80,6 +71,11 @@ namespace solitaire
         for (int i = 0; i < NUM_OF_COLUMNS; i++) {
             QLayoutItem *child;
             while ((child = pile_layouts[i]->takeAt(0)) != 0) {
+                if (child->layout() != 0)
+                    delete child->layout();
+                else if (child->widget() != 0)
+                    delete child->widget();
+
                 delete child;
             }
 
@@ -93,15 +89,12 @@ namespace solitaire
                 else
                     l->setCardBack();
 
-                l->setAutoFillBackground(true);
-                l->setPalette(pal);
+                l->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+
                 pile_layouts[i]->addWidget(l);
             }
-            
-            QWidget *w = new QWidget();
-            w->setAutoFillBackground(true);
-            w->setPalette(pal);
-            pile_layouts[i]->addWidget(w, 1);
+
+            pile_layouts[i]->addStretch(0);
         }
     }
 

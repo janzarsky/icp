@@ -9,10 +9,11 @@ namespace solitaire
 {
     GUICard::GUICard() {
         QPalette pal;
-        pal.setColor(QPalette::Background, QColor::fromRgb(0,195,0));
+        pal.setColor(QPalette::Background, Qt::white);
 
         setAutoFillBackground(true);
         setPalette(pal);
+        setContentsMargins(10, 10, 10, 10);
     }
 
     void GUICard::setCardValue(card& card) {
