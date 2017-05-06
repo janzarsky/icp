@@ -15,8 +15,6 @@ namespace solitaire
         cout << "(constructor GUIGame)\n";
         initLayout();
         repaint();
-        repaint();
-        repaint();
     }
 
     void GUIGame::initLayout() {
@@ -171,8 +169,6 @@ namespace solitaire
     }
 
     void GUIGame::sendCommand() {
-        // TODO
-
         cout << "send command, type: ";
 
         if (cmd.type == CommandType::move)
@@ -183,5 +179,12 @@ namespace solitaire
             cout << "unknown, ";
 
         cout << "from: " << cmd.from << ", to: " << cmd.to << ", count: " << cmd.count << endl;
+
+        // fix
+        cmd.from++;
+        cmd.to++;
+
+        game.Play(cmd);
+        repaint();
     }
 }
