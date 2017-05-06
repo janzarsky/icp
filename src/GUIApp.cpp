@@ -3,6 +3,8 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QWidget>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
 #include <QPalette>
 #include "GUIApp.hpp"
 #include "Game.hpp"
@@ -12,28 +14,35 @@ using namespace std;
 
 namespace solitaire
 {
-    GUIApp::GUIApp(int argc, char *argv[]): app{argc, argv} {
-        cout << "(constructor GUIApp)\n";
-		initLayout();
+    GUIApp::GUIApp(int argc, char *argv[]): QApplication(argc, argv) {
+        mainWindow = new GUIMainWindow();
+
+        exec();
     }
 
-	void GUIApp::initLayout() {
+	GUIMainWindow::GUIMainWindow() {
         gamesGrid.setSizeConstraint(QLayout::SetMinimumSize);
-
-        addGame();
-        addGame();
-        addGame();
 
 		QWidget *window = new QWidget();
 		window->setLayout(&gamesGrid);
 
-		mainWindow.setCentralWidget(window);
-		mainWindow.show();
+        newGameAct = new QAction("&New Game");
+        newGameAct->setShortcuts(QKeySequence::New);
+        connect(newGameAct, SIGNAL(triggered()), this, SLOT(newGame()));
 
-		app.exec();
+        closeGameAct = new QAction("&Close Game");
+        closeGameAct->setShortcuts(QKeySequence::Close);
+        connect(closeGameAct, SIGNAL(triggered()), this, SLOT(closeGame()));
+
+        gameMenu = menuBar()->addMenu("&Game");
+        gameMenu->addAction(newGameAct);
+        gameMenu->addAction(closeGameAct);
+
+		setCentralWidget(window);
+		show();
 	}
 
-	void GUIApp::addGame() {
+	void GUIMainWindow::newGame() {
 		unsigned int size = gameUIs.size();
 
         if (size >= max_num_of_games)
@@ -66,17 +75,21 @@ namespace solitaire
 		}
 
 		gamesGrid.addWidget(game, x, y);
-
-/*
-        QPalette pal;
-        pal.setColor(QPalette::Background, QColor::fromRgb(0,255,0));
-
-        QLabel *l = new QLabel("asdf");
-        l->setAutoFillBackground(true);
-        l->setPalette(pal);
-
-        gamesGrid.addWidget(l, x, y);
-        */
 	}
+
+    void GUIMainWindow::closeGame() {
+		unsigned int size = gameUIs.size();
+
+        if (size == 0)
+            throw InvalidActionException("There is no game played");
+		
+		QWidget *w = gameUIs.back();
+        gameUIs.pop_back();
+
+		gamesGrid.removeWidget(w);
+
+        delete w;
+    }
+
 }
 

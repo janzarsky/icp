@@ -43,8 +43,6 @@ namespace solitaire
 
         for (unsigned int i = 0; i < NUM_OF_HOMES; i++) {
             homes[i] = new GUICard();
-            homes[i]->setAutoFillBackground(true);
-            homes[i]->setPalette(pal2);
             layout->addWidget(homes[i], 0, 3 + i);
         }
 

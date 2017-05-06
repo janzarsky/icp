@@ -10,17 +10,30 @@ using namespace std;
 
 namespace solitaire
 {
-    class GUIApp
+    class GUIMainWindow: public QMainWindow
     {
+        Q_OBJECT
+
 		const unsigned int max_num_of_games = 4;
 
-        QApplication app;
-		QMainWindow mainWindow;
 		QGridLayout gamesGrid;
-		vector<GUIGame *> gameUIs;
+        vector<GUIGame *> gameUIs;
 
-		void initLayout();
-		void addGame();
+        QMenu *gameMenu;
+		QAction *newGameAct;
+        QAction *closeGameAct;
+
+    private slots:
+        void newGame();
+        void closeGame();
+
+    public:
+        GUIMainWindow();
+    };
+
+    class GUIApp: public QApplication
+    {
+        GUIMainWindow *mainWindow;
 
     public:
         GUIApp(int argc, char *argv[]);

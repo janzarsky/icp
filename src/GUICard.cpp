@@ -7,7 +7,13 @@ using namespace std;
 
 namespace solitaire
 {
-    GUICard::GUICard() {}
+    GUICard::GUICard() {
+        QPalette pal;
+        pal.setColor(QPalette::Background, QColor::fromRgb(0,195,0));
+
+        setAutoFillBackground(true);
+        setPalette(pal);
+    }
 
     void GUICard::setCardValue(card& card) {
         QString res;
