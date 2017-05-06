@@ -58,6 +58,7 @@ SOURCES       = Card.cpp \
 		Pile.cpp \
 		TextApp.cpp \
 		TextUIParser.cpp moc_GUIApp.cpp \
+		moc_GUICard.cpp \
 		moc_GUIGame.cpp
 OBJECTS       = Card.o \
 		Game.o \
@@ -70,6 +71,7 @@ OBJECTS       = Card.o \
 		TextApp.o \
 		TextUIParser.o \
 		moc_GUIApp.o \
+		moc_GUICard.o \
 		moc_GUIGame.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -531,9 +533,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_GUIApp.cpp moc_GUIGame.cpp
+compiler_moc_header_make_all: moc_GUIApp.cpp moc_GUICard.cpp moc_GUIGame.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_GUIApp.cpp moc_GUIGame.cpp
+	-$(DEL_FILE) moc_GUIApp.cpp moc_GUICard.cpp moc_GUIGame.cpp
 moc_GUIApp.cpp: GUIGame.hpp \
 		GUICard.hpp \
 		Card.hpp \
@@ -544,6 +546,12 @@ moc_GUIApp.cpp: GUIGame.hpp \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/janzarsky/Dropbox/school/icp/icp/src -I/home/janzarsky/Dropbox/school/icp/icp/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include GUIApp.hpp -o moc_GUIApp.cpp
+
+moc_GUICard.cpp: Card.hpp \
+		GUICard.hpp \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/janzarsky/Dropbox/school/icp/icp/src -I/home/janzarsky/Dropbox/school/icp/icp/src -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/6.3.1 -I/usr/include/c++/6.3.1/x86_64-pc-linux-gnu -I/usr/include/c++/6.3.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/6.3.1/include-fixed -I/usr/include GUICard.hpp -o moc_GUICard.cpp
 
 moc_GUIGame.cpp: GUICard.hpp \
 		Card.hpp \
@@ -642,6 +650,9 @@ TextUIParser.o: TextUIParser.cpp TextUIParser.hpp \
 
 moc_GUIApp.o: moc_GUIApp.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GUIApp.o moc_GUIApp.cpp
+
+moc_GUICard.o: moc_GUICard.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GUICard.o moc_GUICard.cpp
 
 moc_GUIGame.o: moc_GUIGame.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_GUIGame.o moc_GUIGame.cpp

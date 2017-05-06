@@ -32,12 +32,15 @@ namespace solitaire
         connect(back, SIGNAL(clicked()), this, SLOT(turnCard()));
 
         deck = new GUICard();
+        connect(deck, SIGNAL(clicked()), this, SLOT(moveFromDeck()));
 
         layout->addWidget(back, 0, 0);
         layout->addWidget(deck, 0, 1);
 
         for (unsigned int i = 0; i < NUM_OF_HOMES; i++) {
-            homes[i] = new GUICard();
+            homes[i] = new GUICard(i);
+            connect(homes[i], &GUICard::clicked, this, &GUIGame::moveToHome);
+
             layout->addWidget(homes[i], 0, 3 + i);
         }
 
@@ -83,16 +86,17 @@ namespace solitaire
             unsigned int pile_size = game.piles[i].GetPile().size();
             
             for (unsigned int j = 0; j < pile_size; j++) {
-                GUICard *l = new GUICard();
+                GUICard *card = new GUICard(i);
 
                 if (j >= pile_size - game.piles[i].shownCards)
-                    l->setCardValue(game.piles[i].GetPile()[j]);
+                    card->setCardValue(game.piles[i].GetPile()[j]);
                 else
-                    l->setCardBack();
+                    card->setCardBack();
 
-                l->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+                card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+                connect(card, &GUICard::clicked, this, &GUIGame::movePile);
 
-                pile_layouts[i]->addWidget(l);
+                pile_layouts[i]->addWidget(card);
             }
 
             pile_layouts[i]->addStretch(0);
@@ -100,7 +104,82 @@ namespace solitaire
     }
 
     void GUIGame::turnCard() {
-        cmd.type = turn;
-        cout << "sending turn command" << endl;
+        if (cmdStatus == cmdNew) {
+            cmd.type = CommandType::turn;
+            cmd.count = 1;
+
+            sendCommand();
+
+            cmdStatus = cmdNew;
+        }
+        else {
+            cmdStatus = cmdNew;
+        }
+    }
+
+    void GUIGame::moveFromDeck() {
+        if (cmdStatus == cmdNew) {
+            cmd.type = CommandType::move;
+            cmd.from = NUM_OF_HOMES + NUM_OF_COLUMNS;
+            cmd.count = 1;
+
+            cmdStatus = cmdFrom;
+        }
+        else {
+            cmdStatus = cmdNew;
+        }
+    }
+
+    void GUIGame::moveToHome() {
+        if (cmdStatus == cmdFrom) {
+            if (cmd.count == 1) {
+                GUICard *card = qobject_cast<GUICard *>(sender());
+
+                cmd.to = NUM_OF_COLUMNS + card->getIndex();
+
+                sendCommand();
+            }
+        }
+
+        cmdStatus = cmdNew;
+    }
+
+    void GUIGame::movePile() {
+        if (cmdStatus == cmdNew) {
+            cmd.type = CommandType::move;
+
+            GUICard *card = qobject_cast<GUICard *>(sender());
+
+            cmd.from = card->getIndex();
+
+            // TODO
+            cmd.count = 1;
+
+            cmdStatus = cmdFrom;
+        }
+        else {
+            GUICard *card = qobject_cast<GUICard *>(sender());
+
+            cmd.to = card->getIndex();
+
+            sendCommand();
+
+            cmdStatus = cmdNew;
+        }
+    }
+
+    void GUIGame::sendCommand() {
+        // TODO
+
+        cout << "send command, type: ";
+
+        if (cmd.type == CommandType::move)
+            cout << "move, ";
+        else if (cmd.type == CommandType::turn)
+            cout << "turn, ";
+        else
+            cout << "unknown, ";
+
+        cout << "from: " << cmd.from << ", to: " << cmd.to << ", count: " << cmd.count << endl;
     }
 }

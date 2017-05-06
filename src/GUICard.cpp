@@ -1,4 +1,3 @@
-#include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QLabel>
 #include <GUICard.hpp>
@@ -7,11 +6,15 @@ using namespace std;
 
 namespace solitaire
 {
-    GUICard::GUICard() {
+    GUICard::GUICard(unsigned int index) {
+        this->index = index;
+
         setFlat(true);
         setAutoFillBackground(true);
         setContentsMargins(10, 10, 10, 10);
     }
+
+    GUICard::GUICard(): GUICard(0) {}
 
     void GUICard::setCardValue(card& card) {
         QString res;
@@ -61,5 +64,9 @@ namespace solitaire
 
     void GUICard::setCardBack() {
         setText("XX");
+    }
+
+    unsigned int GUICard::getIndex() {
+        return index;
     }
 }

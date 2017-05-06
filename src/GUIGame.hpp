@@ -26,9 +26,13 @@ namespace solitaire
 
         void initLayout();
         void repaint();
+        void sendCommand();
 
     private slots:
         void turnCard();
+        void moveFromDeck();
+        void moveToHome();
+        void movePile();
 
     public:
         GUIGame();
