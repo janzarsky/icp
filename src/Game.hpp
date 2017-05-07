@@ -7,7 +7,7 @@
 #include <algorithm>
 #include "Command.hpp"
 #include <fstream>
-#include<sstream>
+#include <sstream>
 
 
 using namespace std;
@@ -56,8 +56,8 @@ class GAME {
 		vector<card> cardStack = {};
 		Pile_Factory factory;
 		vector<pile *> homes;
-	  GAME() {
-
+	  GAME()
+		{
 			for (unsigned i = 1; i <= K; i++)
 			{
 				for (unsigned k = CLUBS; k <= SPADES; k = k + 1)
@@ -90,13 +90,14 @@ class GAME {
 		}
 
 
-		GAME(string path_to_save){
+		GAME(string path_to_save)
+		{
 			int pile_counter = 1;
 			ifstream ifile;
 			ifile.open(path_to_save.c_str());
 			if(ifile.fail()){
 				cerr<<"ERROR: Can't open file for reading.\n";
-				exit(-1);
+				return;
 			}
 			char line [50];
 			//fill all 12 piles
@@ -153,6 +154,7 @@ class GAME {
 
 				pile_counter++;
 			}
+			ifile.close();
 		}
 
 	  void construct_card_vector(int pos, vector<card>& tempVector);
@@ -172,6 +174,7 @@ class GAME {
 
 		void Help(int &, int &) const;
 
+		void Save(string);
 
 	  void ShowTable();
 

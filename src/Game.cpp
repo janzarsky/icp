@@ -376,6 +376,19 @@
 		one =12;two = 12;
 	}
 
+	void GAME::Save(string path_to_save)
+	{
+		ofstream ofile;
+		ofile.open(path_to_save.c_str());
+		if(ofile.fail()){
+			cerr<<"ERROR: Can't open file for writing.\n";
+			return;
+		}
+		for(auto pl : piles){
+			ofile<<pl->str()<<"\n";
+		}
+		ofile.close();
+	}
 
 	//"Play game" for CONSOLE version of game
 	void GAME::Play()
