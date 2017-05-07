@@ -74,8 +74,6 @@ namespace solitaire
     }
 
     void GameUI::printBoard() {
-        // card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back();
-
         cout << unicode_back() << " ";
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().size() > 0)
