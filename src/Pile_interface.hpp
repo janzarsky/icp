@@ -3,6 +3,7 @@
 #include "Card.hpp"
 #include <vector>
 #include <iostream>
+#include <string>
 
 
 class Pile_Interface{
@@ -37,6 +38,31 @@ class Pile_Interface{
     	}
     }
 
+
+    std::string str(){
+      using std::to_string;
+      std::string temp {""};
+      temp += to_string(shownCards);
+      for(auto card : cards){
+        temp +=',';
+        switch(card.getSuit()){
+          case CLUBS:
+            temp+='C';
+            break;
+        	case DIAMONDS:
+            temp+='D';
+            break;
+        	case HEARTS:
+            temp+='H';
+            break;
+        	case SPADES:
+            temp+='S';
+            break;
+        }
+        temp+= to_string(card.getValue());
+      }
+      return temp;
+    }
 
     //return pile of cards
   	std::vector<card>& GetPile()
