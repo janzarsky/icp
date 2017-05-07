@@ -23,6 +23,9 @@ namespace solitaire
 		QAction *newGameAct;
         QAction *closeGameAct;
 
+        QWidget *placeholder1;
+        QWidget *placeholder2;
+
     private slots:
         void newGame();
         void closeGame();
