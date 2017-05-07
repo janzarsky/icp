@@ -16,6 +16,9 @@ tui:
 run:
 	./hra2017-cli
 
+doxygen:
+	doxygen 
+
 test:
 	./test.sh
 

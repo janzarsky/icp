@@ -80,6 +80,5 @@ src/test*
 src/Makefile
 
 #Doxygen files
-Doxyfile
 latex/
 html/
