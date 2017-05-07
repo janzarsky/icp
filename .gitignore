@@ -78,3 +78,8 @@ CMakeLists.txt.user*
 # test files
 src/test*
 src/Makefile
+
+#Doxygen files
+Doxyfile
+latex/
+html/

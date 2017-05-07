@@ -43,7 +43,6 @@ void PrintCards(vector<card>);
 void PrintCards(card c);
 
 
-//Slice vector to a vector from pos begin to end of the original one
 template<class T>
 vector<T> VecSlice(vector<T>, int = 0, int = 0);
 

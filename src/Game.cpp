@@ -8,7 +8,10 @@
 #include "Game.hpp"
 
 
-	//Print all cards in the vector
+	/**
+		Print vector of  cards to standart output (debug function)
+		@param st Cards vector to be printed
+	*/
 	void PrintCards(vector<card> st)
 	{
 		for (card c : st)
@@ -55,6 +58,10 @@
 		cout << endl;
 	}
 
+	/**
+		Print one card to standart output (debug function)
+		@param c Card to be printed
+	*/
 	void PrintCards(card c)
 	{
 			cout << setiosflags(ios::left)<< flush;
@@ -97,7 +104,13 @@
 			}
 	}
 
-	//Slice vector to a vector from pos begin to end of the original one
+	/**
+		Slice vector to a vector from pos begin to end of the original one
+		@param base Input vector
+		@param begin Start position
+		@param end End position
+		@return Sliced vector
+	*/
 	template<class T>
 	vector<T> VecSlice(vector<T> base, int begin, int end )
 	{
@@ -124,14 +137,21 @@
 
 	}
 
-	//move card from STACK to vector of cards
+	/**
+		Move card from STACK to vector of cards
+		@param pos Position in stack of all cards
+		@param[out] tempVector Vector to put in cards
+	*/
 	void GAME::construct_card_vector(int pos, vector<card>& tempVector)
 	{
 		tempVector.push_back(cardStack[pos]);
 		cardStack.erase(cardStack.begin() + pos);
 	};
 
-	//function for moving cards in CONSOLE version
+	/**
+	 Move cards in TUI version of game
+	 @return Success or not
+	 */
 	int GAME::MoveCard()
 	{
 		int from = -1,to = -1 , count= -1;
@@ -193,7 +213,11 @@
 		}
 	}
 
-	//function for moving cards in GUI version
+	/**
+	 Move cards in GUI version of game
+	 @param cmd Structure which contains command
+	 @return Success or not
+	 */
 	int GAME::MoveCard(solitaire::Command cmd)
 	{
 		int from = cmd.from,to = cmd.to , count= cmd.count;
@@ -241,7 +265,9 @@
 
 	}
 
-
+	/**
+	 Reversive move cards function for backsteps implementation
+	*/
 	void GAME::rev_MoveCard()
 	{
 		vector<card> vec;
@@ -260,7 +286,9 @@
 		}
 	}
 
-
+	/**
+	 Rotate stack of cards
+	*/
 	void GAME::RotateStack()
 		{
 		if(piles[11]->IsEmpty()){
@@ -275,7 +303,9 @@
 		rotate(piles[11]->GetPile().begin(), piles[11]->GetPile().begin()+1, piles[11]->GetPile().end());
 	}
 
-
+	/**
+	 Reversive rotate stack of cards for backsteps implementation
+	*/
 	void GAME::rev_RotateStack()
 	{
 
@@ -288,7 +318,9 @@
 
 	}
 
-
+	/**
+	 Run appropriate command for reversing last action in game
+	*/
 	void GAME::Backward()
 	{
 		if(!history.empty()){
@@ -310,7 +342,11 @@
 		}
 	}
 
-	//Help function return throuw parameter  possible piles to choose from
+	/**
+		Implements help in game
+		@param[out] one Reference to the first returned pile
+		@param[out] two Reference to the second returned pile
+	*/
 	void GAME::Help(int &one, int &two) const
 	{
 
@@ -376,6 +412,10 @@
 		one =12;two = 12;
 	}
 
+	/**
+		Implements saving in game
+		@param[out] two Reference to the second returned pile
+	*/
 	void GAME::Save(string path_to_save)
 	{
 		ofstream ofile;
@@ -390,7 +430,9 @@
 		ofile.close();
 	}
 
-	//"Play game" for CONSOLE version of game
+	/**
+		Main function which controls flow of TUI game version
+	*/
 	void GAME::Play()
 	{
 		char choose;
@@ -450,7 +492,10 @@
 		}
 	}
 
-	// "Play game" for GUI version of game
+	/**
+		Main function which controls flow of GUI game version
+		@param command Command structure taken from GUI
+	*/
 	void GAME::Play(solitaire::Command command)
 	{
         if (command.type == solitaire::move) {
@@ -507,6 +552,9 @@
 		}
 	}
 
+	/**
+		Show table in TUI version of game (debug version)
+	*/
 	void GAME::ShowTable() {
 		for (int i = 1; i <= NUM_OF_HOMES + NUM_OF_COLUMNS + 1;i++) {
 			cout <<setw(3)<< i <<"[si:"<<piles[i-1]->size<<" sh:"<<piles[i-1]->shownCards<<']'<< ") " << flush;
