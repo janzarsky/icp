@@ -16,7 +16,7 @@ typedef Pile_Interface pile;
 const int NUM_OF_CARDS = 52;
 const int NUM_OF_COLUMNS = 7;
 const int NUM_OF_HOMES = 4;
-const int MAX_RETURNS = 5;
+const int MAX_RETURNS = 5; //!< Maximum backsteps (editable)
 
 
 
@@ -46,15 +46,16 @@ void PrintCards(card c);
 template<class T>
 vector<T> VecSlice(vector<T>, int = 0, int = 0);
 
+/** Main class that controls all actions in one game*/
 class GAME {
 
-		list<solitaire::Command> history;
-		solitaire::Command currentCmd;
+		list<solitaire::Command> history;	//!< List that holds history of moves
+		solitaire::Command currentCmd;	//!< Holds current command
 	public:
-		vector <pile *> piles;
-		vector<card> cardStack = {};
-		Pile_Factory factory;
-		vector<pile *> homes;
+		vector <pile *> piles;	//!< Vector of pointers to all PILES
+		vector<card> cardStack = {};	//!< Stack of all cards
+		Pile_Factory factory;	//!< Factory for creating piles
+		vector<pile *> homes; //!< Vector with pointers to homes
 	  GAME()
 		{
 			for (unsigned i = 1; i <= K; i++)
@@ -95,7 +96,8 @@ class GAME {
 			ifstream ifile;
 			ifile.open(path_to_save.c_str());
 			if(ifile.fail()){
-				cerr<<"ERROR: Can't open file for reading.\n";
+				// cerr<<"ERROR: Can't open file for reading.\n";
+				throw std::invalid_argument("Can't open file for reading.");
 				return;
 			}
 			char line [50];
