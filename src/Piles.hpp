@@ -317,7 +317,7 @@ class StoragePile:public Pile_Interface{
     		this->cards.push_back(cd);
     		this->size++;
     	}
-      random_shuffle(cards.begin(),cards.end());
+      // random_shuffle(cards.begin(),cards.end());
     }
 
     ~StoragePile(){}

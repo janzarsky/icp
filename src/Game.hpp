@@ -77,6 +77,7 @@ class GAME {
 				}//creating STORAGE
 				else if (i == NUM_OF_COLUMNS + NUM_OF_HOMES) {
 					piles.push_back(factory.GetStoragePile(cardStack));
+					random_shuffle(piles.back()->GetPile().begin(),piles.back()->GetPile().end());
 				}//creating TARGET PILE
 				else {
 					for (int num = 0; num <= i; num++) {
