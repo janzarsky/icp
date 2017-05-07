@@ -8,6 +8,7 @@ INCLUDEPATH += .
 QT += widgets
 QT += svg
 RESOURCES += resources.qrc
+CONFIG += c++11
 
 gui {
 TARGET = hra2017
