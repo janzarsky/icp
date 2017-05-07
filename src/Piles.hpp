@@ -21,10 +21,18 @@
 
 using namespace std;
 
+/**
+  Class for 7 target piles, implements pile interface
+*/
 class TargetPile:public Pile_Interface{
   public:
 
     TargetPile() = delete;
+
+    /**
+  		Construct target pile from vector of cards
+  		@param vec Vector as base for construction
+  	*/
     TargetPile(std::vector<card>& vec)
     {
     	for (card cd : vec)
@@ -34,6 +42,12 @@ class TargetPile:public Pile_Interface{
     	}
     }
 
+    /**
+  		Add card to target pile with appropriate controls
+  		@param cd Card for adding
+  		@param flags Defines behaviour
+  		@return Success
+  	*/
     int AddCard(card& cd, int flags) final
     {
 
@@ -77,6 +91,12 @@ class TargetPile:public Pile_Interface{
       return 0;
     }
 
+    /**
+      Add vector of cards to target pile with appropriate controls
+      @param cd_vec Vector of cards for adding
+      @param flags Defines behaviour
+      @return Success
+    */
     int AddCard(std::vector<card> cd_vec, int flags)
     {
     	//std::cout<< "first card:" << (this->shownCards.front()).getSuit() << " " << (this->shownCards.front()).getValue() << "\n";
@@ -126,14 +146,25 @@ class TargetPile:public Pile_Interface{
     ~TargetPile(){}
 };
 
+
+/**
+  Class for 4 home piles, implements pile interface
+*/
 class HomePile:public Pile_Interface{
   public:
+    /**
+  		Construct empty home pile
+  	*/
     HomePile(){
       this->cards = std::vector<card>{};
       this->size = 0;
       shownCards = 0;
     }
 
+    /**
+      Construct home pile from vector of cards
+      @param vec Vector as base for construction
+    */
     HomePile(std::vector<card>& vec)
     {
     	for (card cd : vec)
@@ -143,7 +174,12 @@ class HomePile:public Pile_Interface{
     	}
     }
 
-
+    /**
+  		Add card to home pile with appropriate controls
+  		@param cd Card for adding
+  		@param flags Defines behaviour
+  		@return Success
+  	*/
     int AddCard(card& cd, int flags) final
     {
 
@@ -176,6 +212,12 @@ class HomePile:public Pile_Interface{
       return 0;
     }
 
+    /**
+      Add vector of cards to home pile with appropriate controls
+      @param cd_vec Vector of cards for adding
+      @param flags Defines behaviour
+      @return Success
+    */
     int AddCard(std::vector<card> cd_vec, int flags)
     {
     	//std::cout<< "first card:" << (this->shownCards.front()).getSuit() << " " << (this->shownCards.front()).getValue() << "\n";
@@ -224,8 +266,19 @@ class HomePile:public Pile_Interface{
     ~HomePile(){}
 };
 
+
+/**
+  Class for storage pile, implements pile interface
+*/
 class StoragePile:public Pile_Interface{
   public:
+
+    /**
+  		Add card to storage pile with appropriate controls
+  		@param cd Card for adding
+  		@param flags Defines behaviour
+  		@return Success
+  	*/
     int AddCard(card& cd, int flags)
     {
 
@@ -239,6 +292,13 @@ class StoragePile:public Pile_Interface{
         return -1;
       }
     }
+
+    /**
+      Add vector of cards to storage pile with appropriate controls
+      @param cd_vec Vector of cards for adding
+      @param flags Defines behaviour
+      @return Success
+    */
     int AddCard(std::vector<card> cd_vec, int flags)
     {
       if(flags & INSERT_ONLY){
@@ -253,7 +313,13 @@ class StoragePile:public Pile_Interface{
         return -1;
       }
     }
+
     StoragePile() = delete;
+
+    /**
+  		Construct storage pile from vector of cards
+  		@param vec Vector as base for construction
+  	*/
     StoragePile(std::vector<card>& vec)
     {
     	for (card cd : vec)

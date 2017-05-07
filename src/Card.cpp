@@ -2,7 +2,11 @@
 #include <iostream>
 
 
-
+/**
+	Construct card
+	@param cs Card suit
+	@param value Value of card
+*/
 card::card(cardsuit cs,unsigned value):suit(cs),value(value)
 {
 	if (value < 1 || value > K) {
@@ -15,10 +19,18 @@ card::card(cardsuit cs,unsigned value):suit(cs),value(value)
 	}
 }
 
+/**
+	Getter for suit of card
+	@return Card's suit
+*/
 cardsuit card::getSuit() {
 	return this->suit;
 }
 
+/**
+	Getter for value of card
+	@return Card's value
+*/
 unsigned card::getValue() {
 	return this->value;
 }

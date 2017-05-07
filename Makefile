@@ -11,7 +11,7 @@ gui:
 	make -C src
 
 tui:
-	g++ -Wall -std=c++14 -DTUI -o hra2017-cli src/Card.cpp src/Game.cpp src/GameUI.cpp src/Main.cpp src/Pile.cpp src/TextApp.cpp src/TextUIParser.cpp
+	g++ -Wall -std=c++14 -DTUI -o hra2017-cli src/Card.cpp src/Game.cpp src/GameUI.cpp src/Main.cpp src/TextApp.cpp src/TextUIParser.cpp
 
 run:
 	./hra2017-cli
