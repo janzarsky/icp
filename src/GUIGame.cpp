@@ -11,12 +11,14 @@ using namespace std;
 
 namespace solitaire
 {
-    GUIGame::GUIGame() {
+    GUIGame::GUIGame(int cardSize) {
+        this->cardSize = cardSize;
         initLayout();
         reloadValues();
     }
 
-    GUIGame::GUIGame(string filename): game{filename} {
+    GUIGame::GUIGame(int cardSize, string filename): game{filename} {
+        this->cardSize = cardSize;
         initLayout();
         reloadValues();
     }
@@ -31,18 +33,18 @@ namespace solitaire
 
         layout = new QGridLayout();
 
-        GUICard *back = new GUICard();
+        back = new GUICard(cardSize, 0, 0);
         back->setCardBack();
         connect(back, SIGNAL(clicked()), this, SLOT(turnCard()));
 
-        deck = new GUICard();
+        deck = new GUICard(cardSize, 0, 0);
         connect(deck, SIGNAL(clicked()), this, SLOT(moveFromDeck()));
 
         layout->addWidget(back, 0, 0);
         layout->addWidget(deck, 0, 1);
 
         for (unsigned int i = 0; i < NUM_OF_HOMES; i++) {
-            homes[i] = new GUICard(i);
+            homes[i] = new GUICard(cardSize, i, 0);
             connect(homes[i], &GUICard::clicked, this, &GUIGame::moveToHome);
 
             layout->addWidget(homes[i], 0, 3 + i);
@@ -62,25 +64,25 @@ namespace solitaire
         setLayout(layout);
     }
 
-    void GUIGame::repaint() {
-        //layout->setSpacing((width() - NUM_OF_COLUMNS*getCardSize().width())/6);
-        //cout << width() << endl;
-        update();
-    }
-
     void GUIGame::reloadValues() {
+        back->setSize(cardSize);
+
         deck->setMark(false);
+        deck->setSize(cardSize);
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().size() > 0)
             deck->setCardValue(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back());
         else
             deck->setCardEmpty();
 
-        for (int i = 0; i < NUM_OF_HOMES; i++)
+        for (int i = 0; i < NUM_OF_HOMES; i++) {
+            homes[i]->setSize(cardSize);
+
             if (game.piles[NUM_OF_COLUMNS + i]->GetPile().size() > 0)
                 homes[i]->setCardValue(game.piles[NUM_OF_COLUMNS + i]->GetPile().back());
             else
                 homes[i]->setCardEmpty();
+        }
 
         for (int i = 0; i < NUM_OF_COLUMNS; i++) {
             QLayoutItem *child;
@@ -96,15 +98,17 @@ namespace solitaire
             unsigned int pile_size = game.piles[i]->GetPile().size();
 
             if (pile_size == 0) {
-                GUICard *card = new GUICard(i);
+                GUICard *card = new GUICard(cardSize, i, 0);
                 card->setCardEmpty();
+                card->setSize(cardSize);
                 connect(card, &GUICard::clicked, this, &GUIGame::movePile);
 
                 pile_layouts[i]->addWidget(card);
             }
             
             for (unsigned int j = 0; j < pile_size; j++) {
-                GUICard *card = new GUICard(i, j);
+                GUICard *card = new GUICard(cardSize, i, j);
+                card->setSize(cardSize);
 
                 if (j >= pile_size - game.piles[i]->shownCards) {
                     card->setCardValue(game.piles[i]->GetPile()[j]);
@@ -131,7 +135,7 @@ namespace solitaire
             pile_layouts[i]->addStretch(0);
         }
 
-        repaint();
+        update();
     }
 
     void GUIGame::turnCard() {
@@ -246,7 +250,7 @@ namespace solitaire
     }
 
     void GUIGame::resizeEvent(QResizeEvent *event) {
-        repaint();
+        update();
     }
 
     void GUIGame::saveGame(string filename) {
@@ -276,5 +280,11 @@ namespace solitaire
             setActive(true);
             activated();
         }
+    }
+
+    void GUIGame::setCardSize(int width) {
+        cardSize = width;
+
+        reloadValues();
     }
 }

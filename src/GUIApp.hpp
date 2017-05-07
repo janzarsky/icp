@@ -17,6 +17,9 @@ namespace solitaire
 		static const unsigned int max_num_of_games = 4;
 		static const unsigned int game_cols = 2;
 
+        static const int smallCardSize = 80;
+        static const int largeCardSize = 120;
+
 		QGridLayout gamesGrid;
         vector<GUIGame *> gameUIs;
         unsigned int gameSlots[max_num_of_games] = { 0 };

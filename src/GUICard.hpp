@@ -14,9 +14,9 @@ namespace solitaire
 
         static QSvgRenderer renderer;
 
-        int cardw = 120;
-        int cardh = 180;
-        int cardh2 = 53;
+        int cardw;
+        int cardh;
+        int cardh2;
 
         unsigned int pileIndex;
         unsigned int cardIndex;
@@ -27,9 +27,7 @@ namespace solitaire
         QString element;
 
     public:
-        GUICard();
-        GUICard(unsigned int pileIndex);
-        GUICard(unsigned int pileIndex, unsigned int cardIndex);
+        GUICard(int cardSize, unsigned int pileIndex, unsigned int cardIndex);
 
         QSize sizeHint();
         void paintEvent(QPaintEvent *e);
@@ -41,6 +39,7 @@ namespace solitaire
         void setBehind(bool behind);
         void setBackBehind(bool back);
         void setMark(bool mark);
+        void setSize(int width);
         unsigned int getPileIndex();
         unsigned int getCardIndex();
         bool isHidden();

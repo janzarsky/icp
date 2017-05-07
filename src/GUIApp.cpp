@@ -70,17 +70,24 @@ namespace solitaire
 	void GUIMainWindow::newGame(string filename) {
 		unsigned int size = gameUIs.size();
 
+        int cardSize;
+        
+        if (size == 0)
+            cardSize = largeCardSize;
+        else
+            cardSize = smallCardSize;
+
         if (size >= max_num_of_games)
             return;
 		
 		GUIGame *game;
         
         if (filename == "") {
-            game = new GUIGame();
+            game = new GUIGame(cardSize);
         }
         else {
             try {
-                game = new GUIGame(filename);
+                game = new GUIGame(cardSize, filename);
             }
             catch (invalid_argument& e) {
                 // TODO
@@ -104,6 +111,13 @@ namespace solitaire
         }
 
         setActiveGame();
+
+        if (gameUIs.size() > 1) {
+            for (unsigned int i = 0; i < gameUIs.size(); i++)
+                if (i != active_game - 1) {
+                    gameUIs[i]->setCardSize(smallCardSize);
+                }
+        }
 	}
 
     void GUIMainWindow::closeGame() {
@@ -152,6 +166,11 @@ namespace solitaire
                 setActiveGame();
                 break;
             }
+        }
+
+        // correct card size
+        if (gameUIs.size() == 1) {
+            gameUIs[0]->setCardSize(largeCardSize);
         }
     }
 

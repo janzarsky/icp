@@ -10,11 +10,12 @@ namespace solitaire
 {
     QSvgRenderer GUICard::renderer;
 
-    GUICard::GUICard(unsigned int pileIndex, unsigned int cardIndex) {
+    GUICard::GUICard(int cardSize, unsigned int pileIndex, unsigned int cardIndex) {
         this->pileIndex = pileIndex;
         this->cardIndex = cardIndex;
 
         setContentsMargins(10, 10, 10, 10);
+        setSize(cardSize);
         setHidden(false);
         setCardBack();
 
@@ -28,10 +29,6 @@ namespace solitaire
             }
         }
     }
-
-    GUICard::GUICard(unsigned int pileIndex): GUICard(pileIndex, 0) {}
-
-    GUICard::GUICard(): GUICard(0) {}
 
     void GUICard::setCardValue(card& card) {
 		switch (card.getSuit()) {
@@ -167,6 +164,14 @@ namespace solitaire
 
     void GUICard::setMark(bool mark) {
         this->mark = mark;
+    }
+    
+    void GUICard::setSize(int width) {
+        cardw = width;
+        cardh = width*3/2;
+        cardh2 = width*4/9;
+
+        setHidden(hidden);
     }
 
     unsigned int GUICard::getPileIndex() {
