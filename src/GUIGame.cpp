@@ -68,7 +68,7 @@ namespace solitaire
     }
 
     void GUIGame::reloadValues() {
-        card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back();
+        deck->setMark(false);
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().size() > 0)
             deck->setCardValue(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back());
@@ -155,9 +155,13 @@ namespace solitaire
             cmd.from = NUM_OF_HOMES + NUM_OF_COLUMNS;
             cmd.count = 1;
 
+            GUICard *card = qobject_cast<GUICard *>(sender());
+            card->setMark(true);
+
             cmdStatus = cmdFrom;
         }
         else {
+            reloadValues();
             cmdStatus = cmdNew;
         }
     }
@@ -173,6 +177,7 @@ namespace solitaire
             }
         }
 
+        reloadValues();
         cmdStatus = cmdNew;
     }
 
@@ -186,10 +191,14 @@ namespace solitaire
 
             cmd.count = pile_layouts[cmd.from]->count() - card->getCardIndex() - 1;
 
-            if (cmd.count > game.piles[cmd.from]->shownCards)
+            if (cmd.count > game.piles[cmd.from]->shownCards) {
+                reloadValues();
                 cmdStatus = cmdNew;
-            else
+            }
+            else {
                 cmdStatus = cmdFrom;
+                card->setMark(true);
+            }
         }
         else {
             GUICard *card = qobject_cast<GUICard *>(sender());
@@ -198,6 +207,7 @@ namespace solitaire
 
             sendCommand();
 
+            reloadValues();
             cmdStatus = cmdNew;
         }
     }
