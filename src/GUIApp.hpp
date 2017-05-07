@@ -22,13 +22,19 @@ namespace solitaire
         QMenu *gameMenu;
 		QAction *newGameAct;
         QAction *closeGameAct;
+		QAction *loadGameAct;
+		QAction *saveGameAct;
 
         QWidget *placeholder1;
         QWidget *placeholder2;
 
+        void newGame(string filename);
+
     private slots:
-        void newGame();
+        void newGameMenu();
         void closeGame();
+        void loadGame();
+        void saveGame();
 
     public:
         GUIMainWindow();

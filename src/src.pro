@@ -27,8 +27,8 @@ HEADERS += Card.hpp \
            GUIApp.hpp \
            GUICard.hpp \
            GUIGame.hpp \
-           Pile.hpp \
            Pile_interface.hpp \
+           Pile_Factory.hpp \
            Piles.hpp \
            TextApp.hpp \
            TextUIParser.hpp
@@ -39,6 +39,5 @@ SOURCES += Card.cpp \
            GUICard.cpp \
            GUIGame.cpp \
            Main.cpp \
-           Pile.cpp \
            TextApp.cpp \
            TextUIParser.cpp

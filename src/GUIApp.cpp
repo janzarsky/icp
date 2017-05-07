@@ -34,7 +34,15 @@ namespace solitaire
 
         newGameAct = new QAction("&New Game");
         newGameAct->setShortcuts(QKeySequence::New);
-        connect(newGameAct, SIGNAL(triggered()), this, SLOT(newGame()));
+        connect(newGameAct, SIGNAL(triggered()), this, SLOT(newGameMenu()));
+
+        loadGameAct = new QAction("&Load Game");
+        loadGameAct->setShortcuts(QKeySequence::Open);
+        connect(loadGameAct, SIGNAL(triggered()), this, SLOT(loadGame()));
+
+        saveGameAct = new QAction("&Save Game");
+        saveGameAct->setShortcuts(QKeySequence::Save);
+        connect(saveGameAct, SIGNAL(triggered()), this, SLOT(saveGame()));
 
         closeGameAct = new QAction("&Close Game");
         closeGameAct->setShortcuts(QKeySequence::Close);
@@ -42,19 +50,36 @@ namespace solitaire
 
         gameMenu = menuBar()->addMenu("&Game");
         gameMenu->addAction(newGameAct);
+        gameMenu->addAction(loadGameAct);
+        gameMenu->addAction(saveGameAct);
         gameMenu->addAction(closeGameAct);
 
 		setCentralWidget(scroll);
 		show();
 	}
 
-	void GUIMainWindow::newGame() {
+    void GUIMainWindow::newGameMenu() {
+        newGame("");
+    }
+
+	void GUIMainWindow::newGame(string filename) {
 		unsigned int size = gameUIs.size();
 
         if (size >= max_num_of_games)
             return;
 		
-		GUIGame *game = new GUIGame();
+		GUIGame *game;
+        
+        if (filename == "")
+            game = new GUIGame();
+        else
+            try {
+                game = new GUIGame(filename);
+            }
+            catch (invalid_argument& e) {
+                // TODO
+                return;
+            }
 
 		gameUIs.push_back(game);
 		
@@ -107,5 +132,21 @@ namespace solitaire
         delete w;
     }
 
+    void GUIMainWindow::loadGame() {
+        QString filename = QFileDialog::getOpenFileName(this, "Load Game", "./", "Solitaire games (*.solitaire)");
+
+        if (filename == "")
+            return;
+
+        // TODO use active game
+        newGame(filename.toLocal8Bit().constData());
+    }
+
+    void GUIMainWindow::saveGame() {
+        QString filename = QFileDialog::getSaveFileName(this, "Save Game", "./game.solitaire", "Solitaire games (*.solitaire)");
+
+        // TODO use active game
+        gameUIs.back()->saveGame(filename.toLocal8Bit().constData());
+    }
 }
 

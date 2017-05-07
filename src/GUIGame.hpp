@@ -36,7 +36,9 @@ namespace solitaire
 
     public:
         GUIGame();
+        GUIGame(string filename);
         void repaint();
         void resizeEvent(QResizeEvent *event);
+        void saveGame(string filename);
     };
 }

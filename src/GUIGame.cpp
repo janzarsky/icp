@@ -16,6 +16,11 @@ namespace solitaire
         reloadValues();
     }
 
+    GUIGame::GUIGame(string filename): game{filename} {
+        initLayout();
+        reloadValues();
+    }
+
     void GUIGame::initLayout() {
         QPalette pal;
         pal.setColor(QPalette::Background, QColor::fromRgb(64,64,64));
@@ -219,5 +224,15 @@ namespace solitaire
 
     void GUIGame::resizeEvent(QResizeEvent *event) {
         repaint();
+    }
+
+    void GUIGame::saveGame(string filename) {
+        try {
+            game.Save(filename);
+        }
+        catch (invalid_argument& e) {
+            // TODO
+            return;
+        }
     }
 }
