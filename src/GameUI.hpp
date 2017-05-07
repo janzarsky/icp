@@ -20,6 +20,7 @@ namespace solitaire
         GameUI();
         GameUI(string filename);
         void printBoard();
+        void undo();
         void executeCommand(Command& cmd);
         void saveGame(string filename);
     };

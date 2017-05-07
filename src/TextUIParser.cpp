@@ -43,6 +43,9 @@ namespace solitaire
             getline(ss, str, ' ');
             cmd.filename = str;
         }
+        else if (str == "undo") {
+            cmd.type = undo;
+        }
         else if (str == "load") {
             cmd.type = load;
 

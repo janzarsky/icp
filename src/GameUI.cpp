@@ -115,6 +115,10 @@ namespace solitaire
         cout << endl;
     }
 
+    void GameUI::undo() {
+        game.Backward();
+    }
+
     void GameUI::executeCommand(Command& cmd) {
         cout << "EXECUTE: ";
 

@@ -74,6 +74,11 @@ namespace solitaire
                 printGames();
                 break;
 
+            case undo:
+                gameUIs[active_game - 1]->undo();
+                printActiveBoard();
+                break;
+
             case game_cmd:
                 gameUIs[active_game - 1]->executeCommand(cmd.game_cmd);
                 printActiveBoard();
