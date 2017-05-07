@@ -7,13 +7,13 @@ using namespace std;
 namespace solitaire
 {
     TextApp::TextApp(int argc, char *argv[]) {
-        cout << "(constructor TextApp, argc=" << argc << ", argv=" << argv << ")\n";
+        cout << "(constructor TextApp, argc=" << argc << ", argv=" << argv << ")" << endl;
 
         listenToCommands();
     }
 
     void TextApp::listenToCommands() {
-        cout << "listenToCommands()\n";
+        cout << "listenToCommands()" << endl;
 
         UICommand cmd;
         
@@ -27,7 +27,7 @@ namespace solitaire
                 executeCommand(cmd);
             }
             catch (InvalidActionException& e) {
-                cout << "ERROR: Invalid command: " << e.message() << "\n";
+                cout << "ERROR: Invalid command: " << e.message() << endl;
             }
         }
     }
@@ -35,7 +35,7 @@ namespace solitaire
     void TextApp::executeCommand(UICommand cmd) {
         switch (cmd.type) {
             case invalid:
-                cout << "ERROR: invalid command, type 'help' to show all commands\n";
+                cout << "ERROR: invalid command, type 'help' to show all commands" << endl;
                 break;
 
             case empty:
@@ -85,7 +85,7 @@ namespace solitaire
                 break;
 
             default:
-                cout << "got command: " << cmd.type << "\n";
+                cout << "got command: " << cmd.type << endl;
                 printActiveBoard();
                 break;
         }
@@ -93,28 +93,29 @@ namespace solitaire
 
     void TextApp::printActiveBoard() {
         if (active_game > 0) {
-            cout << "Game number " << active_game << " board:\n";
+            cout << "Game number " << active_game << " board:" << endl;
 
             gameUIs[active_game - 1]->printBoard();
         }
     }
 
     void TextApp::printHelp() {
-        cout << "General commands:\n";
-        cout << "help      show this help\n";
-        cout << "new       start a new game\n";
-        cout << "close     close active game\n";
-        cout << "switch N  switch to game number N (1-4)\n";
-        cout << "games     list currently played games\n";
-        cout << "quit      quit the app\n";
+        cout << "General commands:" << endl;
+        cout << "help      show this help" << endl;
+        cout << "new       start a new game" << endl;
+        cout << "close     close active game" << endl;
+        cout << "switch N  switch to game number N (1-4)" << endl;
+        cout << "games     list currently played games" << endl;
+        cout << "quit      quit the app" << endl;
 
-        cout << "\nGame commands:\n";
-        cout << "move deck pileX     move card from deck to pile (1-7)\n";
-        cout << "move deck homeX     move card from deck to home (1-4)\n";
-        cout << "move pileX homeX    move card from pile (1-7) to home (1-4)\n";
+        cout << endl << "Game commands:" << endl;
+        cout << "move deck pileX     move card from deck to pile (1-7)" << endl;
+        cout << "move deck homeX     move card from deck to home (1-4)" << endl;
+        cout << "move pileX homeX    move card from pile (1-7) to home (1-4)" << endl;
         cout << "move pileX pileX N  move N cards (default is 1) from pile"
-             << "(1-7) to another pile (1-7)\n";
-        cout << "turn                turn 1 card from pile\n";
+             << "(1-7) to another pile (1-7)" << endl;
+        cout << "turn                turn 1 card from pile" << endl;
+        cout << "undo                revert last move" << endl;
     }
 
     void TextApp::newGame() {
@@ -125,13 +126,13 @@ namespace solitaire
 
         active_game = gameUIs.size();
 
-        cout << "Created game number " << active_game << "\n";
+        cout << "Created game number " << active_game << endl;
     }
 
     void TextApp::closeGame() {
         gameUIs.erase(gameUIs.begin() + active_game - 1);
 
-        cout << "Game number " << active_game << " closed\n";
+        cout << "Game number " << active_game << " closed" << endl;
 
         active_game = gameUIs.size();
     }
@@ -142,7 +143,7 @@ namespace solitaire
 
         active_game = game_num;
 
-        cout << "Switched to game number " << active_game << "\n";
+        cout << "Switched to game number " << active_game << endl;
     }
 
     void TextApp::saveGame(string filename) {
@@ -172,7 +173,7 @@ namespace solitaire
 
     void TextApp::printGames() {
         if (gameUIs.size() == 0) {
-            cout << "No games are currently played\n";
+            cout << "No games are currently played" << endl;
             return;
         }
 
@@ -181,7 +182,7 @@ namespace solitaire
         for (unsigned int i = 1; i <= gameUIs.size(); i++)
             cout << i << ", ";
 
-        cout << "are currently played\n";
+        cout << "are currently played" << endl;
     }
 }
 
