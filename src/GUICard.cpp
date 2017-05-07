@@ -113,17 +113,37 @@ namespace solitaire
 
         int offset = (w - size.width())/2;
 
-        if (!renderer.elementExists(element))
+        if (!renderer.elementExists(element)) {
             cerr << "SVG element not found" << endl;
+            return;
+        }
  
         if (isBehind()) {
+            QString helper;
+
             if (isBackBehind())
-                renderer.render(&painter, QString("helper2"), QRectF(offset, 0, size.width(), size.height()));
+                helper = "helper2";
             else
-                renderer.render(&painter, QString("helper"), QRectF(offset, 0, size.width(), size.height()));
+                helper = "helper";
+
+            if (!renderer.elementExists(element)) {
+                cerr << "SVG element not found" << endl;
+                return;
+            }
+
+            renderer.render(&painter, helper, QRectF(offset, 0, size.width(), size.height()));
         }
 
         renderer.render(&painter, element, QRectF(offset, 0, size.width(), size.height()));
+
+        if (isMarked()) {
+            if (!renderer.elementExists("mark")) {
+                cerr << "SVG element not found" << endl;
+                return;
+            }
+
+            renderer.render(&painter, QString("mark"), QRectF(offset, 0, size.width(), size.height()));
+        }
 
         QWidget::paintEvent(e);
     }
@@ -145,6 +165,10 @@ namespace solitaire
         this->back = back;
     }
 
+    void GUICard::setMark(bool mark) {
+        this->mark = mark;
+    }
+
     unsigned int GUICard::getPileIndex() {
         return pileIndex;
     }
@@ -163,5 +187,9 @@ namespace solitaire
 
     bool GUICard::isBackBehind() {
         return back;
+    }
+
+    bool GUICard::isMarked() {
+        return mark;
     }
 }
