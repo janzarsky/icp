@@ -18,6 +18,7 @@ namespace solitaire
 
         Command(CommandType t):
 			type{t}, from{0}, to{0}, count{0}, revealed{false} {}
-        Command() {}
+        Command():
+            type{move}, from{0}, to{0}, count{0}, revealed{false} {}
     };
 }
