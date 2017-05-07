@@ -78,7 +78,6 @@ class Pile_Interface{
         }
         temp+= to_string(card.getValue());
       }
-      std::cerr<<"card empty?:"<<cards.empty()<<std::endl;
       if(cards.empty()) temp+=',';
       return temp;
     }

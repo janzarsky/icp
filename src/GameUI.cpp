@@ -69,12 +69,12 @@ namespace solitaire
                 res += "UNKNOWN";
                 break;
 		}
-        
+
         return res;
     }
 
     void GameUI::printBoard() {
-        card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back();
+        // card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back();
 
         cout << unicode_back() << " ";
 

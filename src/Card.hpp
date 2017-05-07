@@ -1,6 +1,18 @@
 #ifndef CARD_H
 #define CARD_H
 
+#define DEBUG
+#ifdef DEBUG
+#define DEB(x) do{\
+  std::cerr<< x;}\
+  while(0)
+#endif
+
+#ifndef DEBUG
+#define DEB(X)
+#endif
+
+
 /**
 Enum type for card suits
 */

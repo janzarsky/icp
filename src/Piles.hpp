@@ -7,16 +7,6 @@
 #include <stdlib.h>
 #include <algorithm>
 
-#define DEBUG
-#ifdef DEBUG
-#define DEB(x) do{\
-  std::cerr<< x;}\
-  while(0)
-#endif
-
-#ifndef DEBUG
-#define DEB(X)
-#endif
 
 
 using namespace std;
