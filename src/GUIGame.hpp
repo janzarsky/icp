@@ -37,7 +37,6 @@ namespace solitaire
     public:
         GUIGame();
         void repaint();
-        QSize getCardSize();
         void resizeEvent(QResizeEvent *event);
     };
 }

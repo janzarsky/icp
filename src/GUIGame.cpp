@@ -12,7 +12,6 @@ using namespace std;
 namespace solitaire
 {
     GUIGame::GUIGame() {
-        cout << "(constructor GUIGame)\n";
         initLayout();
         reloadValues();
     }
@@ -216,10 +215,6 @@ namespace solitaire
 
         game.Play(cmd);
         reloadValues();
-    }
-
-    QSize GUIGame::getCardSize() {
-        return QSize(50, 75);
     }
 
     void GUIGame::resizeEvent(QResizeEvent *event) {

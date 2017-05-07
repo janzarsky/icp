@@ -14,9 +14,9 @@ namespace solitaire
 
         static QSvgRenderer renderer;
 
-        const int cardw = 120;
-        const int cardh = 180;
-        const int cardh2 = 53;
+        int cardw = 120;
+        int cardh = 180;
+        int cardh2 = 53;
 
         unsigned int pileIndex;
         unsigned int cardIndex;
