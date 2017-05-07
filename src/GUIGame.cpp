@@ -89,6 +89,14 @@ namespace solitaire
             }
 
             unsigned int pile_size = game.piles[i]->GetPile().size();
+
+            if (pile_size == 0) {
+                GUICard *card = new GUICard(i);
+                card->setCardEmpty();
+                connect(card, &GUICard::clicked, this, &GUIGame::movePile);
+
+                pile_layouts[i]->addWidget(card);
+            }
             
             for (unsigned int j = 0; j < pile_size; j++) {
                 GUICard *card = new GUICard(i, j);
