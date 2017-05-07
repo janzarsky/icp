@@ -101,18 +101,24 @@ class GAME {
 				return;
 			}
 			char line [50];
+
 			//fill all 12 piles
-			while(ifile.getline(line,49)){
+			while(1){
+				ifile.getline(line,49);
+				cerr<<"constructing pile #"<<pile_counter<<endl;
 				stringstream ln;
+				ln.str(line);
 				char buf[10];
 				int temp_shownCards;
 				ln.getline(buf,9,',');
 				temp_shownCards = atoi(buf);
-				vector<card> tempVector;
+				cerr<<"buf:"<<buf<<" shown cards:"<<temp_shownCards<<endl;
+				vector<card> tempVector {};
 
 
 				//fill temp vector with cards
 				while(ln.getline(buf,9,',')){
+					cerr<<"Filling this pile"<<endl;
 					string temp_card {buf};
 					cardsuit temp_suit;
 					cardsuit temp_value;
@@ -154,6 +160,7 @@ class GAME {
 				piles.back()->shownCards = temp_shownCards;
 
 				pile_counter++;
+				if(pile_counter == 13) break;
 			}
 			ifile.close();
 		}
