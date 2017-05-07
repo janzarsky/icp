@@ -40,5 +40,6 @@ namespace solitaire
         void repaint();
         void resizeEvent(QResizeEvent *event);
         void saveGame(string filename);
+        void undoGame();
     };
 }

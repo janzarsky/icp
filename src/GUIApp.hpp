@@ -20,6 +20,7 @@ namespace solitaire
         vector<GUIGame *> gameUIs;
 
         QMenu *gameMenu;
+		QAction *undoGameAct;
 		QAction *newGameAct;
         QAction *closeGameAct;
 		QAction *loadGameAct;
@@ -31,6 +32,7 @@ namespace solitaire
         void newGame(string filename);
 
     private slots:
+        void undoGame();
         void newGameMenu();
         void closeGame();
         void loadGame();

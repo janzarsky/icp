@@ -245,4 +245,9 @@ namespace solitaire
             return;
         }
     }
+
+    void GUIGame::undoGame() {
+        game.Backward();
+        reloadValues();
+    }
 }

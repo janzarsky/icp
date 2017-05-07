@@ -32,6 +32,10 @@ namespace solitaire
         scroll->setWidgetResizable(true);
         scroll->setWidget(window);
 
+        undoGameAct = new QAction("&Undo");
+        undoGameAct->setShortcuts(QKeySequence::Undo);
+        connect(undoGameAct, SIGNAL(triggered()), this, SLOT(undoGame()));
+
         newGameAct = new QAction("&New Game");
         newGameAct->setShortcuts(QKeySequence::New);
         connect(newGameAct, SIGNAL(triggered()), this, SLOT(newGameMenu()));
@@ -49,6 +53,7 @@ namespace solitaire
         connect(closeGameAct, SIGNAL(triggered()), this, SLOT(closeGame()));
 
         gameMenu = menuBar()->addMenu("&Game");
+        gameMenu->addAction(undoGameAct);
         gameMenu->addAction(newGameAct);
         gameMenu->addAction(loadGameAct);
         gameMenu->addAction(saveGameAct);
@@ -138,7 +143,6 @@ namespace solitaire
         if (filename == "")
             return;
 
-        // TODO use active game
         newGame(filename.toLocal8Bit().constData());
     }
 
@@ -147,6 +151,11 @@ namespace solitaire
 
         // TODO use active game
         gameUIs.back()->saveGame(filename.toLocal8Bit().constData());
+    }
+
+    void GUIMainWindow::undoGame() {
+        // TODO use active game
+        gameUIs.back()->undoGame();
     }
 }
 
