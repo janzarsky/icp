@@ -6,6 +6,8 @@ TEMPLATE = app
 DESTDIR = ..
 INCLUDEPATH += .
 QT += widgets
+QT += svg
+RESOURCES += resources.qrc
 
 gui {
 TARGET = hra2017

@@ -25,7 +25,7 @@ namespace solitaire
         QBoxLayout *pile_layouts[NUM_OF_COLUMNS];
 
         void initLayout();
-        void repaint();
+        void reloadValues();
         void sendCommand();
 
     private slots:
@@ -36,5 +36,8 @@ namespace solitaire
 
     public:
         GUIGame();
+        void repaint();
+        QSize getCardSize();
+        void resizeEvent(QResizeEvent *event);
     };
 }

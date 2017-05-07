@@ -14,7 +14,7 @@ namespace solitaire
     GUIGame::GUIGame() {
         cout << "(constructor GUIGame)\n";
         initLayout();
-        repaint();
+        reloadValues();
     }
 
     void GUIGame::initLayout() {
@@ -22,6 +22,7 @@ namespace solitaire
         pal.setColor(QPalette::Background, QColor::fromRgb(64,64,64));
         setAutoFillBackground(true);
         setPalette(pal);
+        setMinimumSize(0, 0);
 
         layout = new QGridLayout();
 
@@ -57,12 +58,18 @@ namespace solitaire
     }
 
     void GUIGame::repaint() {
+        //layout->setSpacing((width() - NUM_OF_COLUMNS*getCardSize().width())/6);
+        //cout << width() << endl;
+        update();
+    }
+
+    void GUIGame::reloadValues() {
         card deck_fronts = game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back();
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().size() > 0)
             deck->setCardValue(game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().back());
         else
-            deck->setText("[]");
+            deck->setCardEmpty();
 
         for (int i = 0; i < NUM_OF_HOMES; i++)
             if (game.piles[NUM_OF_COLUMNS + i]->GetPile().size() > 0)
@@ -82,16 +89,35 @@ namespace solitaire
             }
 
             unsigned int pile_size = game.piles[i]->GetPile().size();
+
+            if (pile_size == 0) {
+                GUICard *card = new GUICard(i);
+                card->setCardEmpty();
+                connect(card, &GUICard::clicked, this, &GUIGame::movePile);
+
+                pile_layouts[i]->addWidget(card);
+            }
             
             for (unsigned int j = 0; j < pile_size; j++) {
                 GUICard *card = new GUICard(i, j);
 
-                if (j >= pile_size - game.piles[i]->shownCards)
+                if (j >= pile_size - game.piles[i]->shownCards) {
                     card->setCardValue(game.piles[i]->GetPile()[j]);
-                else
+                }
+                else {
                     card->setCardBack();
+                }
 
-                card->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+                if (j < pile_size - 1)
+                    card->setHidden(true);
+
+                if (j > 0) {
+                    card->setBehind(true);
+
+                    if (j <= pile_size - game.piles[i]->shownCards)
+                        card->setBackBehind(true);
+                }
+
                 connect(card, &GUICard::clicked, this, &GUIGame::movePile);
 
                 pile_layouts[i]->addWidget(card);
@@ -99,12 +125,16 @@ namespace solitaire
 
             pile_layouts[i]->addStretch(0);
         }
+
+        repaint();
     }
 
     void GUIGame::turnCard() {
         if (cmdStatus == cmdNew) {
             cmd.type = CommandType::turn;
             cmd.count = 1;
+            cmd.from = 0;
+            cmd.to = 0;
 
             sendCommand();
 
@@ -185,6 +215,14 @@ namespace solitaire
         cmd.to++;
 
         game.Play(cmd);
+        reloadValues();
+    }
+
+    QSize GUIGame::getCardSize() {
+        return QSize(50, 75);
+    }
+
+    void GUIGame::resizeEvent(QResizeEvent *event) {
         repaint();
     }
 }
