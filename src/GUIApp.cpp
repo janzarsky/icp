@@ -142,7 +142,9 @@ namespace solitaire
 
         delete w;
 
-        int hole;
+        // initialize with large enough number so in case of trouble the second
+        // for loop will be skipped
+        int hole = gameUIs.size();
 
         // correct game slots
         for (unsigned int i = 0; i < max_num_of_games; i++) {

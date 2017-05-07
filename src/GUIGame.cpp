@@ -208,7 +208,7 @@ namespace solitaire
 
             cmd.count = pile_layouts[cmd.from]->count() - card->getCardIndex() - 1;
 
-            if (cmd.count > game.piles[cmd.from]->shownCards) {
+            if ((unsigned int) cmd.count > game.piles[cmd.from]->shownCards) {
                 reloadValues();
                 cmdStatus = cmdNew;
             }
@@ -250,6 +250,7 @@ namespace solitaire
     }
 
     void GUIGame::resizeEvent(QResizeEvent *event) {
+        QWidget::resizeEvent(event);
         update();
     }
 
