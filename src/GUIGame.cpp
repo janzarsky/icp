@@ -24,8 +24,8 @@ namespace solitaire
     }
 
     void GUIGame::initLayout() {
-        activePal.setColor(QPalette::Background, QColor::fromRgb(64,64,64));
-        inactivePal.setColor(QPalette::Background, QColor::fromRgb(128,128,128));
+        activePal.setColor(QPalette::Background, QColor::fromRgb(137,141,141));
+        inactivePal.setColor(QPalette::Background, QColor::fromRgb(112,115,115));
 
         setAutoFillBackground(true);
         setPalette(activePal);
