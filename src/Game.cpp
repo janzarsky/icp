@@ -5,14 +5,12 @@
 #include <string>
 #include <functional>
 #include <time.h>
-#include <algorithm>
 #include "Game.hpp"
 
 
 	//Print all cards in the vector
 	void PrintCards(vector<card> st)
 	{
-		unsigned counter = 0;
 		for (card c : st)
 		{
 			cout << setiosflags(ios::left)<< flush;
@@ -178,7 +176,7 @@
 			return -1;
 		}
 
-		if(piles[from - 1]->shownCards == count && count != piles[from - 1]->size) currentCmd.revealed = true;
+		if(piles[from - 1]->shownCards == static_cast<unsigned>(count) && static_cast<unsigned>(count) != piles[from - 1]->size) currentCmd.revealed = true;
 		else currentCmd.revealed = false;
 		if(!piles[to - 1]->AddCard(temp_vect)){
 				for (int i = 0; i < count; i++) {
@@ -264,27 +262,29 @@
 
 
 	void GAME::RotateStack()
-	{
+		{
 		if(piles[11]->IsEmpty()){
 			cerr<<"\npile 11 is empty some error occured!\n";
 			exit(-1);
 		}
-		card temp = piles[11]->GetPile()[0];
-		auto temp_vec = VecSlice(piles[11]->GetPile(), 1);
-		temp_vec.push_back(temp);
-		delete piles[11];
-		piles[11] = factory.GetStoragePile(temp_vec);
+		// card temp = piles[11]->GetPile()[0];
+		// auto temp_vec = VecSlice(piles[11]->GetPile(), 1);
+		// temp_vec.push_back(temp);
+		// delete piles[11];
+		// piles[11] = factory.GetStoragePile(temp_vec);
+		rotate(piles[11]->GetPile().begin(), piles[11]->GetPile().begin()+1, piles[11]->GetPile().end());
 	}
 
 
 	void GAME::rev_RotateStack()
 	{
 
-		card temp = piles[11]->GetPile().back();
-		auto vec = VecSlice(piles[11]->GetPile(), 0, -2);
-		vec.insert(vec.begin(),temp);
-		delete piles[11];
-		piles[11]=factory.GetStoragePile(vec);
+		// card temp = piles[11]->GetPile().back();
+		// auto vec = VecSlice(piles[11]->GetPile(), 0, -2);
+		// vec.insert(vec.begin(),temp);
+		// delete piles[11];
+		// piles[11]=factory.GetStoragePile(vec);
+		rotate(piles[11]->GetPile().begin(), piles[11]->GetPile().end()-1, piles[11]->GetPile().end());
 
 	}
 
@@ -340,7 +340,7 @@
 					else{
 						int Dtemp_suit = dpl->GetPile().back().getSuit();
 						int Dtemp_value = dpl->GetPile().back().getValue();
-						if( (lcd.getValue() - 1 == Dtemp_value) && (Dtemp_suit == lcd.getSuit()) )  {
+						if( (lcd.getValue() - 1 == static_cast<unsigned>(Dtemp_value)) && (Dtemp_suit == lcd.getSuit()) )  {
 	            return;
 	          }
 					}
@@ -359,12 +359,12 @@
 						switch (fcd.getSuit()) {
 		        case DIAMONDS:
 		        case HEARTS:
-							if( (fcd.getValue() + 1 == Dtemp_value) &&(Dtemp_suit == SPADES || Dtemp_suit == CLUBS) ) {
+							if( (fcd.getValue() + 1 == static_cast<unsigned>(Dtemp_value)) &&(static_cast<unsigned>(Dtemp_suit) == SPADES || Dtemp_suit == CLUBS) ) {
 		            return;
 		          }
 		          break;
 		        default:
-							if( (fcd.getValue() + 1 == Dtemp_value) && (Dtemp_suit == DIAMONDS || Dtemp_suit == HEARTS) )  {
+							if( (fcd.getValue() + 1 == static_cast<unsigned>(Dtemp_value)) && (static_cast<unsigned>(Dtemp_suit) == DIAMONDS || Dtemp_suit == HEARTS) )  {
 		            return;
 		          }
 		        }
@@ -441,7 +441,7 @@
 	void GAME::Play(solitaire::Command command)
 	{
         if (command.type == solitaire::move) {
-		    if(piles[command.from - 1]->shownCards == command.count && command.count != piles[command.from - 1]->size) command.revealed = true;
+		    if(piles[command.from - 1]->shownCards == static_cast<unsigned>(command.count) && static_cast<unsigned>(command.count) != piles[command.from - 1]->size) command.revealed = true;
 		    else command.revealed = false;
         }
 

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
+#include <algorithm>
 
 #define DEBUG
 #ifdef DEBUG
@@ -47,7 +48,7 @@ class TargetPile:public Pile_Interface{
             return -1;
           }
         }
-        else if(cd.getValue() + 1 != Dtemp_value) {
+        else if(cd.getValue() + 1 != static_cast<unsigned>(Dtemp_value)) {
           cerr << "ERROR("<<__LINE__<<"):You can't place this card(s) here";
           DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
           return -1;
@@ -91,8 +92,8 @@ class TargetPile:public Pile_Interface{
             return -1;
           }
         }
-        else if(cd.getValue() + 1 != Dtemp_value) {
-          cerr << "ERROR("<<__LINE__<<"):You can't place this card(s) here";
+        else if(cd.getValue() + 1 != static_cast<unsigned>(Dtemp_value)) {
+          cerr << "ERROR("<<__LINE__<<"):You can't place this card(s) here ";
           DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
           return -1;
         }
@@ -133,6 +134,15 @@ class HomePile:public Pile_Interface{
       shownCards = 0;
     }
 
+    HomePile(std::vector<card>& vec)
+    {
+    	for (card cd : vec)
+    	{
+    		this->cards.push_back(cd);
+    		this->size++;
+    	}
+    }
+
 
     int AddCard(card& cd, int flags) final
     {
@@ -148,7 +158,7 @@ class HomePile:public Pile_Interface{
             return -1;
           }
         }
-        else if(cd.getValue() - 1 != Dtemp_value) {
+        else if(cd.getValue() - 1 != static_cast<unsigned>(Dtemp_value)) {
           cerr << "You can't place this card(s) here";
           DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
           return -1;
@@ -189,7 +199,7 @@ class HomePile:public Pile_Interface{
           else{
             Dtemp_suit = (*(cards.end() - 1)).getSuit();
             Dtemp_value = (*(cards.end() - 1)).getValue();
-            if(cd.getValue() - 1 != Dtemp_value) {
+            if(cd.getValue() - 1 != static_cast<unsigned>(Dtemp_value)) {
               cerr << "You can't place this card(s) here";
               DEB("s value="<<cd.getValue()<< "  d value: "<<Dtemp_value << endl);
               return -1;
@@ -251,6 +261,7 @@ class StoragePile:public Pile_Interface{
     		this->cards.push_back(cd);
     		this->size++;
     	}
+      random_shuffle(cards.begin(),cards.end());
     }
 
     ~StoragePile(){}

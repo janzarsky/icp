@@ -74,3 +74,7 @@ Makefile*
 
 # QtCtreator CMake
 CMakeLists.txt.user*
+
+# test files
+src/test*
+src/Makefile
