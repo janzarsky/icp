@@ -103,6 +103,13 @@ namespace solitaire
                 if (j < pile_size - 1)
                     card->setHidden(true);
 
+                if (j > 0) {
+                    card->setBehind(true);
+
+                    if (j <= pile_size - game.piles[i]->shownCards)
+                        card->setBackBehind(true);
+                }
+
                 connect(card, &GUICard::clicked, this, &GUIGame::movePile);
 
                 pile_layouts[i]->addWidget(card);

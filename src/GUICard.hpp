@@ -21,6 +21,8 @@ namespace solitaire
         unsigned int pileIndex;
         unsigned int cardIndex;
         bool hidden = false;
+        bool behind = false;
+        bool back = false;
         QString element;
 
     public:
@@ -35,8 +37,12 @@ namespace solitaire
         void setCardEmpty();
         void setCardBack();
         void setHidden(bool hidden);
+        void setBehind(bool behind);
+        void setBackBehind(bool back);
         unsigned int getPileIndex();
         unsigned int getCardIndex();
         bool isHidden();
+        bool isBehind();
+        bool isBackBehind();
     };
 }

@@ -115,6 +115,13 @@ namespace solitaire
 
         if (!renderer.elementExists(element))
             cerr << "SVG element not found" << endl;
+ 
+        if (isBehind()) {
+            if (isBackBehind())
+                renderer.render(&painter, QString("helper2"), QRectF(offset, 0, size.width(), size.height()));
+            else
+                renderer.render(&painter, QString("helper"), QRectF(offset, 0, size.width(), size.height()));
+        }
 
         renderer.render(&painter, element, QRectF(offset, 0, size.width(), size.height()));
 
@@ -130,6 +137,14 @@ namespace solitaire
         this->hidden = hidden;
     }
 
+    void GUICard::setBehind(bool behind) {
+        this->behind = behind;
+    }
+
+    void GUICard::setBackBehind(bool back) {
+        this->back = back;
+    }
+
     unsigned int GUICard::getPileIndex() {
         return pileIndex;
     }
@@ -140,5 +155,13 @@ namespace solitaire
 
     bool GUICard::isHidden() {
         return hidden;
+    }
+
+    bool GUICard::isBehind() {
+        return behind;
+    }
+
+    bool GUICard::isBackBehind() {
+        return back;
     }
 }
