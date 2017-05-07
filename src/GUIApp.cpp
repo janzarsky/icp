@@ -52,12 +52,17 @@ namespace solitaire
         closeGameAct->setShortcuts(QKeySequence::Close);
         connect(closeGameAct, SIGNAL(triggered()), this, SLOT(closeGame()));
 
+        quitAct = new QAction("&Quit");
+        quitAct->setShortcuts(QKeySequence::Quit);
+        connect(quitAct, SIGNAL(triggered()), this, SLOT(quit()));
+
         gameMenu = menuBar()->addMenu("&Game");
         gameMenu->addAction(undoGameAct);
         gameMenu->addAction(newGameAct);
         gameMenu->addAction(loadGameAct);
         gameMenu->addAction(saveGameAct);
         gameMenu->addAction(closeGameAct);
+        gameMenu->addAction(quitAct);
 
 		setCentralWidget(scroll);
 		show();
@@ -219,6 +224,10 @@ namespace solitaire
                 gameUIs[i]->setActive(false);
             }
         }
+    }
+
+    void GUIMainWindow::quit() {
+        QApplication::quit();
     }
 }
 

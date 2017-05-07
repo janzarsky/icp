@@ -32,6 +32,7 @@ namespace solitaire
         QAction *closeGameAct;
 		QAction *loadGameAct;
 		QAction *saveGameAct;
+		QAction *quitAct;
 
         void newGame(string filename);
         void setActiveGame();
@@ -43,6 +44,7 @@ namespace solitaire
         void loadGame();
         void saveGame();
         void activeGame();
+        void quit();
 
     public:
         GUIMainWindow();
