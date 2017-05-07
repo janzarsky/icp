@@ -22,10 +22,11 @@ namespace solitaire
     }
 
     void GUIGame::initLayout() {
-        QPalette pal;
-        pal.setColor(QPalette::Background, QColor::fromRgb(64,64,64));
+        activePal.setColor(QPalette::Background, QColor::fromRgb(64,64,64));
+        inactivePal.setColor(QPalette::Background, QColor::fromRgb(128,128,128));
+
         setAutoFillBackground(true);
-        setPalette(pal);
+        setPalette(activePal);
         setMinimumSize(0, 0);
 
         layout = new QGridLayout();
@@ -134,6 +135,9 @@ namespace solitaire
     }
 
     void GUIGame::turnCard() {
+        setActive(true);
+        activated();
+
         if (cmdStatus == cmdNew) {
             cmd.type = CommandType::turn;
             cmd.count = 1;
@@ -150,6 +154,9 @@ namespace solitaire
     }
 
     void GUIGame::moveFromDeck() {
+        setActive(true);
+        activated();
+
         if (cmdStatus == cmdNew) {
             cmd.type = CommandType::move;
             cmd.from = NUM_OF_HOMES + NUM_OF_COLUMNS;
@@ -167,6 +174,9 @@ namespace solitaire
     }
 
     void GUIGame::moveToHome() {
+        setActive(true);
+        activated();
+
         if (cmdStatus == cmdFrom) {
             if (cmd.count == 1) {
                 GUICard *card = qobject_cast<GUICard *>(sender());
@@ -182,6 +192,9 @@ namespace solitaire
     }
 
     void GUIGame::movePile() {
+        setActive(true);
+        activated();
+
         if (cmdStatus == cmdNew) {
             cmd.type = CommandType::move;
 
@@ -249,5 +262,19 @@ namespace solitaire
     void GUIGame::undoGame() {
         game.Backward();
         reloadValues();
+    }
+
+    void GUIGame::setActive(bool active) {
+        if (active)
+            setPalette(activePal);
+        else
+            setPalette(inactivePal);
+    }
+
+    void GUIGame::mousePressEvent(QMouseEvent *event) {
+        if (event->button() == Qt::LeftButton) {
+            setActive(true);
+            activated();
+        }
     }
 }

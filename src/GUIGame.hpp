@@ -23,6 +23,8 @@ namespace solitaire
         GUICard *homes[NUM_OF_HOMES];
         QWidget *piles[NUM_OF_COLUMNS];
         QBoxLayout *pile_layouts[NUM_OF_COLUMNS];
+        QPalette activePal;
+        QPalette inactivePal;
 
         void initLayout();
         void reloadValues();
@@ -34,6 +36,12 @@ namespace solitaire
         void moveToHome();
         void movePile();
 
+    signals:
+        void activated();
+
+    protected:
+        void mousePressEvent(QMouseEvent *event) override;
+
     public:
         GUIGame();
         GUIGame(string filename);
@@ -41,5 +49,6 @@ namespace solitaire
         void resizeEvent(QResizeEvent *event);
         void saveGame(string filename);
         void undoGame();
+        void setActive(bool active);
     };
 }

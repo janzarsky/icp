@@ -75,9 +75,10 @@ namespace solitaire
 		
 		GUIGame *game;
         
-        if (filename == "")
+        if (filename == "") {
             game = new GUIGame();
-        else
+        }
+        else {
             try {
                 game = new GUIGame(filename);
             }
@@ -85,29 +86,24 @@ namespace solitaire
                 // TODO
                 return;
             }
+        }
 
 		gameUIs.push_back(game);
+
+        active_game = gameUIs.size();
+
+        connect(game, &GUIGame::activated, this, &GUIMainWindow::activeGame);
 		
-        if (size == 0) {
-		    gamesGrid.addWidget(game, 0, 0);
-        }
-        else if (size == 1) {
-		    gamesGrid.addWidget(game, 0, 1);
+        for (unsigned int i = 0; i < max_num_of_games; i++) {
+            if (gameSlots[i] == 0) {
+                gamesGrid.addWidget(game, i/game_cols, i%game_cols);
 
-            placeholder1 = new QWidget();
-            gamesGrid.addWidget(placeholder1, 1, 0);
+                gameSlots[i] = active_game;
+                break;
+            }
+        }
 
-            placeholder2 = new QWidget();
-            gamesGrid.addWidget(placeholder2, 1, 1);
-        }
-        else if (size == 2) {
-            gamesGrid.removeWidget(placeholder1);
-		    gamesGrid.addWidget(game, 1, 0);
-        }
-        else if (size == 3) {
-            gamesGrid.removeWidget(placeholder2);
-		    gamesGrid.addWidget(game, 1, 1);
-        }
+        setActiveGame();
 	}
 
     void GUIMainWindow::closeGame() {
@@ -115,26 +111,48 @@ namespace solitaire
 
         if (size == 0)
             return;
-		
-		QWidget *w = gameUIs.back();
-        gameUIs.pop_back();
+
+        if (active_game == 0)
+            return;
+
+		QWidget *w = gameUIs[active_game - 1];
+
+        gameUIs.erase(gameUIs.begin() + active_game - 1);
 
 		gamesGrid.removeWidget(w);
 
-        if (size == 4) {
-            placeholder2 = new QWidget();
-            gamesGrid.addWidget(placeholder2, 1, 1);
-        }
-        else if (size == 3) {
-            placeholder1 = new QWidget();
-            gamesGrid.addWidget(placeholder1, 1, 0);
-        }
-        else if (size == 2) {
-            gamesGrid.removeWidget(placeholder1);
-            gamesGrid.removeWidget(placeholder2);
+        delete w;
+
+        int hole;
+
+        // correct game slots
+        for (unsigned int i = 0; i < max_num_of_games; i++) {
+            if (gameSlots[i] == active_game) {
+                hole = i;
+                gameSlots[i] = 0;
+            }
+            else if (gameSlots[i] > active_game) {
+                gameSlots[i]--;
+            }
         }
 
-        delete w;
+        // correct holes in game grid
+        for (unsigned int i = hole + 1; i < gameUIs.size() + 1; i++) {
+            gamesGrid.removeWidget(gameUIs[gameSlots[i] - 1]);
+            gamesGrid.addWidget(gameUIs[gameSlots[i] - 1], (i - 1)/game_cols, (i - 1)%game_cols);
+
+            gameSlots[i - 1] = gameSlots[i];
+            gameSlots[i] = 0;
+        }
+
+        // correct active game
+        for (unsigned int i = max_num_of_games; i > 0; i--) {
+            if (gameSlots[i - 1] != 0) {
+                active_game = gameSlots[i - 1];
+                setActiveGame();
+                break;
+            }
+        }
     }
 
     void GUIMainWindow::loadGame() {
@@ -147,15 +165,41 @@ namespace solitaire
     }
 
     void GUIMainWindow::saveGame() {
+        if (active_game == 0)
+            return;
+
         QString filename = QFileDialog::getSaveFileName(this, "Save Game", "./game.solitaire", "Solitaire games (*.solitaire)");
 
-        // TODO use active game
-        gameUIs.back()->saveGame(filename.toLocal8Bit().constData());
+        gameUIs[active_game - 1]->saveGame(filename.toLocal8Bit().constData());
     }
 
     void GUIMainWindow::undoGame() {
-        // TODO use active game
-        gameUIs.back()->undoGame();
+        if (active_game == 0)
+            return;
+
+        gameUIs[active_game - 1]->undoGame();
+    }
+
+    void GUIMainWindow::activeGame() {
+        GUIGame *game = qobject_cast<GUIGame *>(sender());
+
+        for (unsigned int i = 0; i < gameUIs.size(); i++) {
+            if (gameUIs[i] == game)
+                active_game = i + 1;
+        }
+
+        setActiveGame();
+    }
+
+    void GUIMainWindow::setActiveGame() {
+        for (unsigned int i = 0; i < gameUIs.size(); i++) {
+            if (i == active_game - 1) {
+                gameUIs[i]->setActive(true);
+            }
+            else {
+                gameUIs[i]->setActive(false);
+            }
+        }
     }
 }
 

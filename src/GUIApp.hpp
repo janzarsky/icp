@@ -14,10 +14,14 @@ namespace solitaire
     {
         Q_OBJECT
 
-		const unsigned int max_num_of_games = 4;
+		static const unsigned int max_num_of_games = 4;
+		static const unsigned int game_cols = 2;
 
 		QGridLayout gamesGrid;
         vector<GUIGame *> gameUIs;
+        unsigned int gameSlots[max_num_of_games] = { 0 };
+
+        unsigned int active_game = 0;
 
         QMenu *gameMenu;
 		QAction *undoGameAct;
@@ -26,10 +30,8 @@ namespace solitaire
 		QAction *loadGameAct;
 		QAction *saveGameAct;
 
-        QWidget *placeholder1;
-        QWidget *placeholder2;
-
         void newGame(string filename);
+        void setActiveGame();
 
     private slots:
         void undoGame();
@@ -37,6 +39,7 @@ namespace solitaire
         void closeGame();
         void loadGame();
         void saveGame();
+        void activeGame();
 
     public:
         GUIMainWindow();
