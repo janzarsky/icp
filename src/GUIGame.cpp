@@ -118,6 +118,8 @@ namespace solitaire
         if (cmdStatus == cmdNew) {
             cmd.type = CommandType::turn;
             cmd.count = 1;
+            cmd.from = 0;
+            cmd.to = 0;
 
             sendCommand();
 

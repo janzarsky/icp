@@ -24,7 +24,7 @@ namespace solitaire
             renderer.load(QString(":/cards.svgz"));
 
             if (!renderer.isValid()) {
-                throw exception();
+                cerr << "Could not load SVG image" << endl;
             }
         }
     }
@@ -114,7 +114,7 @@ namespace solitaire
         int offset = (w - size.width())/2;
 
         if (!renderer.elementExists(element))
-            throw exception();
+            cerr << "SVG element not found" << endl;
 
         renderer.render(&painter, element, QRectF(offset, 0, size.width(), size.height()));
 
