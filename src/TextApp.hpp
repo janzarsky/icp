@@ -1,5 +1,6 @@
 #include <vector>
 #include <memory>
+#include <string>
 #include "GameUI.hpp"
 #include "TextUIParser.hpp"
 
@@ -21,6 +22,8 @@ namespace solitaire
         void newGame();
         void closeGame();
         void switchGame(unsigned int);
+        void saveGame(string filename);
+        void loadGame(string filename);
         void printGames();
         void printActiveBoard();
 

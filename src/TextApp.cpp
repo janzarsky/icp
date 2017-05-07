@@ -60,6 +60,16 @@ namespace solitaire
                 printActiveBoard();
                 break;
 
+            case save:
+                saveGame(cmd.filename);
+                printActiveBoard();
+                break;
+
+            case load:
+                loadGame(cmd.filename);
+                printActiveBoard();
+                break;
+
             case games:
                 printGames();
                 break;
@@ -128,6 +138,31 @@ namespace solitaire
         active_game = game_num;
 
         cout << "Switched to game number " << active_game << "\n";
+    }
+
+    void TextApp::saveGame(string filename) {
+        try {
+            gameUIs[active_game - 1]->saveGame(filename);
+        }
+        catch (invalid_argument& e) {
+            throw InvalidActionException("Error while saving game");
+        }
+    }
+
+    void TextApp::loadGame(string filename) {
+        if (gameUIs.size() >= max_num_of_games)
+            throw InvalidActionException("Reached maximum number of games");
+
+        try {
+            gameUIs.push_back(unique_ptr<GameUI>(new GameUI(filename)));
+        }
+        catch (invalid_argument& e) {
+            throw InvalidActionException("Error while loading game");
+        }
+
+        active_game = gameUIs.size();
+
+        cout << "Loaded game number " << active_game << endl;
     }
 
     void TextApp::printGames() {

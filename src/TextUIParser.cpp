@@ -37,6 +37,18 @@ namespace solitaire
             cmd.type = switch_game;
         else if (str == "games" || str == "g")
             cmd.type = games;
+        else if (str == "save") {
+            cmd.type = save;
+
+            getline(ss, str, ' ');
+            cmd.filename = str;
+        }
+        else if (str == "load") {
+            cmd.type = load;
+
+            getline(ss, str, ' ');
+            cmd.filename = str;
+        }
         // game commands
         else if (str == "move" || str == "m") {
             cmd.type = game_cmd;

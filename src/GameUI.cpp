@@ -11,9 +11,9 @@ using namespace std;
 
 namespace solitaire
 {
-    GameUI::GameUI() {
-        cout << "(constructor GameUI)\n";
-    }
+    GameUI::GameUI() {}
+
+    GameUI::GameUI(string filename): game{filename} {}
 
     string GameUI::unicode_back() {
         return " \U0001F0A0 ";
@@ -134,5 +134,9 @@ namespace solitaire
         cmd.to++;
 
         game.Play(cmd);
+    }
+
+    void GameUI::saveGame(string filename) {
+        game.Save(filename);
     }
 }

@@ -18,7 +18,9 @@ namespace solitaire
 
     public:
         GameUI();
+        GameUI(string filename);
         void printBoard();
         void executeCommand(Command& cmd);
+        void saveGame(string filename);
     };
 }
