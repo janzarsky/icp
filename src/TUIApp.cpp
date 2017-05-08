@@ -111,12 +111,16 @@ namespace solitaire
                 break;
 
             default:
-                cout << "got command: " << cmd.type << endl;
-                printActiveBoard();
+                throw invalid_argument("Unknown command");
                 break;
         }
     }
 
+    /**
+     * Print active board
+     * 
+     * Uses active_game, if active_game is 0 nothing happens
+     */
     void TUIApp::printActiveBoard() {
         if (active_game == 0)
             return;
@@ -126,6 +130,9 @@ namespace solitaire
         gameUIs[active_game - 1]->printBoard();
     }
 
+    /**
+     * Print help
+     */
     void TUIApp::printHelp() {
         cout << "General commands:" << endl;
         cout << "help      show this help" << endl;
@@ -146,6 +153,11 @@ namespace solitaire
         cout << "hint                show possible move" << endl;
     }
 
+    /**
+     * Create new game
+     *
+     * @throws std::invalid_argument game cannot be created
+     */
     void TUIApp::newGame() {
         if (gameUIs.size() < max_num_of_games)
             gameUIs.push_back(unique_ptr<TUIGame>(new TUIGame()));
@@ -157,6 +169,11 @@ namespace solitaire
         cout << "Created game number " << active_game << endl;
     }
 
+    /**
+     * Close active game
+     *
+     * @throws std::invalid_argument there is no active game
+     */
     void TUIApp::closeGame() {
         if (active_game == 0)
             throw invalid_argument("No game played");
@@ -168,6 +185,12 @@ namespace solitaire
         active_game = gameUIs.size();
     }
 
+    /**
+     * Switch to game
+     *
+     * @param game_num game number (usually 1 - 4)
+     * @throws std::invalid_argument there is no game with number @p game_num
+     */
     void TUIApp::switchGame(unsigned int game_num) {
         if (game_num == 0 || game_num > gameUIs.size())
             throw invalid_argument("Invalid game number");
@@ -177,6 +200,12 @@ namespace solitaire
         cout << "Switched to game number " << active_game << endl;
     }
 
+    /**
+     * Save active game to file
+     *
+     * @param filename file name
+     * @throws std::invalid_argument there is no active game or the game cannot be saved
+     */
     void TUIApp::saveGame(string filename) {
         if (active_game == 0)
             throw invalid_argument("No game played");
@@ -189,6 +218,13 @@ namespace solitaire
         }
     }
 
+    /**
+     * Create new game and load game state from file
+     *
+     * @param filename file name
+     * @throws std::invalid_argument new game cannot be created or there is
+     *      error reading the file
+     */
     void TUIApp::loadGame(string filename) {
         if (gameUIs.size() >= max_num_of_games)
             throw invalid_argument("Reached maximum number of games");
@@ -205,6 +241,9 @@ namespace solitaire
         cout << "Loaded game number " << active_game << endl;
     }
 
+    /**
+     * Print list of currently played games
+     */
     void TUIApp::printGames() {
         if (gameUIs.size() == 0) {
             cout << "No games are currently played" << endl;
