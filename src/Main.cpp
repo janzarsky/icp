@@ -1,6 +1,6 @@
 #include "Game.hpp"
 #ifdef TUI
-#include "TextApp.hpp"
+#include "TUIApp.hpp"
 #else
 #include "GUIApp.hpp"
 #endif
@@ -8,10 +8,10 @@
 using namespace std;
 using namespace solitaire;
 
-int main(int argc, char *argv[])
+int main(int argc __attribute__((unused)), char *argv[] __attribute__((unused)))
 {
 #ifdef TUI
-    TextApp app(argc, argv);
+    TUIApp app();
 #else
     GUIApp app(argc, argv);
 #endif

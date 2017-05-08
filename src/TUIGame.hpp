@@ -8,7 +8,7 @@ using namespace std;
 
 namespace solitaire
 {
-    class GameUI
+    class TUIGame
     {
         GAME game;
         string unicode(card& card);
@@ -17,8 +17,8 @@ namespace solitaire
         string unicode_space();
 
     public:
-        GameUI();
-        GameUI(string filename);
+        TUIGame();
+        TUIGame(string filename);
         void printBoard();
         void undo();
         void executeCommand(Command& cmd);

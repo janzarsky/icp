@@ -22,7 +22,7 @@ namespace solitaire
         UICommand() {}
     };
 
-    class TextUIParser
+    class TUIParser
     {
     public:
         UICommand getCommand();

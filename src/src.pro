@@ -24,21 +24,21 @@ HEADERS += Card.hpp \
            Command.hpp \
            Exceptions.hpp \
            Game.hpp \
-           GameUI.hpp \
            GUIApp.hpp \
            GUICard.hpp \
            GUIGame.hpp \
            Pile_interface.hpp \
            Pile_Factory.hpp \
            Piles.hpp \
-           TextApp.hpp \
-           TextUIParser.hpp
+           TUIGame.hpp \
+           TUIApp.hpp \
+           TUIParser.hpp
 SOURCES += Card.cpp \
            Game.cpp \
-           GameUI.cpp \
            GUIApp.cpp \
            GUICard.cpp \
            GUIGame.cpp \
            Main.cpp \
-           TextApp.cpp \
-           TextUIParser.cpp
+           TUIGame.cpp \
+           TUIApp.cpp \
+           TUIParser.cpp

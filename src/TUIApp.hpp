@@ -1,19 +1,19 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "GameUI.hpp"
-#include "TextUIParser.hpp"
+#include "TUIGame.hpp"
+#include "TUIParser.hpp"
 
 using namespace std;
 
 namespace solitaire
 {
-    class TextApp
+    class TUIApp
     {
         const unsigned int max_num_of_games = 4;
-        vector<unique_ptr<GameUI>> gameUIs;
+        vector<unique_ptr<TUIGame>> gameUIs;
         unsigned int active_game = 0;
-        TextUIParser parser;
+        TUIParser parser;
 
         void listenToCommands();
         void executeCommand(UICommand);
@@ -28,6 +28,6 @@ namespace solitaire
         void printActiveBoard();
 
     public:
-        TextApp(int argc, char *argv[]);
+        TUIApp();
     };
 }

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "TextUIParser.hpp"
+#include "TUIParser.hpp"
 #include "Exceptions.hpp"
 #include "Game.hpp"
 
@@ -9,7 +9,7 @@ using namespace std;
 
 namespace solitaire
 {
-    UICommand TextUIParser::getCommand() {
+    UICommand TUIParser::getCommand() {
         UICommand cmd;
 
         cout << "solitaire> ";

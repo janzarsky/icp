@@ -2,7 +2,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "GameUI.hpp"
+#include "TUIGame.hpp"
 #include "Card.hpp"
 #include "Command.hpp"
 #include "Game.hpp"
@@ -11,23 +11,23 @@ using namespace std;
 
 namespace solitaire
 {
-    GameUI::GameUI() {}
+    TUIGame::TUIGame() {}
 
-    GameUI::GameUI(string filename): game{filename} {}
+    TUIGame::TUIGame(string filename): game{filename} {}
 
-    string GameUI::unicode_back() {
+    string TUIGame::unicode_back() {
         return " \U0001F0A0 ";
     }
 
-    string GameUI::unicode_empty() {
+    string TUIGame::unicode_empty() {
         return "[ ]";
     }
 
-    string GameUI::unicode_space() {
+    string TUIGame::unicode_space() {
         return "   ";
     }
 
-    string GameUI::unicode(card& card) {
+    string TUIGame::unicode(card& card) {
         string res;
 
 		switch (card.getValue()) {
@@ -73,7 +73,7 @@ namespace solitaire
         return res;
     }
 
-    void GameUI::printBoard() {
+    void TUIGame::printBoard() {
         cout << unicode_back() << " ";
 
         if (game.piles[NUM_OF_COLUMNS + NUM_OF_HOMES]->GetPile().size() > 0)
@@ -115,11 +115,11 @@ namespace solitaire
         cout << endl;
     }
 
-    void GameUI::undo() {
+    void TUIGame::undo() {
         game.Backward();
     }
 
-    void GameUI::executeCommand(Command& cmd) {
+    void TUIGame::executeCommand(Command& cmd) {
         cout << "EXECUTE: ";
 
         if (cmd.type == move)
@@ -138,7 +138,7 @@ namespace solitaire
         game.Play(cmd);
     }
 
-    void GameUI::saveGame(string filename) {
+    void TUIGame::saveGame(string filename) {
         game.Save(filename);
     }
 }

@@ -1,18 +1,16 @@
 #include <iostream>
-#include "TextApp.hpp"
+#include "TUIApp.hpp"
 #include "Exceptions.hpp"
 
 using namespace std;
 
 namespace solitaire
 {
-    TextApp::TextApp(int argc, char *argv[]) {
-        cout << "(constructor TextApp, argc=" << argc << ", argv=" << argv << ")" << endl;
-
+    TUIApp::TUIApp() {
         listenToCommands();
     }
 
-    void TextApp::listenToCommands() {
+    void TUIApp::listenToCommands() {
         cout << "listenToCommands()" << endl;
 
         UICommand cmd;
@@ -32,7 +30,7 @@ namespace solitaire
         }
     }
 
-    void TextApp::executeCommand(UICommand cmd) {
+    void TUIApp::executeCommand(UICommand cmd) {
         switch (cmd.type) {
             case invalid:
                 cout << "ERROR: invalid command, type 'help' to show all commands" << endl;
@@ -91,7 +89,7 @@ namespace solitaire
         }
     }
 
-    void TextApp::printActiveBoard() {
+    void TUIApp::printActiveBoard() {
         if (active_game > 0) {
             cout << "Game number " << active_game << " board:" << endl;
 
@@ -99,7 +97,7 @@ namespace solitaire
         }
     }
 
-    void TextApp::printHelp() {
+    void TUIApp::printHelp() {
         cout << "General commands:" << endl;
         cout << "help      show this help" << endl;
         cout << "new       start a new game" << endl;
@@ -118,9 +116,9 @@ namespace solitaire
         cout << "undo                revert last move" << endl;
     }
 
-    void TextApp::newGame() {
+    void TUIApp::newGame() {
         if (gameUIs.size() < max_num_of_games)
-            gameUIs.push_back(unique_ptr<GameUI>(new GameUI()));
+            gameUIs.push_back(unique_ptr<TUIGame>(new TUIGame()));
         else
             throw InvalidActionException("Reached maximum number of games");
 
@@ -129,7 +127,7 @@ namespace solitaire
         cout << "Created game number " << active_game << endl;
     }
 
-    void TextApp::closeGame() {
+    void TUIApp::closeGame() {
         gameUIs.erase(gameUIs.begin() + active_game - 1);
 
         cout << "Game number " << active_game << " closed" << endl;
@@ -137,7 +135,7 @@ namespace solitaire
         active_game = gameUIs.size();
     }
 
-    void TextApp::switchGame(unsigned int game_num) {
+    void TUIApp::switchGame(unsigned int game_num) {
         if (game_num == 0 || game_num > gameUIs.size())
             throw InvalidActionException("Invalid game number");
 
@@ -146,7 +144,7 @@ namespace solitaire
         cout << "Switched to game number " << active_game << endl;
     }
 
-    void TextApp::saveGame(string filename) {
+    void TUIApp::saveGame(string filename) {
         try {
             gameUIs[active_game - 1]->saveGame(filename);
         }
@@ -155,12 +153,12 @@ namespace solitaire
         }
     }
 
-    void TextApp::loadGame(string filename) {
+    void TUIApp::loadGame(string filename) {
         if (gameUIs.size() >= max_num_of_games)
             throw InvalidActionException("Reached maximum number of games");
 
         try {
-            gameUIs.push_back(unique_ptr<GameUI>(new GameUI(filename)));
+            gameUIs.push_back(unique_ptr<TUIGame>(new TUIGame(filename)));
         }
         catch (invalid_argument& e) {
             throw InvalidActionException("Error while loading game");
@@ -171,7 +169,7 @@ namespace solitaire
         cout << "Loaded game number " << active_game << endl;
     }
 
-    void TextApp::printGames() {
+    void TUIApp::printGames() {
         if (gameUIs.size() == 0) {
             cout << "No games are currently played" << endl;
             return;
