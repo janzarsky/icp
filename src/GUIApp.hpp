@@ -35,6 +35,7 @@ namespace solitaire
 
         QMenu *gameMenu;
 		QAction *undoGameAct;
+		QAction *hintGameAct;
 		QAction *newGameAct;
         QAction *closeGameAct;
 		QAction *loadGameAct;
@@ -46,6 +47,7 @@ namespace solitaire
 
     private slots:
         void undoGame();
+        void hintGame();
         void newGameMenu();
         void closeGame();
         void loadGame();

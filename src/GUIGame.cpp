@@ -72,6 +72,7 @@ namespace solitaire
     }
 
     void GUIGame::reloadValues() {
+        back->setMark(false);
         back->setSize(cardSize);
 
         deck->setMark(false);
@@ -83,6 +84,7 @@ namespace solitaire
             deck->setCardEmpty();
 
         for (int i = 0; i < NUM_OF_HOMES; i++) {
+            homes[i]->setMark(false);
             homes[i]->setSize(cardSize);
 
             if (game.piles[NUM_OF_COLUMNS + i]->GetPile().size() > 0)
@@ -237,18 +239,6 @@ namespace solitaire
     }
 
     void GUIGame::sendCommand() {
-        cout << "send command, type: ";
-
-        if (cmd.type == CommandType::move)
-            cout << "move, ";
-        else if (cmd.type == CommandType::turn)
-            cout << "turn, ";
-        else
-            cout << "unknown, ";
-
-        cout << "from: " << cmd.from << ", to: " << cmd.to << ", count: " << cmd.count << endl;
-
-        // fix
         cmd.from++;
         cmd.to++;
 
@@ -274,6 +264,48 @@ namespace solitaire
     void GUIGame::undoGame() {
         game.Backward();
         reloadValues();
+    }
+
+    void GUIGame::hintGame() {
+        int from = 0;
+        int to = 0;
+
+        game.Help(from, to);
+
+        if (from == 0 && to == 0)
+            return;
+
+        from--;
+        to--;
+
+        if (from < NUM_OF_COLUMNS) {
+            for (int i = 0; i < pile_layouts[from]->count(); ++i) {
+                QLayoutItem *item = pile_layouts[from]->itemAt(i);
+
+                if (item->widget() != nullptr)
+                    dynamic_cast<GUICard *>(item->widget())->setMark(true);
+            }
+        }
+        else if (from == NUM_OF_COLUMNS + NUM_OF_HOMES) {
+            deck->setMark(true);
+        }
+
+        if (to < NUM_OF_COLUMNS) {
+            for (int i = 0; i < pile_layouts[to]->count(); ++i) {
+                QLayoutItem *item = pile_layouts[to]->itemAt(i);
+
+                if (item->widget() != nullptr)
+                    dynamic_cast<GUICard *>(item->widget())->setMark(true);
+            }
+        }
+        else if (to < NUM_OF_COLUMNS + NUM_OF_HOMES) {
+            homes[to - NUM_OF_COLUMNS]->setMark(true);
+        }
+        else if (to == NUM_OF_COLUMNS + NUM_OF_HOMES) {
+            back->setMark(true);
+        }
+
+        update();
     }
 
     void GUIGame::setActive(bool active) {

@@ -42,6 +42,10 @@ namespace solitaire
         undoGameAct->setShortcuts(QKeySequence::Undo);
         connect(undoGameAct, SIGNAL(triggered()), this, SLOT(undoGame()));
 
+        hintGameAct = new QAction("&Show hint");
+        hintGameAct->setShortcut(QKeySequence("Ctrl+H"));
+        connect(hintGameAct, SIGNAL(triggered()), this, SLOT(hintGame()));
+
         newGameAct = new QAction("&New Game");
         newGameAct->setShortcuts(QKeySequence::New);
         connect(newGameAct, SIGNAL(triggered()), this, SLOT(newGameMenu()));
@@ -64,10 +68,13 @@ namespace solitaire
 
         gameMenu = menuBar()->addMenu("&Game");
         gameMenu->addAction(undoGameAct);
+        gameMenu->addAction(hintGameAct);
+        gameMenu->addSeparator();
         gameMenu->addAction(newGameAct);
         gameMenu->addAction(loadGameAct);
         gameMenu->addAction(saveGameAct);
         gameMenu->addAction(closeGameAct);
+        gameMenu->addSeparator();
         gameMenu->addAction(quitAct);
 
 		setCentralWidget(scroll);
@@ -210,6 +217,13 @@ namespace solitaire
             return;
 
         gameUIs[active_game - 1]->undoGame();
+    }
+
+    void GUIMainWindow::hintGame() {
+        if (active_game == 0)
+            return;
+
+        gameUIs[active_game - 1]->hintGame();
     }
 
     void GUIMainWindow::activeGame() {

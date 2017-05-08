@@ -57,6 +57,7 @@ namespace solitaire
         void resizeEvent(QResizeEvent *event);
         void saveGame(string filename);
         void undoGame();
+        void hintGame();
         void setActive(bool active);
         void setCardSize(int width);
     };
