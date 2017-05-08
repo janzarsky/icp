@@ -30,6 +30,7 @@ namespace solitaire
             }
             catch (invalid_argument& e) {
                 cout << "ERROR: Invalid command: " << e.what() << endl;
+                printActiveBoard();
             }
         }
     }
@@ -106,11 +107,12 @@ namespace solitaire
     }
 
     void TUIApp::printActiveBoard() {
-        if (active_game > 0) {
-            cout << "Game number " << active_game << " board:" << endl;
+        if (active_game == 0)
+            return;
 
-            gameUIs[active_game - 1]->printBoard();
-        }
+        cout << "Game number " << active_game << " board:" << endl;
+
+        gameUIs[active_game - 1]->printBoard();
     }
 
     void TUIApp::printHelp() {
@@ -145,6 +147,9 @@ namespace solitaire
     }
 
     void TUIApp::closeGame() {
+        if (active_game == 0)
+            throw invalid_argument("No game played");
+
         gameUIs.erase(gameUIs.begin() + active_game - 1);
 
         cout << "Game number " << active_game << " closed" << endl;
@@ -162,6 +167,9 @@ namespace solitaire
     }
 
     void TUIApp::saveGame(string filename) {
+        if (active_game == 0)
+            throw invalid_argument("No game played");
+
         try {
             gameUIs[active_game - 1]->saveGame(filename);
         }
