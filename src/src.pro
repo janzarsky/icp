@@ -23,7 +23,6 @@ CONFIG += c++11
 # Input
 HEADERS += Card.hpp \
            Command.hpp \
-           Exceptions.hpp \
            Game.hpp \
            GUIApp.hpp \
            GUICard.hpp \
