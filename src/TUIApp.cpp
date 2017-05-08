@@ -39,6 +39,7 @@ namespace solitaire
         switch (cmd.type) {
             case invalid:
                 cout << "ERROR: invalid command, type 'help' to show all commands" << endl;
+                printActiveBoard();
                 break;
 
             case empty:
