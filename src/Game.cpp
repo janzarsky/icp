@@ -1,3 +1,10 @@
+/**
+ * @file    Game.cpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Implementation of main class Game representing the whole game
+ */
+
 #include <iostream>
 #include <stdlib.h>
 #include <vector>

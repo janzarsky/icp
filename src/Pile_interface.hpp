@@ -1,3 +1,11 @@
+/**
+ * @file    Pile_interface.hpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Class Pile_Interface which is implements 'interface' for all piles in game
+ */
+
+
 #ifndef PILE_INTERFACE_H
 #define PILE_INTERFACE_H
 #include "Card.hpp"

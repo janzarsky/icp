@@ -1,3 +1,10 @@
+/**
+ * @file    Card.hpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief  Declaration of class Card representing one card in game
+ */
+
 #ifndef CARD_H
 #define CARD_H
 

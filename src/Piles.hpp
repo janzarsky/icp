@@ -1,3 +1,11 @@
+/**
+ * @file    Piles.hpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Implementation of interfaces of differenet game piles
+ */
+
+
 #ifndef PILES_H
 #define PILES_H
 
