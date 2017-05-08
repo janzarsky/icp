@@ -14,22 +14,40 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * Create new TUI game
+     */
     TUIGame::TUIGame() {}
 
+    /**
+     * Load game from file
+     */
     TUIGame::TUIGame(string filename): game{filename} {}
 
+    /**
+     * Get string for card back
+     */
     string TUIGame::unicode_back() {
         return " \U0001F0A0 ";
     }
 
+    /**
+     * Get string for empty card
+     */
     string TUIGame::unicode_empty() {
         return "[ ]";
     }
 
+    /**
+     * Get string for no card
+     */
     string TUIGame::unicode_space() {
         return "   ";
     }
 
+    /**
+     * Get string for card
+     */
     string TUIGame::unicode(card& card) {
         string res;
 
@@ -76,6 +94,9 @@ namespace solitaire
         return res;
     }
 
+    /**
+     * Print game board
+     */
     void TUIGame::printBoard() {
         cout << unicode_back() << " ";
 
@@ -118,10 +139,16 @@ namespace solitaire
         cout << endl;
     }
 
+    /**
+     * Revert last move
+     */
     void TUIGame::undo() {
         game.Backward();
     }
 
+    /**
+     * Show possible move
+     */
     void TUIGame::hint() {
         int from = 0;
         int to = 0;
@@ -155,6 +182,11 @@ namespace solitaire
         }
     }
 
+    /**
+     * Execute game command
+     *
+     * @param cmd game command
+     */
     void TUIGame::executeCommand(Command& cmd) {
         cmd.from++;
         cmd.to++;
@@ -163,10 +195,18 @@ namespace solitaire
             game.Play(cmd);
     }
 
+    /**
+     * Save game to file
+     *
+     * @param filename file name
+     */
     void TUIGame::saveGame(string filename) {
         game.Save(filename);
     }
 
+    /**
+     * Has game ended?
+     */
     bool TUIGame::hasEnded() {
         return game.End;
     }

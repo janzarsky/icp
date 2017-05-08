@@ -12,11 +12,22 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * TUI command type
+     * 
+     * All game commands (move, turn) are game_cmd type.
+     */
     enum TUICommandType {
         help, game_cmd, new_game, close_game, switch_game, save, load, games,
         undo, hint, quit, empty, invalid
     };
 
+    /**
+     * TUI command
+     * 
+     * Used for storing game commands (move, turn) and general commands (new
+     * game, close game, ...)
+     */
     struct TUICommand
     {
         TUICommandType type;
@@ -28,6 +39,11 @@ namespace solitaire
         TUICommand() {}
     };
 
+    /**
+     * TUI parser
+     * 
+     * Reads command from user and creates TUICommand instance
+     */
     class TUIParser
     {
     public:

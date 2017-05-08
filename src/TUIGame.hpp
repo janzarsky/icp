@@ -14,6 +14,9 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * TUI Game
+     */
     class TUIGame
     {
         GAME game;

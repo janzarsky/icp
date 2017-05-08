@@ -15,6 +15,11 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * Get command from user
+     * 
+     * @returns TUICommand instance
+     */
     TUICommand TUIParser::getCommand() {
         TUICommand cmd;
 
