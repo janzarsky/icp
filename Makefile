@@ -1,11 +1,7 @@
-all: tui
-	cd src; qmake CONFIG+=gui
-	make -C src
-	make clean -C src
+all: tui gui
 
 gui:
-	cd src; qmake CONFIG+=gui
-	make -C src
+	@ cd src && qmake && make
 
 tui:
 	g++ -O2 -Wall -W -std=c++11 -DTUI -o hra2017-cli src/Card.cpp src/Game.cpp src/TUIGame.cpp src/Main.cpp src/TUIApp.cpp src/TUIParser.cpp
