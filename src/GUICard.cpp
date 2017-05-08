@@ -25,6 +25,13 @@ namespace solitaire
 {
     QSvgRenderer GUICard::renderer;
 
+    /**
+     * Create card widget
+     *
+     * @param cardSize card width in pixels
+     * @param pileIndex pile index
+     * @param cardIndex position of card within the pile
+     */
     GUICard::GUICard(int cardSize, unsigned int pileIndex, unsigned int cardIndex) {
         this->pileIndex = pileIndex;
         this->cardIndex = cardIndex;
@@ -45,6 +52,11 @@ namespace solitaire
         }
     }
 
+    /**
+     * Set SVG element ID using game card
+     *
+     * @param card game card
+     */
     void GUICard::setCardValue(card& card) {
 		switch (card.getSuit()) {
             case CLUBS:
@@ -83,14 +95,26 @@ namespace solitaire
 		}
     }
 
+    /**
+     * Set SVG element ID to empty card
+     */
     void GUICard::setCardEmpty() {
         element = "empty";
     }
 
+    /**
+     * Set SVG element ID to back of the card
+     */
     void GUICard::setCardBack() {
         element = "back";
     }
 
+    /**
+     * Paint card image on the button
+     * 
+     * Method uses common SVG renderer and computes image position using
+     * provided card size and available space.
+     */
     void GUICard::paintEvent(QPaintEvent *e) {
         int w = width();
         int h = height();
@@ -159,7 +183,11 @@ namespace solitaire
 
         QWidget::paintEvent(e);
     }
-
+ 
+    /*
+     * Set card as hidden behind other cards (in the middle of pile) so that
+     * only top is visible
+     */
     void GUICard::setHidden(bool hidden) {
         if (hidden)
             setMinimumSize(cardw, cardh2);
@@ -169,18 +197,33 @@ namespace solitaire
         this->hidden = hidden;
     }
 
+    /*
+     * Set that there is a card behind this card (used for corner rendering)
+     */
     void GUICard::setBehind(bool behind) {
         this->behind = behind;
     }
 
+    /*
+     * Set that the card behind is not yet turn (back pattern is visible)
+     */
     void GUICard::setBackBehind(bool back) {
         this->back = back;
     }
 
+    /*
+     * Set that there should be a frame renderer around the card
+     * (e.g. when selected)
+     */
     void GUICard::setMark(bool mark) {
         this->mark = mark;
     }
     
+    /*
+     * Set card with and compute other dimensions
+     *
+     * @param width width in pixels
+     */
     void GUICard::setSize(int width) {
         cardw = width;
         cardh = width*3/2;
@@ -189,10 +232,16 @@ namespace solitaire
         setHidden(hidden);
     }
 
+    /**
+     * Get card pile index
+     */
     unsigned int GUICard::getPileIndex() {
         return pileIndex;
     }
 
+    /**
+     * Get card position in pile
+     */
     unsigned int GUICard::getCardIndex() {
         return cardIndex;
     }

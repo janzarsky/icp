@@ -9,12 +9,18 @@
 
 namespace solitaire
 {
+    /**
+     * Game command type
+     */
     enum CommandType
     {
         move,
         turn
     };
 
+    /**
+     * Game command
+     */
     struct Command
     {
         CommandType type;

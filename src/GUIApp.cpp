@@ -13,12 +13,18 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * Create GUI app and execute it
+     */
     GUIApp::GUIApp(int argc, char *argv[]): QApplication(argc, argv) {
         mainWindow = new GUIMainWindow();
 
         exec();
     }
 
+    /**
+     * Create main window
+     */
 	GUIMainWindow::GUIMainWindow() {
         gamesGrid.setSizeConstraint(QLayout::SetMinimumSize);
         gamesGrid.setContentsMargins(0, 0, 0, 0);
@@ -74,10 +80,20 @@ namespace solitaire
 		show();
 	}
 
+    /**
+     * Create new game
+     */
     void GUIMainWindow::newGameMenu() {
         newGame("");
     }
 
+    /**
+     * Create new game and load state from file
+     *
+     * @param filename file name
+     *
+     * If the game cannot be loaded message is shown
+     */
 	void GUIMainWindow::newGame(string filename) {
 		unsigned int size = gameUIs.size();
 
@@ -101,7 +117,10 @@ namespace solitaire
                 game = new GUIGame(cardSize, filename);
             }
             catch (invalid_argument& e) {
-                // TODO
+                QMessageBox msg;
+                msg.setText("Could not load game!");
+                msg.exec();
+
                 return;
             }
         }
@@ -131,6 +150,11 @@ namespace solitaire
         }
 	}
 
+    /**
+     * Close active game
+     *
+     * If there is no active game, nothing happens
+     */
     void GUIMainWindow::closeGame() {
 		unsigned int size = gameUIs.size();
 
@@ -187,6 +211,9 @@ namespace solitaire
         }
     }
 
+    /**
+     * Show file dialog and load selected game
+     */
     void GUIMainWindow::loadGame() {
         QString filename = QFileDialog::getOpenFileName(this, "Load Game", "./", "Solitaire games (*.solitaire);;All files (*.*)");
 
@@ -196,6 +223,11 @@ namespace solitaire
         newGame(filename.toLocal8Bit().constData());
     }
 
+    /**
+     * Show file dialog and save active game
+     *
+     * If there is no active game, nothing happens.
+     */
     void GUIMainWindow::saveGame() {
         if (active_game == 0)
             return;
@@ -205,6 +237,11 @@ namespace solitaire
         gameUIs[active_game - 1]->saveGame(filename.toLocal8Bit().constData());
     }
 
+    /**
+     * Revert last move in active game
+     *
+     * If there is no active game, nothing happens.
+     */
     void GUIMainWindow::undoGame() {
         if (active_game == 0)
             return;
@@ -212,6 +249,11 @@ namespace solitaire
         gameUIs[active_game - 1]->undoGame();
     }
 
+    /**
+     * Show possible move in active game
+     *
+     * If there is no active game, nothing happens.
+     */
     void GUIMainWindow::hintGame() {
         if (active_game == 0)
             return;
@@ -219,6 +261,9 @@ namespace solitaire
         gameUIs[active_game - 1]->hintGame();
     }
 
+    /**
+     * Set sender of this signal as an active game
+     */
     void GUIMainWindow::activeGame() {
         GUIGame *game = qobject_cast<GUIGame *>(sender());
 
@@ -230,6 +275,9 @@ namespace solitaire
         setActiveGame();
     }
 
+    /**
+     * Update game interfaces so that they know if they are active
+     */
     void GUIMainWindow::setActiveGame() {
         for (unsigned int i = 0; i < gameUIs.size(); i++) {
             if (i == active_game - 1) {
@@ -241,6 +289,9 @@ namespace solitaire
         }
     }
 
+    /**
+     * Quit application
+     */
     void GUIMainWindow::quit() {
         QApplication::quit();
     }

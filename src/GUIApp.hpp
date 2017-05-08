@@ -18,6 +18,9 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * Main window widget with all games
+     */
     class GUIMainWindow: public QMainWindow
     {
         Q_OBJECT
@@ -60,6 +63,9 @@ namespace solitaire
         GUIMainWindow();
     };
 
+    /**
+     * Main application
+     */
     class GUIApp: public QApplication
     {
         GUIMainWindow *mainWindow;

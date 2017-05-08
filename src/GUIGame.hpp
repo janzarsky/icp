@@ -18,6 +18,9 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * GUI game widget
+     */
     class GUIGame: public QWidget
     {
         enum cmdStatusType { cmdNew, cmdFrom } cmdStatus = cmdNew;
@@ -56,7 +59,6 @@ namespace solitaire
     public:
         GUIGame(int cardSize);
         GUIGame(int cardSize, string filename);
-        void resizeEvent(QResizeEvent *event);
         void saveGame(string filename);
         void undoGame();
         void hintGame();

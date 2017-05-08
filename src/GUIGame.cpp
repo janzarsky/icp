@@ -12,18 +12,32 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * Create GUI game widget
+     *
+     * @param cardSize width of game cards
+     */
     GUIGame::GUIGame(int cardSize) {
         this->cardSize = cardSize;
         initLayout();
         reloadValues();
     }
 
+    /**
+     * Create GUI game widget
+     *
+     * @param cardSize width of game cards
+     * @param filename load game from file
+     */
     GUIGame::GUIGame(int cardSize, string filename): game{filename} {
         this->cardSize = cardSize;
         initLayout();
         reloadValues();
     }
 
+    /**
+     * Create widgets
+     */
     void GUIGame::initLayout() {
         activePal.setColor(QPalette::Background, QColor::fromRgb(137,141,141));
         inactivePal.setColor(QPalette::Background, QColor::fromRgb(112,115,115));
@@ -65,6 +79,9 @@ namespace solitaire
         setLayout(layout);
     }
 
+    /**
+     * Update cards so that the match the game state
+     */
     void GUIGame::reloadValues() {
         back->setMark(false);
         back->setSize(cardSize);
@@ -141,6 +158,9 @@ namespace solitaire
         update();
     }
 
+    /**
+     * Turn card from deck
+     */
     void GUIGame::turnCard() {
         setActive(true);
         activated();
@@ -160,6 +180,9 @@ namespace solitaire
         }
     }
 
+    /**
+     * Move card from deck
+     */
     void GUIGame::moveFromDeck() {
         setActive(true);
         activated();
@@ -180,6 +203,9 @@ namespace solitaire
         }
     }
 
+    /**
+     * Move card to home
+     */
     void GUIGame::moveToHome() {
         setActive(true);
         activated();
@@ -198,6 +224,9 @@ namespace solitaire
         cmdStatus = cmdNew;
     }
 
+    /**
+     * Move card from or to pile
+     */
     void GUIGame::movePile() {
         setActive(true);
         activated();
@@ -232,6 +261,11 @@ namespace solitaire
         }
     }
 
+    /**
+     * Send command to game
+     *
+     * When the game is finished, message is shown.
+     */
     void GUIGame::sendCommand() {
         cmd.from++;
         cmd.to++;
@@ -251,26 +285,37 @@ namespace solitaire
         }
     }
 
-    void GUIGame::resizeEvent(QResizeEvent *event) {
-        QWidget::resizeEvent(event);
-        update();
-    }
-
+    /**
+     * Save game state to file
+     *
+     * In case of error, message is shown.
+     */
     void GUIGame::saveGame(string filename) {
         try {
             game.Save(filename);
         }
         catch (invalid_argument& e) {
-            // TODO
+            QMessageBox msg;
+            msg.setText("Could not save the game!");
+            msg.exec();
+
             return;
         }
     }
 
+    /**
+     * Revert last command
+     */
     void GUIGame::undoGame() {
         game.Backward();
         reloadValues();
     }
 
+    /**
+     * Show possible move
+     *
+     * Only source and destination pile is hinted, not the amount of cards.
+     */
     void GUIGame::hintGame() {
         int from = 0;
         int to = 0;
@@ -313,6 +358,9 @@ namespace solitaire
         update();
     }
 
+    /**
+     * Visually set this game as active
+     */
     void GUIGame::setActive(bool active) {
         if (active)
             setPalette(activePal);
@@ -320,6 +368,9 @@ namespace solitaire
             setPalette(inactivePal);
     }
 
+    /**
+     * Set this game active on click
+     */
     void GUIGame::mousePressEvent(QMouseEvent *event) {
         if (event->button() == Qt::LeftButton) {
             setActive(true);
@@ -327,6 +378,11 @@ namespace solitaire
         }
     }
 
+    /**
+     * Set card size
+     *
+     * @param width width of the card in pixels
+     */
     void GUIGame::setCardSize(int width) {
         cardSize = width;
 

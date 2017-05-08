@@ -16,6 +16,9 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * Card widget
+     */
     class GUICard: public QPushButton
     {
         Q_OBJECT
