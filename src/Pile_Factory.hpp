@@ -10,6 +10,9 @@
 #define PILE_FACTORY_H
 #include "Piles.hpp"
 
+namespace solitaire
+{
+
 /**
   Factory for creation of different instanses of piles
 */
@@ -72,5 +75,7 @@ class Pile_Factory{
       // DEB("INFO: All piles are deleted.\n");
     }
 };
+
+}
 
 #endif

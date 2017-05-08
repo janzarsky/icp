@@ -19,6 +19,8 @@
 #define DEB(X)
 #endif
 
+namespace solitaire
+{
 
 /**
 Enum type for card suits
@@ -46,4 +48,7 @@ public:
 	unsigned getValue();
 	~card();
 };
+
+}
+
 #endif

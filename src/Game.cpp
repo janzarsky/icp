@@ -14,6 +14,8 @@
 #include <time.h>
 #include "Game.hpp"
 
+namespace solitaire
+{
 
 	/**
 		Print vector of  cards to standart output (debug function)
@@ -551,3 +553,4 @@
 			PrintCards( VecSlice(piles[i-1]->GetPile(),-static_cast<int>(piles[i-1]->shownCards)));
 		}
 	}
+}

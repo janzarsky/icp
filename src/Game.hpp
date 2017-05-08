@@ -18,6 +18,10 @@
 
 
 using namespace std;
+
+namespace solitaire
+{
+
 typedef Pile_Interface pile;
 
 const int NUM_OF_CARDS = 52;
@@ -198,5 +202,7 @@ class GAME {
 		void Backward();
 
 };
+
+}
 
 #endif

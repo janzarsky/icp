@@ -16,6 +16,9 @@ namespace solitaire
         listenToCommands();
     }
 
+    /**
+     * Listen to commands in a loop and execute them
+     */
     void TUIApp::listenToCommands() {
         TUICommand cmd;
         
@@ -35,6 +38,13 @@ namespace solitaire
         }
     }
 
+    /**
+     * Execute command
+     * 
+     * @param cmd   TUICommand obtained from TUIParser
+     * 
+     * Game commands (move, turn) are passed to active game UI.
+     */
     void TUIApp::executeCommand(TUICommand cmd) {
         switch (cmd.type) {
             case invalid:

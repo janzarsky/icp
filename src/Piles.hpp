@@ -19,6 +19,9 @@
 
 using namespace std;
 
+namespace solitaire
+{
+
 /**
   Class for 7 target piles, implements pile interface
 */
@@ -330,5 +333,7 @@ class StoragePile:public Pile_Interface{
 
     ~StoragePile(){}
 };
+
+}
 
 #endif

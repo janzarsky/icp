@@ -8,6 +8,8 @@
 #include "Card.hpp"
 #include <iostream>
 
+namespace solitaire
+{
 
 /**
 	Construct card
@@ -41,6 +43,9 @@ cardsuit card::getSuit() {
 unsigned card::getValue() {
 	return this->value;
 }
+
 card::~card()
 {
+}
+
 }

@@ -13,6 +13,9 @@
 #include <iostream>
 #include <string>
 
+namespace solitaire
+{
+
 /**
   Implements interface for all piles in game
 */
@@ -110,5 +113,7 @@ class Pile_Interface{
     virtual ~Pile_Interface() = default;
 
 };
+
+}
 
 #endif

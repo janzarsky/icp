@@ -15,6 +15,12 @@ using namespace std;
 
 namespace solitaire
 {
+    /**
+     * TUI app
+     *
+     * Holds all games, listens to commands and interprets general commands
+     * (new game, close game, ...)
+     */
     class TUIApp
     {
         const unsigned int max_num_of_games = 4;
