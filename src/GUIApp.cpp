@@ -26,6 +26,8 @@ namespace solitaire
      * Create main window
      */
 	GUIMainWindow::GUIMainWindow() {
+        resize(QDesktopWidget().availableGeometry(this).size() * 0.8);
+
         gamesGrid.setSizeConstraint(QLayout::SetMinimumSize);
         gamesGrid.setContentsMargins(0, 0, 0, 0);
         gamesGrid.setSpacing(10);
