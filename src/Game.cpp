@@ -431,6 +431,22 @@
 	}
 
 	/**
+		Check if game is ended
+		@return 1 if its ended 0 otherwise
+	*/
+	int IsEnd(){
+		int win = 0;
+		for(auto home : homes){
+			if(home->size == 13) win++;
+		}
+		if(win == 4){
+			cout<<"CONGRATS!!\nWIN!\n";
+			return 1;
+		}
+		return 0;
+	}
+
+	/**
 		Main function which controls flow of TUI game version
 	*/
 	void GAME::Play()
@@ -480,16 +496,8 @@
 			cerr << "unknown command "<<endl;
 			break;
 		}
+		if(IsEnd()) End = true;
 
-		//checks for win
-		int win = 0;
-		for(auto home : homes){
-			if(home->size == 14) win++;
-		}
-		if(win == 4){
-			cout<<"CONGRATS!!\nWIN!\n";
-			exit(0);
-		}
 	}
 
 	/**
@@ -528,28 +536,18 @@
 				history.push_back(command);
 			}
 			break;
-		//TODO
-		// case exit:
-		// 	exit(1);
-		// 	break;
-		// case backward:
-		// 	Backward();
-		// 	break;
-		// case help:
-		// 	Help();
-		// 	break;
+		case backward:
+			Backward();
+			break;
+		case help:
+			Help();
+			break;
 		default:
 			cerr << "unknown command "<<endl;
 			break;
 		}
-		int win = 0;
-		for(auto home : homes){
-			if(home->size == 14) win++;
-		}
-		if(win == 4){
-			cout<<"CONGRATS!!\nWIN!\n";
-			exit(0);
-		}
+
+		if(IsEnd()) End = true;
 	}
 
 	/**

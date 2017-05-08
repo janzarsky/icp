@@ -56,6 +56,7 @@ class GAME {
 		vector<card> cardStack = {};	//!< Stack of all cards
 		Pile_Factory factory;	//!< Factory for creating piles
 		vector<pile *> homes; //!< Vector with pointers to homes
+		bool End = 0;  //!< Indicates if game is ended
 	  GAME()
 		{
 			for (unsigned i = 1; i <= K; i++)
@@ -176,6 +177,8 @@ class GAME {
 		void Play(solitaire::Command);
 
 		void Help(int &, int &) const;
+
+		int IsEnd();
 
 		void Save(string);
 
