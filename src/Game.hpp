@@ -117,7 +117,7 @@ class GAME {
 				//fill temp vector with cards
 				while(ln.getline(buf,9,',')){
 					string temp_card {buf};
-					cardsuit temp_suit;
+					cardsuit temp_suit = CLUBS ;
 					cardsuit temp_value;
 					switch (temp_card[0]) {
 						case 'D':

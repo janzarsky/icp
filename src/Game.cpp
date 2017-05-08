@@ -434,7 +434,7 @@
 		Check if game is ended
 		@return 1 if its ended 0 otherwise
 	*/
-	int IsEnd(){
+	int GAME::IsEnd(){
 		int win = 0;
 		for(auto home : homes){
 			if(home->size == 13) win++;
@@ -536,12 +536,12 @@
 				history.push_back(command);
 			}
 			break;
-		case backward:
-			Backward();
-			break;
-		case help:
-			Help();
-			break;
+		// case backward:
+		// 	Backward();
+		// 	break;
+		// case help:
+		// 	Help();
+		// 	break;
 		default:
 			cerr << "unknown command "<<endl;
 			break;
