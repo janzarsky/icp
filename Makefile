@@ -1,5 +1,13 @@
+# Makefile
+
+# Authors: 
+# Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+# Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+
 all: tui gui
 
+# make sure that qmake is a qt5 version, on Ubuntu try 'qmake -qt=qt5' if
+# this won't work
 gui:
 	@ cd src && qmake && make
 
@@ -13,14 +21,9 @@ run:
 doxygen:
 	doxygen 
 
-test:
-	./test.sh
-
 clean:
-	make clean -C src
-	rm hra2017 hra2017-cli xzarsk03-xpapla00.zip
-	rm -rf doc
+	rm -rf hra2017 hra2017-cli xzarsk03-xpapla00.zip doc/* src/Makefile src/.[!.]* src/*.o src/moc_* src/qrc_resources.cpp
 
-pack:
-	zip -r xzarsk03-xpapla00.zip src examples README.txt Makefile
+pack: clean
+	zip -r xzarsk03-xpapla00.zip src/ doc/ examples README.txt Makefile Doxyfile
 

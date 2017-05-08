@@ -8,17 +8,6 @@
 #include <iostream>
 #include "GUICard.hpp"
 
-/**
- * @file    cards.hpp
- * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
- *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
- * @brief   Generated resource: SVG image with cards
- *
- * Docs is written in GUICard.cpp because the file is generated.
- */
-
-#include "cards.hpp"
-
 using namespace std;
 
 namespace solitaire
