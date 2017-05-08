@@ -88,7 +88,13 @@ namespace solitaire
 
             case game_cmd:
                 gameUIs[active_game - 1]->executeCommand(cmd.game_cmd);
+
+                if (gameUIs[active_game - 1]->hasEnded()) {
+                    closeGame();
+                }
+
                 printActiveBoard();
+
                 break;
 
             default:

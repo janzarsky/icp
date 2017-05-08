@@ -18,6 +18,7 @@ namespace solitaire
     class TUIGame
     {
         GAME game;
+
         string unicode(card& card);
         string unicode_back();
         string unicode_empty();
@@ -31,5 +32,6 @@ namespace solitaire
         void hint();
         void executeCommand(Command& cmd);
         void saveGame(string filename);
+        bool hasEnded();
     };
 }

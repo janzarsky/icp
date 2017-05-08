@@ -163,10 +163,15 @@ namespace solitaire
         cmd.from++;
         cmd.to++;
 
-        game.Play(cmd);
+        if (!game.End)
+            game.Play(cmd);
     }
 
     void TUIGame::saveGame(string filename) {
         game.Save(filename);
+    }
+
+    bool TUIGame::hasEnded() {
+        return game.End;
     }
 }
