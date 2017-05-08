@@ -18,8 +18,9 @@ test:
 
 clean:
 	make clean -C src
-	rm hra2017 hra2017-cli
+	rm hra2017 hra2017-cli xzarsk03-xpapla00.zip
+	rm -rf doc
 
 pack:
-	zip -r xzarsk03-xpapla00.zip src examples doc README.txt Makefile
+	zip -r xzarsk03-xpapla00.zip src examples README.txt Makefile
 
