@@ -299,14 +299,8 @@
 	void GAME::RotateStack()
 		{
 		if(piles[11]->IsEmpty()){
-			cerr<<"\npile 11 is empty some error occured!\n";
-			exit(-1);
+			throw std::invalid_argument("Pile 11 is empty some error occured!");
 		}
-		// card temp = piles[11]->GetPile()[0];
-		// auto temp_vec = VecSlice(piles[11]->GetPile(), 1);
-		// temp_vec.push_back(temp);
-		// delete piles[11];
-		// piles[11] = factory.GetStoragePile(temp_vec);
 		rotate(piles[11]->GetPile().begin(), piles[11]->GetPile().begin()+1, piles[11]->GetPile().end());
 	}
 
@@ -315,14 +309,7 @@
 	*/
 	void GAME::rev_RotateStack()
 	{
-
-		// card temp = piles[11]->GetPile().back();
-		// auto vec = VecSlice(piles[11]->GetPile(), 0, -2);
-		// vec.insert(vec.begin(),temp);
-		// delete piles[11];
-		// piles[11]=factory.GetStoragePile(vec);
 		rotate(piles[11]->GetPile().begin(), piles[11]->GetPile().end()-1, piles[11]->GetPile().end());
-
 	}
 
 	/**
@@ -428,7 +415,7 @@
 		ofstream ofile;
 		ofile.open(path_to_save.c_str());
 		if(ofile.fail()){
-			cerr<<"ERROR: Can't open file for writing.\n";
+			throw std::invalid_argument("Can't open file for writing.\n");
 			return;
 		}
 		for(auto pl : piles){

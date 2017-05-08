@@ -55,8 +55,7 @@ class Pile_Interface{
     	}
     	else
     	{
-    		std::cerr << "Error: pile is empty, can't POP card\n";
-    		exit(-1);
+    		throw std::invalid_argument("Pile is empty, can't POP card\n");
     	}
     }
 

@@ -105,7 +105,6 @@ class GAME {
 			ifstream ifile;
 			ifile.open(path_to_save.c_str());
 			if(ifile.fail()){
-				// cerr<<"ERROR: Can't open file for reading.\n";
 				throw std::invalid_argument("Can't open file for reading.");
 				return;
 			}
