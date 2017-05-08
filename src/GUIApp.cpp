@@ -188,7 +188,7 @@ namespace solitaire
     }
 
     void GUIMainWindow::loadGame() {
-        QString filename = QFileDialog::getOpenFileName(this, "Load Game", "./", "Solitaire games (*.solitaire)");
+        QString filename = QFileDialog::getOpenFileName(this, "Load Game", "./", "Solitaire games (*.solitaire);;All files (*.*)");
 
         if (filename == "")
             return;
@@ -200,7 +200,7 @@ namespace solitaire
         if (active_game == 0)
             return;
 
-        QString filename = QFileDialog::getSaveFileName(this, "Save Game", "./game.solitaire", "Solitaire games (*.solitaire)");
+        QString filename = QFileDialog::getSaveFileName(this, "Save Game", "./game.solitaire", "Solitaire games (*.solitaire);;All files (*.*)");
 
         gameUIs[active_game - 1]->saveGame(filename.toLocal8Bit().constData());
     }
