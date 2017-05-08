@@ -34,6 +34,7 @@ namespace solitaire
         QPalette activePal;
         QPalette inactivePal;
         int cardSize = 120;
+        bool msgShown = false;
 
         void initLayout();
         void reloadValues();

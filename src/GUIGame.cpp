@@ -241,9 +241,20 @@ namespace solitaire
     void GUIGame::sendCommand() {
         cmd.from++;
         cmd.to++;
+        
+        if (!game.End) {
+            game.Play(cmd);
+        }
 
-        game.Play(cmd);
         reloadValues();
+
+        if (game.End && !msgShown) {
+            msgShown = true;
+
+            QMessageBox msg;
+            msg.setText("Congratulations, game finished!");
+            msg.exec();
+        }
     }
 
     void GUIGame::resizeEvent(QResizeEvent *event) {
