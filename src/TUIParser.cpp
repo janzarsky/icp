@@ -58,6 +58,9 @@ namespace solitaire
             getline(ss, str, ' ');
             cmd.filename = str;
         }
+        else if (str == "hint") {
+            cmd.type = hint;
+        }
         // game commands
         else if (str == "move" || str == "m") {
             cmd.type = game_cmd;

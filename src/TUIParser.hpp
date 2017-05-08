@@ -14,7 +14,7 @@ namespace solitaire
 {
     enum TUICommandType {
         help, game_cmd, new_game, close_game, switch_game, save, load, games,
-        undo, quit, empty, invalid
+        undo, hint, quit, empty, invalid
     };
 
     struct TUICommand

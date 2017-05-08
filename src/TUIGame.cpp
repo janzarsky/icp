@@ -126,19 +126,40 @@ namespace solitaire
         game.Backward();
     }
 
+    void TUIGame::hint() {
+        int from = 0;
+        int to = 0;
+
+        game.Help(from, to);
+
+        if (from == 0 && to == 0) {
+            cout << "Unable to show hint" << endl;
+        }
+        else if (from == 12 && to == 12) {
+            cout << "Turn deck" << endl;
+        }
+        else {
+            cout << "Move some cards from ";
+
+            if (from <= NUM_OF_COLUMNS)
+                cout << "pile" << from;
+            else if (from <= NUM_OF_COLUMNS + NUM_OF_HOMES)
+                cout << "home" << from - NUM_OF_COLUMNS;
+            else
+                cout << "deck";
+
+            cout << " to ";
+
+            if (to <= NUM_OF_COLUMNS)
+                cout << "pile" << to;
+            else if (to <= NUM_OF_COLUMNS + NUM_OF_HOMES)
+                cout << "home" << to - NUM_OF_COLUMNS;
+
+            cout << endl;
+        }
+    }
+
     void TUIGame::executeCommand(Command& cmd) {
-        cout << "EXECUTE: ";
-
-        if (cmd.type == move)
-            cout << "move, from " << cmd.from << ", to " <<
-                cmd.to << ", count " << cmd.count;
-        else if (cmd.type == turn)
-            cout << "turn";
-        else
-            cout << "unknown";
-
-        cout << endl;
-
         cmd.from++;
         cmd.to++;
 

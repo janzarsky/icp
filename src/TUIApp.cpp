@@ -81,6 +81,11 @@ namespace solitaire
                 printActiveBoard();
                 break;
 
+            case hint:
+                gameUIs[active_game - 1]->hint();
+                printActiveBoard();
+                break;
+
             case game_cmd:
                 gameUIs[active_game - 1]->executeCommand(cmd.game_cmd);
                 printActiveBoard();
@@ -118,6 +123,7 @@ namespace solitaire
              << "(1-7) to another pile (1-7)" << endl;
         cout << "turn                turn 1 card from pile" << endl;
         cout << "undo                revert last move" << endl;
+        cout << "hint                show possible move" << endl;
     }
 
     void TUIApp::newGame() {
