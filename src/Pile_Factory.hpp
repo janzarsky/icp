@@ -1,3 +1,11 @@
+/**
+ * @file    Pile_Factory.hpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Class Pile_Factory which is implements 'factory method' design pattern
+ */
+
+
 #ifndef PILE_FACTORY_H
 #define PILE_FACTORY_H
 #include "Piles.hpp"
