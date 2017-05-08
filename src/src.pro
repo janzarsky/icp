@@ -5,18 +5,9 @@
 TEMPLATE = app
 DESTDIR = ..
 INCLUDEPATH += .
-QT += widgets
-QT += svg
+QT += widgets svg gui
 RESOURCES += resources.qrc
-
-gui {
 TARGET = hra2017
-}
-
-tui {
-TARGET = hra2017-cli
-DEFINES += TUI
-}
 
 CONFIG += c++11
 
