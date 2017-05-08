@@ -9,10 +9,10 @@ using namespace std;
 
 namespace solitaire
 {
-    UICommand TUIParser::getCommand() {
-        UICommand cmd;
+    TUICommand TUIParser::getCommand() {
+        TUICommand cmd;
 
-        cout << "solitaire> ";
+        cout << "solitaire> " << flush;
 
         string line;
 

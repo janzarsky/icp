@@ -16,7 +16,7 @@ namespace solitaire
         TUIParser parser;
 
         void listenToCommands();
-        void executeCommand(UICommand);
+        void executeCommand(TUICommand);
         
         void printHelp();
         void newGame();

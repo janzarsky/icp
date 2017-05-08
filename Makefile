@@ -1,8 +1,5 @@
-all:
+all: tui
 	cd src; qmake CONFIG+=gui
-	make -C src
-	make clean -C src
-	cd src; qmake CONFIG+=tui
 	make -C src
 	make clean -C src
 
@@ -15,6 +12,7 @@ tui:
 
 run:
 	./hra2017-cli
+	./hra2017
 
 doxygen:
 	doxygen 

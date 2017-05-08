@@ -6,25 +6,25 @@ using namespace std;
 
 namespace solitaire
 {
-    enum UICommandType {
+    enum TUICommandType {
         help, game_cmd, new_game, close_game, switch_game, save, load, games,
         undo, quit, empty, invalid
     };
 
-    struct UICommand
+    struct TUICommand
     {
-        UICommandType type;
+        TUICommandType type;
         int switch_to;
         Command game_cmd;
         string filename;
 
-        UICommand(UICommandType type): type{type}, game_cmd{} {}
-        UICommand() {}
+        TUICommand(TUICommandType type): type{type}, game_cmd{} {}
+        TUICommand() {}
     };
 
     class TUIParser
     {
     public:
-        UICommand getCommand();
+        TUICommand getCommand();
     };
 }

@@ -11,9 +11,7 @@ namespace solitaire
     }
 
     void TUIApp::listenToCommands() {
-        cout << "listenToCommands()" << endl;
-
-        UICommand cmd;
+        TUICommand cmd;
         
         while (true) {
             try {
@@ -30,7 +28,7 @@ namespace solitaire
         }
     }
 
-    void TUIApp::executeCommand(UICommand cmd) {
+    void TUIApp::executeCommand(TUICommand cmd) {
         switch (cmd.type) {
             case invalid:
                 cout << "ERROR: invalid command, type 'help' to show all commands" << endl;

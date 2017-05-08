@@ -8,7 +8,6 @@ INCLUDEPATH += .
 QT += widgets
 QT += svg
 RESOURCES += resources.qrc
-CONFIG += c++11
 
 gui {
 TARGET = hra2017
@@ -18,6 +17,8 @@ tui {
 TARGET = hra2017-cli
 DEFINES += TUI
 }
+
+CONFIG += c++11
 
 # Input
 HEADERS += Card.hpp \
