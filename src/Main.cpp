@@ -1,4 +1,10 @@
-#include "Game.hpp"
+/**
+ * @file    Main.cpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Main function - creates either GUI or TUI app
+ */
+
 #ifdef TUI
 #include "TUIApp.hpp"
 #else

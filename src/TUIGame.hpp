@@ -5,7 +5,6 @@
  * @brief   Commandline game interface
  */
 
-#include <iostream>
 #include <string>
 #include "Game.hpp"
 #include "Card.hpp"

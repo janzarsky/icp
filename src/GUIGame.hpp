@@ -7,8 +7,9 @@
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
-#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QGridLayout>
 #include <QString>
+#include <QPalette>
 #include "GUICard.hpp"
 #include "Game.hpp"
 #include "Command.hpp"

@@ -7,12 +7,8 @@
 
 #include <iostream>
 #include <sstream>
-#include <string>
 #include <vector>
 #include "TUIGame.hpp"
-#include "Card.hpp"
-#include "Command.hpp"
-#include "Game.hpp"
 
 using namespace std;
 

@@ -6,13 +6,7 @@
  */
 
 #include <iostream>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QLabel>
-#include <QPalette>
-#include <QString>
 #include "GUIGame.hpp"
-#include "Game.hpp"
 
 using namespace std;
 

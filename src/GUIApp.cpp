@@ -5,16 +5,9 @@
  * @brief   Main window containing games and menu bar
  */
 
-#include <iostream>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QMenuBar>
-#include <QPalette>
+#include <QtWidgets/QScrollArea>
+#include <QString>
 #include "GUIApp.hpp"
-#include "Game.hpp"
 
 using namespace std;
 

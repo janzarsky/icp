@@ -7,8 +7,9 @@
 
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
-#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include <QtSvg>
+#include <QString>
 #include <Card.hpp>
 
 using namespace std;
@@ -36,7 +37,6 @@ namespace solitaire
     public:
         GUICard(int cardSize, unsigned int pileIndex, unsigned int cardIndex);
 
-        QSize sizeHint();
         void paintEvent(QPaintEvent *e);
 
         void setCardValue(card& card);

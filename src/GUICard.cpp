@@ -6,9 +6,7 @@
  */
 
 #include <iostream>
-#include <QtWidgets/QWidget>
-#include <QtWidgets/QLabel>
-#include <GUICard.hpp>
+#include "GUICard.hpp"
 
 /**
  * @file    cards.hpp
