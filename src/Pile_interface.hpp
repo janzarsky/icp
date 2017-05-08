@@ -30,12 +30,6 @@ class Pile_Interface{
 
     Pile_Interface(){};
 
-    /**
-      Add card to current pile
-      @param card& Card which will be added
-      @param int Flags for this function to define behaviour
-      @return Success
-    */
     virtual int AddCard(card&,int = PUT) = 0;
     virtual int AddCard(std::vector<card>, int = PUT) = 0 ;
 

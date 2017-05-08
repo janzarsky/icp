@@ -410,7 +410,7 @@ namespace solitaire
 
 	/**
 		Implements saving in game
-		@param[out] two Reference to the second returned pile
+		@param[out] path_to_save Path to save file
 	*/
 	void GAME::Save(string path_to_save)
 	{
