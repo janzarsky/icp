@@ -58,11 +58,20 @@ class GAME {
 
 		list<solitaire::Command> history;	//!< List that holds history of moves
 		solitaire::Command currentCmd;	//!< Holds current command
-	public:
-		vector <pile *> piles;	//!< Vector of pointers to all PILES
 		vector<card> cardStack = {};	//!< Stack of all cards
 		Pile_Factory factory;	//!< Factory for creating piles
 		vector<pile *> homes; //!< Vector with pointers to homes
+
+		void construct_card_vector(int pos, vector<card>& tempVector);
+
+		void rev_MoveCard();
+
+		void rev_RotateStack();
+
+		int IsEnd();
+
+	public:
+		vector <pile *> piles;	//!< Vector of pointers to all PILES
 		bool End = 0;  //!< Indicates if game is ended
 	  GAME()
 		{
@@ -167,16 +176,13 @@ class GAME {
 			ifile.close();
 		}
 
-	  void construct_card_vector(int pos, vector<card>& tempVector);
 
 
 	  int MoveCard();
 		int MoveCard(solitaire::Command);
-		void rev_MoveCard();
 
 
 	  void RotateStack();
-		void rev_RotateStack();
 
 
 	  void Play();
@@ -184,7 +190,6 @@ class GAME {
 
 		void Help(int &, int &) const;
 
-		int IsEnd();
 
 		void Save(string);
 

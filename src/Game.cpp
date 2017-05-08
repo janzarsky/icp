@@ -434,7 +434,7 @@
 			if(home->size == 13) win++;
 		}
 		if(win == 4){
-			cout<<"CONGRATS!!\nWIN!\n";
+			End = true;
 			return 1;
 		}
 		return 0;
@@ -461,6 +461,7 @@
 				else{
 					history.push_back(currentCmd);
 				}
+				IsEnd();
 			}
 			break;
 		case 'n':
@@ -490,8 +491,6 @@
 			cerr << "unknown command "<<endl;
 			break;
 		}
-		if(IsEnd()) End = true;
-
 	}
 
 	/**
@@ -517,6 +516,7 @@
 				else{
 					history.push_back(command);
 				}
+				IsEnd();
 			}
 			break;
 		case solitaire::turn:
@@ -540,8 +540,6 @@
 			cerr << "unknown command "<<endl;
 			break;
 		}
-
-		if(IsEnd()) End = true;
 	}
 
 	/**
