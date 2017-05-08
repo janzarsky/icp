@@ -1,3 +1,10 @@
+/**
+ * @file    TUIGame.hpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Commandline game interface
+ */
+
 #include <iostream>
 #include <string>
 #include "Game.hpp"

@@ -1,3 +1,10 @@
+/**
+ * @file    Command.hpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Structure for communication between user interface and game logic
+ */
+
 #pragma once
 
 namespace solitaire

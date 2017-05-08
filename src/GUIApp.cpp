@@ -1,3 +1,10 @@
+/**
+ * @file    GUIApp.cpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Main window containing games and menu bar
+ */
+
 #include <iostream>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
@@ -8,7 +15,6 @@
 #include <QPalette>
 #include "GUIApp.hpp"
 #include "Game.hpp"
-#include "Exceptions.hpp"
 
 using namespace std;
 

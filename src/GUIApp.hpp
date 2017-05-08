@@ -1,3 +1,10 @@
+/**
+ * @file    GUIApp.hpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Main window containing games and menu bar
+ */
+
 #include <vector>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>

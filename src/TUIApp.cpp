@@ -1,6 +1,12 @@
+/**
+ * @file    TUIApp.cpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Commandline interface
+ */
+
 #include <iostream>
 #include "TUIApp.hpp"
-#include "Exceptions.hpp"
 
 using namespace std;
 
@@ -22,8 +28,8 @@ namespace solitaire
 
                 executeCommand(cmd);
             }
-            catch (InvalidActionException& e) {
-                cout << "ERROR: Invalid command: " << e.message() << endl;
+            catch (invalid_argument& e) {
+                cout << "ERROR: Invalid command: " << e.what() << endl;
             }
         }
     }
@@ -118,7 +124,7 @@ namespace solitaire
         if (gameUIs.size() < max_num_of_games)
             gameUIs.push_back(unique_ptr<TUIGame>(new TUIGame()));
         else
-            throw InvalidActionException("Reached maximum number of games");
+            throw invalid_argument("Reached maximum number of games");
 
         active_game = gameUIs.size();
 
@@ -135,7 +141,7 @@ namespace solitaire
 
     void TUIApp::switchGame(unsigned int game_num) {
         if (game_num == 0 || game_num > gameUIs.size())
-            throw InvalidActionException("Invalid game number");
+            throw invalid_argument("Invalid game number");
 
         active_game = game_num;
 
@@ -147,19 +153,19 @@ namespace solitaire
             gameUIs[active_game - 1]->saveGame(filename);
         }
         catch (invalid_argument& e) {
-            throw InvalidActionException("Error while saving game");
+            throw invalid_argument("Error while saving game");
         }
     }
 
     void TUIApp::loadGame(string filename) {
         if (gameUIs.size() >= max_num_of_games)
-            throw InvalidActionException("Reached maximum number of games");
+            throw invalid_argument("Reached maximum number of games");
 
         try {
             gameUIs.push_back(unique_ptr<TUIGame>(new TUIGame(filename)));
         }
         catch (invalid_argument& e) {
-            throw InvalidActionException("Error while loading game");
+            throw invalid_argument("Error while loading game");
         }
 
         active_game = gameUIs.size();

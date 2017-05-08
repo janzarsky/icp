@@ -1,8 +1,14 @@
+/**
+ * @file    TUIParser.cpp
+ * @author  Jan Zarsky (xzarsk03@stud.fit.vutbr.cz)
+ *          Andrei Paplauski (xpapla00@stud.fit.vutbr.cz)
+ * @brief   Commandline interface parser
+ */
+
 #include <iostream>
 #include <sstream>
 #include <string>
 #include "TUIParser.hpp"
-#include "Exceptions.hpp"
 #include "Game.hpp"
 
 using namespace std;
@@ -162,7 +168,7 @@ namespace solitaire
                 cmd.switch_to = stoi(str);
             }
             catch (invalid_argument& e) {
-                throw InvalidActionException("Expected argument");
+                throw invalid_argument("Expected argument");
             }
         }
 
