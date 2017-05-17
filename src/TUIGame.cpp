@@ -127,10 +127,15 @@ namespace solitaire
 
         for (int i = 0; i < max_height; i++) {
             for (int j = 0; j < NUM_OF_COLUMNS; j++) {
-                if (i < sizes[j])
-                    cout << unicode(game.piles[j]->GetPile()[i]) << " ";
-                else
+                if (i < sizes[j]) {
+                    if ((unsigned) i < (sizes[j] - game.piles[j]->shownCards))
+                        cout << unicode_back() << " ";
+                    else
+                        cout << unicode(game.piles[j]->GetPile()[i]) << " ";
+                }
+                else {
                     cout << unicode_space() << " ";
+                }
             }
 
             cout << endl;
