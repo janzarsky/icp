@@ -301,7 +301,8 @@ namespace solitaire
 	void GAME::RotateStack()
 		{
 		if(piles[11]->IsEmpty()){
-			throw std::invalid_argument("Pile 11 is empty some error occured!");
+            cerr << "ERROR: deck is empty" << endl;
+            return;
 		}
 		rotate(piles[11]->GetPile().begin(), piles[11]->GetPile().begin()+1, piles[11]->GetPile().end());
 	}
